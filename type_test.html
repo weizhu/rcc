@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<link rel="stylesheet" type="text/css" href="v2.css" />
+<script src="v2.js" type="text/javascript"></script>
+<body>
+ <script type="text/javascript">
+ function log (message) {
+    /// <summary>
+    /// Output a debugging message, conditional on
+    /// debugging being enabled.
+    /// </summary>
+    /// <param name="message" type="String">
+    /// String to output
+    /// </param>
+      if (window.Debug && window.Debug.writeln) {
+        window.Debug.writeln(message);
+      } else if (window.console) {
+        if (window.console.debug) {
+          window.console.debug(message);
+        } else if (window.console.log) {
+          window.console.log(message);
+        }
+      }
+      else if (window.opera &&
+      window.opera.postError) {
+        window.opera.postError(message);
+      }
+   }
+FB.Class('Foo', function(x) {
+  this.x = x;
+},
+{
+ m1: function(y) {
+  this.x = y;
+  log('Foo.m1, x= ' + this.x);
+},
+ m2: function(y) {
+  log('Foo.m2, x= ' + this.x);
+  this.x = y;
+
+}});
+
+
+FB.subclass('Bar', 'Foo', function(x, y) {
+ this._base(x);
+ this.y = y;
+},
+
+{
+  m2: function(s) {
+    log('Bar.m2 ' + this.y);
+    this._callBase('m2',s);
+}
+});
+
+
+var b = new FB.Bar('ddd', 'zzz');
+b.m1('a');
+b.m2('b');
+  </script>
+</body>
+</html>

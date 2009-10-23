@@ -1,0 +1,743 @@
+/*    HTTP Host:  static.ak.wzhu-git.devrs002.facebook.com                     */
+/*    Generated:  October 16th 2009 11:37:36 PM PDT                            */
+/*      Machine:  10.20.11.184                                                 */
+/*       Source:  Construction                                                 */
+/*     Location:  JIT Construction: v194109                                    */
+/*       Locale:  en_US                                                        */
+/*   Components:  css/connect/connect_button.css:r1255731483,css/connect/fb_connect.css:r1255731483 */
+
+/**
+ * author blaise
+ * @provides connect-button-css
+ * @option preserve-image-urls
+ */
+
+/*----------------Favicon Style--------------------*/
+.FBConnectButton_Simple,
+.FBConnectButton_RTL_Simple {
+  background-image: url(http://static.ak.fbcdn.net/images/connect_favicon.png);
+  background-repeat: no-repeat;
+  outline: none;
+  text-decoration: none;
+}
+.FBConnectButton_RTL_Simple {
+ background-position: right 0px;
+}
+
+.FBConnectButton_Simple .FBConnectButton_Text_Simple {
+  margin: 0px 0px 0px 18px;
+}
+
+.FBConnectButton_RTL_Simple .FBConnectButton_Text_Simple {
+  margin: 0px 18px 0px 0px;
+}
+
+a.FBConnectButton_Simple:hover .FBConnectButton_Text_Simple,
+a.FBConnectButton_RTL_Simple:hover .FBConnectButton_Text_Simple {
+  text-decoration: underline;
+}
+
+
+/*----------------Static--------------------*/
+
+.FBConnectButton,
+.FBConnectButton_RTL {
+  background: #29447e url(http://static.ak.fbcdn.net/images/connect_sprite.png);
+  background-repeat: no-repeat;
+  cursor: default; 
+  display: inline-block; 
+  padding: 0px 0px 0px 1px;
+  text-decoration: none;
+  outline: none;  
+}
+
+.FBConnectButton .FBConnectButton_Text,
+.FBConnectButton_RTL .FBConnectButton_Text {
+  background: #5f78ab url(http://static.ak.fbcdn.net/images/connect_sprite.png);
+  border-top: solid 1px #879ac0;
+  border-bottom: solid 1px #1a356e;
+  color: white;
+  display: block;
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-weight: bold;
+  padding: 2px 6px 4px;
+  margin: 1px 1px 0px 0px;
+  text-shadow: none;
+}
+
+/*----------------Hover--------------------*/
+
+a.FBConnectButton,
+a.FBConnectButton_RTL {
+  text-decoration: none;
+}
+
+/*----------------Active--------------------*/
+a.FBConnectButton:active .FBConnectButton_Text,
+a.FBConnectButton_RTL:active .FBConnectButton_Text {
+  border-bottom: solid 1px #29447e; 
+  border-top: solid 1px #45619d;
+  background: #4f6aa3;
+  text-shadow: none;
+}
+
+
+/*-------------- Big Pun --------------*/
+.FBConnectButton_BigPun,
+.FBConnectButton_RTL_BigPun {
+  background-position: left -60px;
+  font-size: 24px;
+  line-height: 30px;
+}
+.FBConnectButton_BigPun .FBConnectButton_Text {
+  padding: 3px 8px 3px 12px;
+  margin-left: 38px;
+}
+a.FBConnectButton_BigPun:active {
+  background-position: left -99px;
+}
+.FBConnectButton_RTL_BigPun {
+  background-position: right -268px;
+}
+.FBConnectButton_RTL_BigPun .FBConnectButton_Text {
+  padding: 3px 8px 3px 12px;
+  margin-right: 39px;
+}
+a.FBConnectButton_RTL_BigPun:active {
+  background-position: right -307px;
+}
+
+/*-------------- Large --------------*/
+.FBConnectButton_Large,
+.FBConnectButton_RTL_Large {
+  background-position: left -138px;
+  font-size: 13px;
+  line-height: 16px;
+}
+.FBConnectButton_Large .FBConnectButton_Text {
+  margin-left: 24px;
+}
+a.FBConnectButton_Large:active {
+  background-position: left -163px;
+}
+.FBConnectButton_RTL_Large {
+  background-position: right -346px;
+}
+.FBConnectButton_RTL_Large .FBConnectButton_Text {
+  margin-right: 25px;
+}
+a.FBConnectButton_RTL_Large:active {
+  background-position: right -371px;
+}
+
+/*-------------- Medium --------------*/
+.FBConnectButton_Medium,
+.FBConnectButton_RTL_Medium  {
+  background-position: left -188px;
+  font-size: 11px;
+  line-height: 14px;
+}
+.FBConnectButton_Text,
+.FBConnectButton_Medium .FBConnectButton_Text {
+  padding: 2px 6px 3px 6px;
+  margin-left: 21px;
+}
+a.FBConnectButton_Medium:active  {
+  background-position: left -210px;
+}
+
+.FBConnectButton_RTL_Medium  {
+  background-position: right -396px;
+}
+.FBConnectButton_RTL_Text,
+.FBConnectButton_RTL_Medium .FBConnectButton_Text {
+  padding: 2px 6px 3px 6px;
+  margin-right: 22px;
+}
+a.FBConnectButton_RTL_Medium:active  {
+  background-position: right -418px;
+}
+
+/*-------------- Small --------------*/
+.FBConnectButton_Small,
+.FBConnectButton_RTL_Small {
+  background-position: left -232px;
+  font-size: 9px;
+  line-height: 11px;
+}
+.FBConnectButton_Small .FBConnectButton_Text {
+  padding: 2px 6px;
+  margin-left: 17px;
+}
+a.FBConnectButton_Small:active {
+  background-position: left -250px;
+}
+
+.FBConnectButton_RTL_Small {
+  background-position: right -440px;
+}
+.FBConnectButton_RTL_Small .FBConnectButton_Text {
+  padding: 2px 6px;
+  margin-right: 18px;
+}
+a.FBConnectButton_RTL_Small:active {
+  background-position: right -458px;
+}
+
+/**
+ * @provides FB.Connect-css
+ *
+ *
+ * This css file is for kangaroo, so it should not be haste-ified
+ *
+ * NOTE: this file is mirrored in fb_connect_ssl.css. If you update
+ * this file, you can recreate fb_connect.css with this command:
+ *
+ *   cat fb_connect.css | sed "s|http://static.ak.fbcdn.net/|https://ssl.facebook.com/|" > fb_connect_ssl.css
+ *
+ * @provides connect-css
+ * @option preserve-image-urls
+ */
+
+/* Copied and pasted from base.css, because we can't include all Facebook CSS on
+ * partner sites.  This is used to reset styles on UI elements like dialogs,
+ * etc., to ensure partner CSS doesn't cause rendering issues. */
+.fb_resetstyles,
+.fb_resetstyles a,
+.fb_resetstyles td {
+  padding: 0px;
+  border: 0px;
+  margin: 0px;
+  overflow: visible;
+  background: none;
+  border-spacing: 0;
+  color: #000;
+  cursor: auto;
+  direction: ltr;
+  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0;
+  text-transform: none;
+  visibility: visible;
+  white-space: normal;
+  word-spacing: normal;
+}
+
+.fbmlIframe
+{
+    width:100%;
+}
+
+fb\:serverfbml
+{
+    display:block;
+}
+
+fb\:video
+{
+    width: 600px;
+    height: 480px;
+}
+
+
+fb\:fbml
+{
+    display:none;
+    visibility:collapse;
+}
+
+fb\:fbml.FB_ElementReady
+{
+    display:block;
+    visibility:visible;
+}
+
+fb\:profile-pic
+{
+    display:inline-block;
+    zoom:1;
+    *display:inline;
+    width:50px;
+    height:50px;
+    background-image: url(http://static.ak.fbcdn.net/pics/t_silhouette.jpg);
+    background-repeat: no-repeat;
+}
+
+fb\:profile-pic[facebook-logo="true"]
+{
+    background-image: url(http://static.ak.fbcdn.net/pics/t_silhouette_logo.gif);
+}
+
+/* Note that attribute selectors does not work on IE 6
+ * As a result,the default size for fb:profile-pic will always be 50x50
+ * until the tag is processed by JavaScript code later.
+ */
+fb\:profile-pic[size="small"]
+{
+    width:100px;
+    height:63px;
+    background-image: url(http://static.ak.fbcdn.net/pics/s_silhouette.jpg);
+}
+
+fb\:profile-pic[size="small"][facebook-logo="true"]
+{
+    background-image: url(http://static.ak.fbcdn.net/pics/s_silhouette_logo.gif);
+}
+
+fb\:profile-pic[size="normal"]
+{
+    width:200px;
+    height:126px;
+    background-image: url(http://static.ak.fbcdn.net/pics/d_silhouette.gif);
+}
+
+fb\:profile-pic[size="normal"][facebook-logo="true"]
+{
+    background-image: url(http://static.ak.fbcdn.net/pics/d_silhouette_logo.gif);
+}
+
+fb\:profile-pic[size="square"]
+{
+    width:50px;
+    height:50px;
+    background-image: url(http://static.ak.fbcdn.net/pics/q_silhouette.gif);
+}
+
+fb\:profile-pic[size="square"][facebook-logo="true"]
+{
+    background-image: url(http://static.ak.fbcdn.net/pics/q_silhouette_logo.gif);
+}
+
+fb\:profile-pic.fb_profile_pic_rendered,
+fb\:profile-pic[facebook-logo="true"].fb_profile_pic_rendered
+{
+    display:inline;
+    width:auto;
+    height:auto;
+    background-image: none;
+    display:inline;
+}
+
+a.FB_Link
+{
+  color: #1b7bdd;
+  text-decoration: none;
+}
+
+a.FB_Link:hover {
+  color: #2fa600;
+  text-decoration: underline;
+}
+
+a.FB_Link img
+{
+  border:medium none;
+}
+
+.FB_ElementConditionFalse
+{
+    display:none;
+}
+
+.fb_popupContainer
+{
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:2147483647;
+}
+
+.fb_popup
+{
+    position:absolute;
+    top:-10000px;
+}
+
+.fb_tosIFrame
+{
+    width: 100%;
+    border: solid 0px #ccc;
+    height: 258px;
+    overflow: hidden;
+    float: left;
+}
+
+.fb_tosIFrame html {
+    height: auto;
+}
+
+.fb_feedIFrame
+{
+    width: 600px;
+    height: auto;
+    float: left; /* get rid of some sort of weird clearing clearing/padding issue in firefox */
+}
+
+.fb_shareIFrame
+{
+    width: 100%;
+    height: 175px !important; /* Iframe height is being set inline :( */
+    float: left; /* get rid of some sort of weird clearing clearing/padding issue in firefox */
+}
+
+.fb_bookmarkIFrame
+{
+    width: 430px;
+    height: 130px;
+    /* get rid of some sort of weird clearing clearing/padding issue in FF */
+    float: left;
+}
+
+.fb_connect_dialog_iframe {
+  width: 100%; }
+
+table.fb_pop_dialog_table
+{
+    border-collapse: collapse;
+    margin: auto;
+    table-layout: fixed;
+    width: 470px;
+}
+
+td.fb_pop_topleft, td.fb_pop_topright, td.fb_pop_bottomleft, td.fb_pop_bottomright {
+    height: 10px;
+    overflow: hidden;
+    padding: 0px!important;
+    padding: 5px;
+    width: 10px!important;
+    width: 0px;
+}
+
+td.fb_pop_topleft
+{
+    background-image: url('http://static.ak.fbcdn.net/imgs/pop_dialog_top_left.png')!important;
+    background-image: none;
+    filter: none!important;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.ak.fbcdn.net/imgs/pop_dialog_top_left.png', sizingMethod='crop');
+}
+
+td.fb_pop_topright
+{
+    background-image: url('http://static.ak.fbcdn.net/imgs/pop_dialog_top_right.png')!important;
+    background-image: none;
+    filter: none!important;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.ak.fbcdn.net/imgs/pop_dialog_top_right.png', sizingMethod='crop');
+}
+
+td.fb_pop_bottomleft
+{
+    background-image: url('http://static.ak.fbcdn.net/imgs/pop_dialog_bottom_left.png')!important;
+    background-image: none;
+    filter: none!important;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.ak.fbcdn.net/imgs/pop_dialog_bottom_left.png', sizingMethod='crop');
+}
+
+td.fb_pop_bottomright
+{
+    background-image: url('http://static.ak.fbcdn.net/imgs/pop_dialog_bottom_right.png')!important;
+    background-image: none;
+    filter: none!important;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.ak.fbcdn.net/imgs/pop_dialog_bottom_right.png', sizingMethod='scale');
+}
+
+td.fb_pop_border
+{
+    background-image: url('http://static.ak.fbcdn.net/imgs/pop_dialog_border.png')!important;
+    background-image: none;
+    filter: none!important;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.ak.fbcdn.net/imgs/pop_dialog_border.png', sizingMethod='scale');
+}
+
+/* Kill these images in a dark modal scenario */
+.fb_noshadow table td.fb_pop_topleft,
+.fb_noshadow table td.fb_pop_topright,
+.fb_noshadow table td.fb_pop_bottomleft,
+.fb_noshadow table td.fb_pop_bottomright,
+.fb_noshadow table td.fb_pop_border
+{
+    background-image: none !important;
+    filter: none !important;
+}
+
+td.fb_pop_content
+{
+    background-color: white;
+    padding: 0px;
+    vertical-align: top;
+}
+
+td.fb_pop_content h2
+{
+    background: #6d84b4;
+    border: 1px solid #3b5998;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+    margin: 0px;
+    position:relative;
+    overflow: hidden;
+    letter-spacing:normal;
+    line-height:normal;
+    padding: 0px;
+    text-align: left;
+    zoom: 1;
+    float:none;
+    display: block;
+}
+
+.fb_dialog_icon
+{
+    margin: 5px;
+    float:left;
+    width:16px;
+    height:16px;
+    background: #6D84B4 url(http://static.ak.fbcdn.net/images/icons-unsprited/favicon_fordarkbg.gif) no-repeat scroll center;
+}
+
+a.fb_dialog_cancel_button
+{
+    outline-color:invert;
+    outline-style:none;
+    outline-width:medium;
+    text-decoration:none;
+    position:absolute;
+    right:4px;
+    top: 7px;
+    width:18px;
+    color:#6D84B4;
+    background:transparent url(http://static.ak.fbcdn.net/images/fbconnect/connect_icon_remove.gif) no-repeat  scroll 3px 0px;
+}
+
+a.fb_dialog_cancel_button:hover
+{
+    background:transparent url(http://static.ak.fbcdn.net/images/fbconnect/connect_icon_remove.gif) no-repeat scroll -10px 0px;
+}
+
+.fb_dialog_loading_spinner {
+   position: absolute;
+   width: 28px;
+   height: 8px;
+   background: #6d84b4 url(http://static.ak.fbcdn.net/images/loaders/indicator_white_small.gif) no-repeat 0px 0px;
+   top: 8px;
+   right: 25px;
+   display: none;
+}
+
+.fb_dialog_loading
+{
+   display: block;
+}
+
+.fb_content_loader_gif
+{
+   background: transparent url(http://static.ak.fbcdn.net/images/loaders/indicator_white_large.gif) no-repeat 0px 0px;
+   width: 32px;
+   height: 32px;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.fb_content_loader
+{
+   display: none;
+   width: 550px;
+   height: 70px;
+}
+
+.fb_content_loading
+{
+   display: block;
+}
+
+td.fb_pop_content h2 span
+{
+    display: block;
+    padding: 5px 10px 5px 10px;
+}
+
+td.fb_pop_content
+{
+    background: #fff;
+}
+
+.fb_dialog_content
+{
+    background: #fff;
+    padding: 0px;
+    margin: 0px;
+    border: 1px solid #555;
+    border-top-width: 0px;
+    overflow: hidden;
+}
+
+.fb_dialog_content.fb_loading iframe
+{
+    visibility:collapse;
+}
+
+.fb_dialog_content.fb_loading
+{
+    background-image:url(http://static.ak.fbcdn.net/images/loaders/indicator_blue_small.gif);
+    background-position:center;
+}
+
+.fb_pop_content_container
+{
+    width: auto;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+}
+
+td.fb_pop_content .fb_dialog_body
+{
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+td.fb_pop_content .fb_dialog_summary
+{
+    background: #f2f2f2;
+    padding: 8px 10px 8px 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+a.fbconnect_login_button
+{
+    cursor: pointer;
+}
+
+
+
+.fb_confirmation_stripes
+{
+    background:transparent url(http://static.ak.fbcdn.net/images/confirmation_stripes.gif) repeat scroll 0 0;
+    height:15px;
+}
+
+.fb_dialog_content .fb_dialog_buttons
+{
+    background:#F2F2F2 none repeat scroll 0 50%;
+    border-top:1px solid #CCCCCC;
+    padding:8px 0 8px 8px;
+    text-align:right;
+    z-index:20;
+}
+
+.fb_dialog_content .fb_confirmation_content
+{
+    font-size:11px;
+    line-height:13px.
+    line-height:15px;
+    margin:15px 30px 10px;
+    width:auto;
+}
+
+.fb_inputbutton, .fb_inputsubmit
+{
+    margin:0 10px 0 0;
+    background-color:#3B5998;
+    border-color:#D9DFEA #0E1F5B #0E1F5B #D9DFEA;
+    border-style:solid;
+    border-width:1px;
+    color:#FFFFFF;
+    font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+    font-size:11px;
+    padding:2px 15px 3px;
+    text-align:center;
+}
+
+
+.fb_inputaux
+{
+  background: #f0f0f0;
+  color: #000;
+  border-top-color: #e7e7e7;
+  border-right-color: #666;
+  border-bottom-color: #666;
+  border-left-color: #e7e7e7;
+}
+
+/**
+ * For Popup Blocked Dialog
+ */
+.fb_popup_blocked .fb_popup_blocked_inner {
+  padding: 15px 30px 20px 30px;
+}
+.fb_popup_blocked #fb_popup_blocked_connect {
+  margin-top: 10px;
+  cursor: pointer;
+}
+.fb_popup_blocked .fb_popup_blocked_buttons {
+  text-align: right;
+  background: #F2F2F2 none repeat scroll 0 50%;
+  border-top: 1px solid #CCCCCC;
+  padding: 8px 10px;
+}
+.fb_popup_blocked #fb_popup_blocked_cancel {
+  margin: 2px;
+  background: #F0F0F0 none repeat scroll 0 0;
+  border-color: #E7E7E7 #666666 #666666 #E7E7E7;
+  color: #000;
+  border-style: solid;
+  border-width: 1px;
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-size: 11px;
+  padding: 2px 15px 3px;
+  text-align: center;
+  width: auto;
+}
+
+/*
+For fb:share-button
+*/
+
+html .fb_share_button {
+    display: -moz-inline-block;
+    display:inline-block;
+    padding:1px 20px 0 5px;
+    height:15px;
+    width: 40px;
+    border:1px solid #d8dfea;
+    background:url(http://static.ak.fbcdn.net/images/share/facebook_share_icon.gif?2:26981) no-repeat top right;
+}
+
+html a.fb_share_button:visited {
+    color: #3b5998;
+    text-decoration: none;
+    outline: none;
+}
+
+html a.fb_share_button:hover {
+    color:#fff;
+    border-color:#295582;
+    background:#3b5998 url(http://static.ak.fbcdn.net/images/share/facebook_share_icon.gif?2:26981) no-repeat top right;
+    text-decoration:none;
+}
+
+html a.fb_share_link {
+    padding:2px 0 0 20px;
+    height:16px;
+    background:url(http://static.ak.fbcdn.net/images/share/facebook_share_icon.gif?2:26981) no-repeat top left;
+}
+
+html body em.fb_highlightable {
+  border-bottom: 2px solid #f99;
+  background: none;
+  font-style: normal;
+  padding: 0px;
+  zoom: 1; /* IE6 + IE7 hack to get underlining to always show, IE8 was fine */
+  width: auto;
+}
+
+html body em.fb_highlightable:hover {
+  cursor: help;
+  border-top: 1px solid #ccc;
+  background-color: #fcc;
+}
+
