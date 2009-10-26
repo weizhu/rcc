@@ -9,7 +9,7 @@
  * Note: I am creating a separate Uri component instead of putting it into
  * FB.Util because I expect that we will add more Uri related methods back
  * over time.
- * @namespace FB.Uri
+ * @class FB.Uri
  * @private
  */
 FB.provide('Uri', {

@@ -6,7 +6,7 @@
 
 /**
  * This module provides unified API access (both REST and UI)
- * @namespace FB.Api
+ * @class FB.Api
  */
 FB.provide('Api', {
   /**

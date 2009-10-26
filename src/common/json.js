@@ -5,7 +5,7 @@
 
 /**
  * JSON functions
- * @namespace FB.JSON
+ * @class FB.JSON
  * @private
  */
 FB.provide('JSON', {

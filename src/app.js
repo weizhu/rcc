@@ -8,7 +8,7 @@
 /**
  * This module provides application settings, states (session states, permissions, etc.) and auth related
  * methods (connect, logout)
- * @namespace FB.App
+ * @class FB.App
  */
 FB.provide('App', {
   /**
@@ -92,7 +92,7 @@ FB.provide('App', {
    * Add connect method to FB.App
    * This method is in a separate component because App's don't always
    * need to call connect method.
-   * @namespace FB.App
+   * @class FB.App
    * @param {function} callback Callback to be invoked after connect result is known
    * @param {object} options
    */
