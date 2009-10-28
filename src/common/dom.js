@@ -1,10 +1,12 @@
 /**
  * @provides v2.FB.Dom
  * @requires v2.FB.Base
- *
- * This provides helper methods related to DOM
  */
 
+/**
+ * This provides helper methods related to DOM
+ * @class FB.Dom
+ */
 FB.provide('Dom', {
   /**
    * @param  {Object} dom

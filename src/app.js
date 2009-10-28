@@ -92,7 +92,6 @@ FB.provide('App', {
    * Add connect method to FB.App
    * This method is in a separate component because App's don't always
    * need to call connect method.
-   * @class FB.App
    * @param {function} callback Callback to be invoked after connect result is known
    * @param {object} options
    */

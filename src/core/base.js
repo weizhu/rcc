@@ -1,5 +1,8 @@
 /**
  * @provides v2.FB.Base
+ */
+
+/**
  *
  * Provide a lowest level base functions for Connect JS. We should only place
  * commonly used generally purpose methods in this namespace
@@ -8,7 +11,7 @@
 
 
 /**
- * Copies things from source into targed.
+ * Copies things from source into target.
  *
  * @access protected
  * @param target    {Object}  the target object where things will be copied

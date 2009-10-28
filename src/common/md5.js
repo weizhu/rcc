@@ -1,7 +1,10 @@
 /**
 * @provides v2.FB.Md5
 * @requires v2.FB.Base v2.FB.Util
-*
+*/
+
+/*
+* @class FB.Md5
 * MD5 (Message-Digest Algorithm)
 * http://www.webtoolkit.info/
 *
