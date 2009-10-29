@@ -16,7 +16,6 @@ class ResourceMap {
       );
     }
 
-    error_log('map = ' . var_export($this->map, true));
   }
 
   public static function getCompsFromString($s) {
@@ -37,7 +36,7 @@ class ResourceMap {
     $map = array();
     $list = array();
     foreach( $comps as $comp) {
-      $this->resolveDependency($comp, &$map, &$list);
+      $this->resolveDependency($comp, $map, $list);
     }
 
     return $list;
@@ -48,6 +47,9 @@ class ResourceMap {
     foreach ($resList as $res) {
       $result[] = file_get_contents($res['file']);
     }
+
+    header('Content-type: text/javascript');
+    echo implode("\n", $result);
   }
 
   private function resolveDependency($comp, &$map, &$list) {
@@ -60,7 +62,7 @@ class ResourceMap {
       $map[$comp] = true;
       $requires = $this->map[$comp]['requires'];
       foreach ($requires as $req) {
-        $this->resolveDependency($req, &$map, &$list);
+        $this->resolveDependency($req, $map, $list);
       }
 
       $list[] = $this->map[$comp];
@@ -73,11 +75,7 @@ $resMap = new ResourceMap('../docs/parser/parsed.json');
 
 $comps = ResourceMap::getCompsFromString($comps);
 
-var_export($comps);
-
 $resList = $resMap->getRequiredResources($comps);
 
-
-var_export($resList);
 echo $resMap->render($resList);
 
