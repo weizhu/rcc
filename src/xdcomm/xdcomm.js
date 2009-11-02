@@ -1,7 +1,7 @@
 /**
  * @provides v2.FB.XdComm
  * @requires v2.FB.Base  v2.FB.Util
- *           v2.FB.Uri  v2.FB.JSON v2.FB.Event
+ *           v2.FB.Uri  v2.FB.JSON v2.FB.Event v2.FB.Flash
  *
  */
 
@@ -11,15 +11,48 @@
  * @class FB.XdComm
  * @private
  */
+
+
 FB.provide('XdComm', {
   /**
-   * Local receiver URL
-   * receiverUrl
-   * @param  {String} value
+   * Initialize XdComm
+   *
+   * @param  {String} Optional xd receiver url
    */
-  setReceiverUrl: function(value) {
-    FB.XdComm.receiverUrl = value ? FB.Uri.combine(document.URL, value) :
+  init: function(receiverUrl) {
+    FB.XdComm.receiverUrl = receiverUrl ? FB.Uri.combine(document.URL, receiverUrl) :
       FB.dynData.resources.base_cdn_url + 'connect/xd_proxy.php#?=&';
+
+    // The origin is used for:
+    // 1) postMessage origin, provides security
+    // 2) Flash Local Connection name
+    // It is required and validated by Facebook as part of the xd_proxy.php.
+    FB.XdComm._origin =
+      window.location.protocol +
+        '//' +
+        window.location.host +
+        '/' +
+        FB.Util.createUnique();
+
+    if (window.addEventListener && window.postMessage) {
+      FB.XdComm._transport = 'postmessage';
+    } else if (FB.Flash.getState() == 'hasVersion') {
+      FB.XdComm._transport = 'flash';
+    } else {
+      FB.XdComm._transport = 'fragment';
+    }
+
+    window.addEventListener
+      ? window.addEventListener('message', FB.XdComm._onNativeMessage, false)
+      : window.attachEvent('onmessage', FB.XdComm._onNativeMessage);
+
+    FB.Event.once(FB.Flash, 'isReady', function() {
+      document.XdComm.postMessage_init('FB.XdComm._onFlashMessage',
+      FB.XdComm._origin);
+    });
+    FB.Flash.init();
+
+    // createXdCommSwf();
   },
 
   /**
@@ -38,20 +71,30 @@ FB.provide('XdComm', {
     var handlerName = 'udp_' + FB.Util.createUnique();
 
     FB.Event.once(FB.XdComm, handlerName, callback);
+    var url = FB.XdComm.receiverUrl;
+    if (FB.XdComm._transport == 'fragment') {
+      var packet = {
+        t: 3, // udpSingle
+        h: handlerName,
+        sid:FB.XdComm._id,
+        df: isRaw ? 1 : 0
+      };
 
-    var packet = {
-      t: 3, // udpSingle
-      h: handlerName,
-      sid:FB.XdComm._id,
-      df: isRaw ? 1 : 0
-    };
+      //  Note that we don't specify packet.d in sending because we don't use
+      //  JSON to encode packet.d
+      url += '#fname=_' + endPoint + '&' +
+        encodeURIComponent(FB.JSON.serialize(packet));
 
-    //  Note that we don't specify packet.d in sending because we don't use
-    //  JSON to encode packet.d
-    var url = FB.XdComm.receiverUrl + '#fname=_' + endPoint + '&' +
-      encodeURIComponent(FB.JSON.serialize(packet));
-
-    url += encodeURIComponent(isRaw? data : FB.JSON.serialize(data));
+      url += encodeURIComponent(isRaw? data : FB.JSON.serialize(data));
+    } else {
+      url += FB.Uri.createQueryString({
+        cb : handlerName,
+        origin : FB.XdComm._origin,
+        relation: endPoint || 'opener',
+        transport: FB.XdComm._transport,
+        df: isRaw ? 1 : 0
+      });
+    }
     return url;
   },
 
@@ -72,22 +115,58 @@ FB.provide('XdComm', {
         //  %7B%22t%22%3A3%2C%22h%22%3A%22openIDresponse%22%2C%22sid%22%3A%220.672%22%7D?arbitrary=data&other=data
         var packetLength = hash.indexOf('%7D') + 3,
           packet = FB.JSON.deserialize(decodeURIComponent(hash.substring(0, packetLength)));
-          dataString = hash.substr(packetLength);
-
-        if (packet.sid && packet.sf) {
-          FB.XdComm._senders[packet.sid] = packet.sf;
-        }
-
-        FB.Event.fire(FB.XdComm, packet.h,
-                    packet.df ==  1? dataString : FB.JSON.deserialize(decodeURIComponent(dataString)),
-                    {frameName:FB.XdComm._senders[packet.sid]});
+        var dataString = hash.substr(packetLength);
+        packet.nd = packet.df ==  1? FB.Uri.getQueryParameters(dataString)
+                            : FB.JSON.deserialize(
+                              decodeURIComponent(dataString)),
+                            FB.XdComm._onPacket(packet);
       });
     }
   },
 
-  _onData: function(data) {
-    debugger;
+  _onNativeMessage: function(e) {
+    FB.XdComm._onData(e.data, e);
   },
+
+  _onFlashMessage: function(message) {
+    FB.XdComm._onData(decodeURIComponent(message));
+  },
+
+  _onData: function(data, e) {
+    // Unfortunately, xd_proxy uses a different data format
+    // from original packet data format, so we have to
+    // handle both now.
+    var header = 'FB_msg:';
+    if (data.indexOf(header) == 0) {
+      data = data.substr(header.length);
+      // original packet format
+      FB.XdComm._onPacket(FB.JSON.deserialize(data), e);
+    } else {
+      // Xd Proxy format
+      data = FB.Uri.getQueryParameters(data);
+      FB.Event.fire(FB.XdComm, data.cb, data);
+    }
+  },
+
+  _onPacket: function(packet, e) {
+    if (packet.sid && packet.sf) {
+      FB.XdComm._senders[packet.sid] = packet.sf;
+    }
+
+    if (packet.id) {
+      var ackMsg = 'FB_msg_ack:' + packet.sid + packet.id.toString();
+      if (packet.ackFlashOrigin) {
+        document.XdComm.postMessage_send(ackMsg, packet.ackFlashOrigin);
+      } else if (e && e.origin) {
+        (e.source).postMessage(ackMsg, e.origin);
+      }
+    }
+
+    FB.Event.fire(FB.XdComm, packet.h, packet.nd,
+      {frameName:FB.XdComm._senders[packet.sid]});
+  },
+
+
 
   /**
    * Register an RPC service. This allow us backward compatibility that would make migration from v1

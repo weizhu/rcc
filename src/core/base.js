@@ -14,9 +14,14 @@ if (!window.FB) {FB = {};}
 if(!FB.dynData) {
   FB.dynData = {
     resources:{
+      /**
       base_url_format:'http://{0}.facebook.com/',
       base_cdn_url:'http://static.ak.fbcdn.net/',
-      xd_comm_swf_url:'http://b.statically.ak.fbcdn.net/rsrc.php/z52E9/hash/bq8e4uia.swf'
+      xd_comm_swf_url:'http://www.wzhu-git.devrs002.facebook.com/swf/XdComm.swf'
+       */
+      base_url_format:'http://{0}.wzhu-git.devrs002.facebook.com/',
+      base_cdn_url:'http://www.wzhu-git.devrs002.facebook.com/',
+      xd_comm_swf_url:'http://www.wzhu-git.devrs002.facebook.com/swf/XdComm.swf'
     }
   };
 }

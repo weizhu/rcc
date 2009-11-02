@@ -12,9 +12,14 @@ FB.provide('Flash', {
     if (FB.Flash.getState() != 'disabled') {
       // This function will be called when XdComm flash
       // is ready
+
       window.FB_OnFlashXdCommReady = function() {
+        window.setTimeout(function() {
         FB.Event.setProperty(FB.Flash, 'isReady', true);
+        }, 0);
       }
+
+      var swf = FB.dynData.resources.xd_comm_swf_url;
 
       var html = '<object type="application/x-shockwave-flash" id="XdComm" ' +
            (FB.Dom.getBrowserType() == 'ie' ?
@@ -22,9 +27,10 @@ FB.provide('Flash', {
                  'data="' + swf + '" ') +
         'allowscriptaccess="always"><param name="movie" value="' + swf +
         '"></param><param name="allowscriptaccess" value="always"></param></object>',
+
       div = document.createElement('div');
+      FB.Dom.getHidden().appendChild(div);
       div.innerHTML = html;
-      FB.HiddenContainer.get().appendChild(div);
     }
   },
 

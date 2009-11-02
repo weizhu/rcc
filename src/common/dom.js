@@ -72,15 +72,6 @@ FB.provide('Dom', {
   createHiddenIFrame: function(src) {
     var receiverDom = document.createElement('iframe');
     receiverDom.className = 'FB_RECEIVER_DOM';
-    //  There is IE bug with iframe cache that we have to work around:
-    //  Dynamically load the iframe to dummy content before loading the real content, as shown below.
-    //  This works because the cached stream that exists after a refresh is consumed by the initial
-    //  dummy load, and the second load fetches the content as expected.
-    //  Must be javascript:false instead of about:blank, otherwise IE6 will complain in https
-    if (!FB.Dom._iframeCreated && FB.Dom.getBrowserType() === 'ie') {
-      receiverDom.src = 'javascript:false';
-      FB.Dom._iframeCreated = true;
-    }
     //  We have to set the src property in carefully chosen (after days of painfully hacking :-))
     //  in order to get them to work properly on IE and Firefox.
     //  On IE, we need to set the src property before the DOM elemnt is inserted into
@@ -186,7 +177,7 @@ FB.provide('Dom', {
       for(var i = 0; i < keys.length; i++) {
         if (userAgent.indexOf(keys[i]) >= 0) {
           FB.Dom._browserType = names[i];
-          return;
+          break;;
         }
       }
     }

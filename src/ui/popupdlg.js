@@ -59,7 +59,7 @@ FB.Class('UI.PopupWin',
     return FB.XdComm.getUdp(
       function(data, sender) {
         dlg.close(data);
-      }, null, 'opener', true);
+      }, '', 'opener', true);
   }
 });
 

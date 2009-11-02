@@ -136,6 +136,7 @@ FB.provide('Api', {
       preview: 'true',
       api_key: FB.App.apiKey,
       channel_url: FB.XdComm.receiverUrl,
+      origin: FB.XdComm._origin,
       session_key: FB.App.session ?  FB.App.session.session_key : ''
     };
 

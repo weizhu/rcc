@@ -36,6 +36,33 @@ FB.provide('Uri', {
                                          valueEncoder ? valueEncoder(value) : value)));
                  });
     return keyValues.join('&');
+  },
+
+  /**
+   * Decode a query string into a parameters object.
+   *
+   * @access private
+   * @param   str {String} the query string
+   * @returns     {Object} the parameters to encode
+   */
+  getQueryParameters: function(str) {
+    if (str.indexOf('?') == 0) {
+      str = str.substr(1);
+    }
+
+    var
+      decode = decodeURIComponent,
+      params = {},
+      parts  = str.split('&'),
+      i,
+      pair;
+
+    for (i=0; i<parts.length; i++) {
+      pair = parts[i].split('=', 2);
+      params[decode(pair[0])] = decode(pair[1]);
+    }
+
+    return params;
   }
 });
 

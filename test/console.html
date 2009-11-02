@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <link rel="stylesheet" type="text/css" href="v2.css" />
-<script src="../src//loader.js.php?comps=v2.FB.Api,v2.FB.App" type="text/javascript"></script>
+<script src="../src//loader.js.php?comps=v2.FB.Api,v2.FB.App,v2.FB.Debug" type="text/javascript"></script>
 </head>
 <body>
   <p>Current Connect Status is <span id="connect_status"></span></p>
@@ -12,7 +12,7 @@
   This script loads everything needed once and won't need on-demand loading during execution
   -->
 
-
+ <div id="swf_holder">SWF</div>
  <script type="text/javascript">
   function displayConnectStatus() {
     FB.$('connect_status').innerHTML = FB.App.status;
@@ -55,15 +55,16 @@
     FB.$('result').value = s;
   }
 
+  window.onload = function() {
   FB.App.init(
-    "4b38d3e1a6df930669e13b82e3ba8974",
-    "xd_receiver.html");
+    "4b38d3e1a6df930669e13b82e3ba8974");
 
   // Wanna monitor connect status?
   FB.App.monitor('status', displayConnectStatus);
 
   //Wanna monitor session change?
   FB.App.monitor('session', displaySession);
+};
 
   </script>
 

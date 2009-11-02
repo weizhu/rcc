@@ -41,14 +41,11 @@ FB.provide('App', {
    * initialize an Facebook app. xdChannelUrl parameter may not be needed if stats shows postMessage and flash XdComm have enough coverage
    * @param  {String} apiKey
    * API key for your Facebook application
-   * @param  {String} xdChannelUrl
-   * Relative URL to the cross-domain
-   * channel file located on your servers.
    * @param  {Object} settings
    * An optional dictionary of other application settings.
    * Currently supported key/value are:
    */
-  init: function(apiKey, xdChannelUrl, settings) {
+  init: function(apiKey, settings) {
     // Check if init is already called.
     if (FB.App.apiKey) {
       return;
@@ -59,9 +56,7 @@ FB.provide('App', {
       FB.copy(FB.App.settings, settings);
     }
 
-    if (FB.XdComm) {
-      FB.XdComm.setReceiverUrl(xdChannelUrl);
-    }
+    FB.XdComm.init(FB.App.settings['xdChannelUrl']);
 
     if (FB.App.settings.checkStatusOnInit) {
       FB.App._checkStatus();
@@ -115,6 +110,7 @@ FB.provide('App', {
         display: 'popup',
         api_key: FB.App.apiKey ,
         v: FB.App.version,
+        origin: FB.XdComm._origin,
         next: dlg.createClosingUrl(),
         cancel_url: dlg.createClosingUrl(),
         'perms': (options && options.perms) || ''
@@ -166,7 +162,8 @@ FB.provide('App', {
       next: FB.XdComm.getUdp(function() {
           FB.App._onStatus('');
           callback();
-        }, null, 'parent')
+        }, null, 'parent'),
+      origin: FB.XdComm._origin
     };
 
     // Create a hiden iframe to perform the logout
@@ -184,14 +181,11 @@ FB.provide('App', {
    * @private
    */
   _onStatus: function(data) {
-    var sessionKey = 'session=';
-    var i = data.indexOf(sessionKey);
     var value = 'no_user';
-    if (i >= 0) {
-      var s = decodeURIComponent(data.substr(i + sessionKey.length));
+    if (data.session) {
       value = 'connected';
-      FB.Event.setProperty(FB.App, 'session', FB.JSON.deserialize(s));
-    } else if (data.indexOf('not_connected') >= 0) {
+      FB.Event.setProperty(FB.App, 'session', FB.JSON.deserialize(data.session));
+    } else if ('not_connected' in data) {
       value = 'not_connected';
     }
 
@@ -205,7 +199,8 @@ FB.provide('App', {
    */
   _checkStatus: function() {
     var q_params = { api_key: FB.App.apiKey, extern: 0,
-        ok_session: FB.XdComm.getUdp(FB.App._onStatus, null, 'parent', true),
+        origin: FB.XdComm._origin,
+        ok_session: FB.XdComm.getUdp(FB.App._onStatus, '', 'parent', true),
         no_session: FB.XdComm.getUdp(FB.App._onStatus, 'not_connected', 'parent', true),
         no_user: FB.XdComm.getUdp(FB.App._onStatus, 'no_user', 'parent', true)
     };
