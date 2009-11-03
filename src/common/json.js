@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.JSON
- * @requires v2.FB.Base
+ * @provides FB.JSON
+ * @requires FB.Base
  */
 
 /**

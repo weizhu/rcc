@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.XFBML
- * @requires v2.FB.Base v2.FB.Loader.use
+ * @provides FB.XFBML
+ * @requires FB.Base FB.Loader.use FB.Loader
  *
  *
  */

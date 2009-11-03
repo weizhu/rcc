@@ -1,6 +1,6 @@
 /**
-* @provides v2.FB.Debug
-* @requires v2.FB.Base
+* @provides FB.Debug
+* @requires FB.Base
 */
 
 FB.provide('Debug', {

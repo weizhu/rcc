@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.Flash
- * @requires v2.FB.Base v2.FB.Event v2.FB.Dom
+ * @provides FB.Flash
+ * @requires FB.Base FB.Event FB.Dom
  */
 
 // XdComm part of flash

@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.Loader
- * @requires v2.FB.Base
+ * @provides FB.Loader
+ * @requires FB.Base
  *
  * 
  */
@@ -37,7 +37,7 @@ FB.provide('Loader', {
   loadCssComps: function(cssComps) {
     var cssSrc = FB.dynData.resources.base_url_format.replace('{0}',
     'static.ak')
-    + 'connect_v2.php/'+FB.locale+'/css/' + cssComps.join('/');
+    + 'connect_php/'+FB.locale+'/css/' + cssComps.join('/');
 
     //  Check if the style sheet is already loaded
     if (!this.loadedCss[cssSrc]) {

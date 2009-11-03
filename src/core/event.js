@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.Event
- * @requires v2.FB.Type v2.FB.Base
+ * @provides FB.Event
+ * @requires FB.Type FB.Base
  */
 /**
  * Basic Event system

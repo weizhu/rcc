@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.App
- * @requires v2.FB.Base v2.FB.Event v2.FB.XdComm v2.FB.UI.PopupWin, v2.FB.UI.Dialog v2.FB.Dom
+ * @provides FB.App
+ * @requires FB.Base FB.Event FB.XdComm FB.UI.PopupWin, FB.UI.Dialog FB.Dom
  *
  */
 

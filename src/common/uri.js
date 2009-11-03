@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.Uri
- * @requires v2.FB.Base
+ * @provides FB.Uri
+ * @requires FB.Base
  *
  */
 

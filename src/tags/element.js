@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.XFBML.Element
- * @requires v2.FB.Type
+ * @provides FB.XFBML.Element
+ * @requires FB.Type
  */
 
 /**

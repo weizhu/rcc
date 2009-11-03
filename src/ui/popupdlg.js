@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.UI.PopupWin
- * @requires v2.FB.Type v2.FB.Util v2.FB.Event v2.FB.XdComm v2.FB.Dom
+ * @provides FB.UI.PopupWin
+ * @requires FB.Type FB.Util FB.Event FB.XdComm FB.Dom
  */
 
 /**

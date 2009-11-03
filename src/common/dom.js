@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.Dom
- * @requires v2.FB.Base
+ * @provides FB.Dom
+ * @requires FB.Base
  */
 
 /**

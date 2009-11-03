@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.Api
- * @requires v2.FB.App v2.FB.Base v2.FB.Md5 v2.FB.Util v2.FB.Uri v2.FB.Dom
+ * @provides FB.Api
+ * @requires FB.App FB.Base FB.Md5 FB.Util FB.Uri FB.Dom
  *
  */
 

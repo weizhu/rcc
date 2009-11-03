@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.Loader.use
- * @requires v2.FB.Loader v2.FB.Util v2.FB.Dom v2.FB.Base
+ * @provides FB.Loader.use
+ * @requires FB.Loader FB.Util FB.Dom FB.Base
  */
 
 FB.provide('Loader', {
@@ -25,9 +25,8 @@ FB.provide('Loader', {
     // TODO: We should use a timer trick to queue up multiple components requests
     // so we just need to send out a single script HTTP request
 
-    // Note the 'v2.' token a temp hack for co-existance of old code
-    FB.Dom.addScript(FB.dynData.resources.base_cdn_url + 'connect_v2.php/' +
-                      FB.locale + '/js/' + comps + '/v2.js?exclude=' +
+    // Note the '' token a temp hack for co-existance of old code
+    FB.Dom.addScript(FB.dynData.resources.loader_url  + '?comps=' + comps + '&exclude=' +
                       FB.Util.obj2array(FB.Loader.loaded).join(','));
   },
 
@@ -60,8 +59,7 @@ FB.provide('Loader', {
   _check: function(req) {
     var comp = req.comps;
     // Is comp loaded?
-    // Note: the 'v2.' code is a temp hack
-     if (FB.Loader.loaded[comp] || FB.Loader.loaded['v2.' + comp] || FB.CLASSES[comp] || FB.create(comp, false, true)) {
+     if (FB.Loader.loaded[comp] || FB.create(comp, false, true)) {
       return true;
     }
 

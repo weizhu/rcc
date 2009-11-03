@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.UI.Dialog
- * @requires v2.FB.Type v2.FB.Base v2.FB.XdComm v2.FB.Util v2.FB.Dom v2.FB.Event v2.FB.IframeResizer v2.FB.UI.Dialog-css
+ * @provides FB.UI.Dialog
+ * @requires FB.Type FB.Base FB.XdComm FB.Util FB.Dom FB.Event FB.IframeResizer FB.UI.Dialog-css
  */
 
 /**

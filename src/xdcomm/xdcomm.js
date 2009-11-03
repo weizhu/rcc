@@ -1,7 +1,7 @@
 /**
- * @provides v2.FB.XdComm
- * @requires v2.FB.Base  v2.FB.Util
- *           v2.FB.Uri  v2.FB.JSON v2.FB.Event v2.FB.Flash
+ * @provides FB.XdComm
+ * @requires FB.Base  FB.Util
+ *           FB.Uri  FB.JSON FB.Event FB.Flash
  *
  */
 

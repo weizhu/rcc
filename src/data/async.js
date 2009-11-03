@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.Async
- * @requires v2.FB.Base v2.FB.Type v2.FB.Util v2.FB.Event
+ * @provides FB.Async
+ * @requires FB.Base FB.Type FB.Util FB.Event
  */
 
 

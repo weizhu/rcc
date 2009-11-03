@@ -1,6 +1,6 @@
 /**
-* @provides v2.FB.Md5
-* @requires v2.FB.Base v2.FB.Util
+* @provides FB.Md5
+* @requires FB.Base FB.Util
 */
 
 /*

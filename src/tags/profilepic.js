@@ -1,6 +1,6 @@
 /**
- * @provides v2.FB.XFBML.ProfilePic
- * @requires v2.FB.Type v2.FB.XFBML v2.FB.Api v2.FB.Event v2.FB.Util v2.FB.Dom v2.FB.XFBML.Element
+ * @provides FB.XFBML.ProfilePic
+ * @requires FB.Type FB.XFBML FB.Api FB.Event FB.Util FB.Dom FB.XFBML.Element
  */
 
 /**
