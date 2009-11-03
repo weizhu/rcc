@@ -1,6 +1,6 @@
 /**
  * @provides FB.XFBML.ProfilePic
- * @requires FB.Type FB.XFBML FB.Api FB.Event FB.Util FB.Dom FB.XFBML.Element
+ * @requires FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data
  */
 
 /**
@@ -79,10 +79,9 @@ FB.subclass('XFBML.ProfilePic', 'XFBML.Element',
           uid = FB.App.session.uid;
         }
 
-        // Make API call
-        FB.Api._invokeRest('fql.query', {query:
-          'select name, ' + picFieldName + ' from user where uid = ' + uid},
-          renderFn);
+        // Get data
+        FB.Data.query('select name, ' + picFieldName + ' from user where uid = ' + uid)
+            .wait(renderFn);
       } else {
         // Render default
         renderFn();

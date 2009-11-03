@@ -15,8 +15,7 @@
 
    // Load Connect JS code
    FB.App.init(
-    "f2499697ecccd6ea2e0414712f117d17",
-    "xd_receiver.html");
+    "f2499697ecccd6ea2e0414712f117d17");
 
    // Check connect status
    FB.App.monitor('session', function() {
@@ -24,6 +23,7 @@
     if (FB.App.session) {
         // Note we don't force users to connect, but only
         // make the API call after user is connected.
+
         FB.Api.invoke('friends.get', null, function(result) {
           var markup = "";
           var num_friends = result ? Math.min(5, result.length) : 0;
