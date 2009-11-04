@@ -93,43 +93,68 @@ FB.provide('Dom', {
     return receiverDom;
  },
 
- /**
-  * Dynamically add a script tag
-  */
- addScript: function(src) {
-  var script = document.createElement('script');
-  script.type = "text/javascript";
-  script.src = src;
-  return document.getElementsByTagName('HEAD')[0].appendChild(script);
- },
-
- /**
-   * Get location of the browser window relative to computer screen
-   * windowLocation
-   * @return  FB.Point
+  /**
+   * Dynamically add a script tag
    */
-  getWindowLocation: function() {
-    var lc = {x:0, y:0};
-    var l, t;
-    if(window.screenLeft) {
-      l = window.screenLeft;
-      t = window.screenTop;
-    } else {
-      l = window.screenX;
-      t = window.screenY;
-    }
-    lc.x = l;
-    lc.y = t;;
-    //  We need to check for undefined because undefined does not
-    //  behave the same as 0 in math operations.
-    if (lc.x === undefined) {
-      lc.x = 0;
-    }
-    if (lc.y === undefined) {
-      lc.y = 0;
-    }
-    return lc;
-  },
+   addScript: function(src) {
+     var script = document.createElement('script');
+     script.type = "text/javascript";
+     script.src = src;
+     return document.getElementsByTagName('HEAD')[0].appendChild(script);
+   },
+
+   addCssRules: function(s, id) {
+     if (!FB.Dom._cssRules) {
+       FB.Dom._cssRules = {};
+     }
+
+     // Check if this style sheet is already applied
+     if (id in FB.Dom._cssRules) {
+       return;
+     }
+
+     if (FB.Dom.getBrowserType() != 'ie') {
+       style = document.createElement('style');
+       style.type = "text/css";
+       style.innerHTML = s;
+       document.getElementsByTagName('HEAD')[0].appendChild(style);
+     } else {
+       var re = /([\w|#|\.|\\]+)\s*{(.*?)}/mg,
+         a,
+         style = document.createStyleSheet();
+       while (a = re.exec(s)) {
+         style.addRule(a[1], a[2]);
+       }
+     }
+   },
+
+   /**
+    * Get location of the browser window relative to computer screen
+    * windowLocation
+    * @return  FB.Point
+    */
+   getWindowLocation: function() {
+     var lc = {x:0, y:0};
+     var l, t;
+     if(window.screenLeft) {
+       l = window.screenLeft;
+       t = window.screenTop;
+     } else {
+       l = window.screenX;
+       t = window.screenY;
+     }
+     lc.x = l;
+     lc.y = t;;
+     //  We need to check for undefined because undefined does not
+     //  behave the same as 0 in math operations.
+     if (lc.x === undefined) {
+       lc.x = 0;
+     }
+     if (lc.y === undefined) {
+       lc.y = 0;
+     }
+     return lc;
+   },
 
   /**
    * Get browser window size

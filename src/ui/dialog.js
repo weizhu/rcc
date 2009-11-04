@@ -1,6 +1,6 @@
 /**
  * @provides FB.UI.Dialog
- * @requires FB.Type FB.Base FB.XdComm FB.Util FB.Dom FB.Event FB.IframeResizer FB.UI.Dialog-css
+ * @requires FB.Type FB.Base FB.XdComm FB.Util FB.Dom FB.Event FB.IframeResizer
  */
 
 /**
@@ -10,6 +10,7 @@
 FB.Class('UI.Dialog',
   // Constructor
   function() {
+    FB.UI.Dialog.loadStyle();
     this.id = 'fb_dialog_' + Math.random().toString();
     FB.UI.Dialog.dlgs[this.id] = this;
   },
@@ -18,15 +19,31 @@ FB.Class('UI.Dialog',
   {
   set: function(title, content) {
     FB.IframeResizer.start();
-    var html = FB.Util.format('<table id="{0}" class="fb_pop_dialog_table"><tr><td class="fb_pop_topleft"></td><td class="fb_pop_border"></td><td class="fb_pop_topright"></td> </tr><tr><td class="fb_pop_border"></td><td class="fb_pop_content" id="pop_content"><div class ="fb_pop_content_container"><h2 class="fb_resetstyles"> <div class="fb_dialog_icon"></div> <span class="fb_dialog_header" id="fb_dialog_header">{1}</span> <div class="fb_dialog_loading_spinner" id="fb_dialog_loading_spinner">&nbsp;</div> <a id="fb_dialog_cancel_button" class="fb_dialog_cancel_button" title="close dialog" href="#" onclick="FB.UI.Dialog.close({2})">&nbsp;</a> </h2> <div id="fb_dialog_content" class="fb_dialog_content">{3}</div> </div> </td> <td class="fb_pop_border"></td> </tr> <tr> <td class="fb_pop_bottomleft"></td> <td class="fb_pop_border"></td> <td class="fb_pop_bottomright"></td> </tr> </table>',
-          this.id, title,
-          "'" + this.id + "'",
-          content);
+    var html = FB.Util.format(
+      '<div id="{0}" class="fb_css fb_pop_dialog {1}">'
+      + '    <div class="fb_dialog_inner">'
+      + '      <div class="fb_header">'
+      + '        <div class="fb_dialog_icon">'
+      + '        </div>'
+      + '        <span class="fb_dialog_header" id="fb_dialog_header">{2}</span> '
+      + '        <a id="fb_dialog_cancel_button" class="fb_dialog_cancel_button" title="close dialog" href="#" '
+      + '        onclick="FB.UI.Dialog.close({3})">'
+      + '          &nbsp;</a>'
+      + '      </div>'
+      + '      <div class="fb_content" style="width: 400px; height: 300px;">'
+      + '      {4}</div>'
+      + '    </div>'
+      + '  </div>',
+      this.id,
+      FB.Dom.getBrowserType() == 'ie' ? 'pop_borderopacity' :  "pop_container_advanced",
+      title,
+      "'" + this.id + "'",
+      content);
     FB.UI.Dialog.getContainer().innerHTML += html;
     this.dom = FB.$(this.id);
 
 
-    this.dom.style.width = '700px';
+    this.dom.style.width = '500px';
 
     var windowSize = FB.Dom.getWindowSize();
     var target = document.documentElement;
@@ -50,6 +67,7 @@ FB.Class('UI.Dialog',
         data:'xxRESULTTOKENxx'
       }, 'parent');
   }
+
 });
 
 FB.provide('UI.Dialog', {
@@ -79,6 +97,99 @@ FB.provide('UI.Dialog', {
     FB.Event.fire(dlg, 'closed', result);
     FB.Dom.removeDom(dlg.dom);
     delete dlgs[id];
+  },
+
+  loadStyle: function() {
+    FB.Dom.addCssRules(
+      '#fb_popupContainer {'
+        + '  position: absolute;'
+        + '  top: 0px;'
+        + '  left: 0px;'
+        + '}'
+        + ''
+        + 'div.fb_dialog_inner {'
+        + ''
+        + '  border: 1px solid #3b5998;'
+        + '  background: #ffffff;'
+        + '}'
+        + ''
+        + 'div.fb_pop_dialog {'
+        + '  padding:10px;'
+        + '  position:absolute; left:-10000px; top:-10000px;'
+        + '}'
+        + ''
+        + 'div.fb_pop_dialog.pop_container_advanced {'
+        + '  background: rgba(82,82,82,0.7);'
+        + '  padding: 10px;'
+        + '  -moz-border-radius: 8px;'
+        + '  -webkit-border-radius: 8px;'
+        + '}'
+        + ''
+        + 'div.fb_pop_dialog.pop_borderopacity {'
+        + '  background: #757575;'
+        + '}'
+        + ''
+        + 'div.fb_header'
+        + '{'
+        + '    background: #6d84b4;'
+        + '    color: white;'
+        + '    font-size: 14px;'
+        + '    font-weight: bold;'
+        + '    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;'
+        + '    margin: 0px;'
+        + '    position:relative;'
+        + '    overflow: hidden;'
+        + '    letter-spacing:normal;'
+        + '    line-height:normal;'
+        + '    padding: 0px;'
+        + '    text-align: left;'
+        + '    zoom: 1;'
+        + '    float:none;'
+        + '    display: block;'
+        + '    position:relative;'
+        + '}'
+        + ''
+        + 'div.fb_header span {'
+        + '  padding: 5px 10px 5px 10px;'
+        + '}'
+        + ''
+        + 'div.fb_content {'
+        + '  height: 100%;'
+        + '  width: 100%;'
+        + '}'
+        + ''
+        + '.fb_dialog_header {'
+        + '  padding: 5px 10px;'
+        + '}'
+        + ''
+        + '.fb_dialog_icon'
+        + '{'
+        + '    margin: 5px;'
+        + '    float:left;'
+        + '    width:16px;'
+        + '    height:16px;'
+        + '    background: #6D84B4 url(http://static.ak.fbcdn.net/images/icons-unsprited/favicon_fordarkbg.gif) no-repeat scroll center;'
+        + '}'
+        + ''
+        + 'a.fb_dialog_cancel_button'
+        + '{'
+        + '    outline-color:invert;'
+        + '    outline-style:none;'
+        + '    outline-width:medium;'
+        + '    text-decoration:none;'
+        + '    position:absolute;'
+        + '    right:4px;'
+        + '    top: 7px;'
+        + '    width:18px;'
+        + '    color:#6D84B4;'
+        + '    background:transparent url(http://static.ak.fbcdn.net/images/fbconnect/connect_icon_remove.gif) no-repeat  scroll 3px 0px;'
+        + '}'
+        + ''
+        + 'a.fb_dialog_cancel_button:hover'
+        + '{'
+        + '    background:transparent url(http://static.ak.fbcdn.net/images/fbconnect/connect_icon_remove.gif) no-repeat scroll -10px 0px;'
+        + '}', 'fb_dialog_css'
+    );
   },
 
   dlgs : {}
