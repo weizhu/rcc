@@ -93,7 +93,7 @@ FB.subclass('Data.Query', 'Async.Data',
 
     var fql = FB.Util.format.apply(null, args);
     // Parse it
-    re = (/^select (.*?) from (\w+)\s+where (.*)$/gi).exec(fql);
+    re = (/^select (.*?) from (\w+)\s+where (.*)$/i).exec(fql);
     this.fields = this._toFields(re[1]);
     this.table = re[2];
     this.where = this._parseWhere(re[3]);
@@ -139,7 +139,7 @@ FB.subclass('Data.Query', 'Async.Data',
   },
 
   _parseWhere: function(s) {
-    var re = (/^\s*(\w+)\s*=\s*([^=\s]*)\s*$/gi).exec(s);
+    var re = (/^\s*(\w+)\s*=\s*([^=\s]*)\s*$/i).exec(s);
     var result;
     if (re) {
       // a simple <key>=<value> clause
