@@ -73,21 +73,15 @@ FB.provide('Dom', {
     var receiverDom = document.createElement('iframe');
     receiverDom.className = 'FB_RECEIVER_DOM';
 
-    var div = document.createElement('div');
-    var hidden = FB.Dom.getHidden(),
-    isIE = FB.Dom.getBrowserType() == 'ie';
-    div = hidden.appendChild(div);
-
+    var div = FB.Dom.getHidden().appendChild(document.createElement('div'));
     //  There is IE bug with iframe cache that we have to work around:
     //  Dynamically load the iframe to dummy content before loading the real content, as shown below.
     //  This works because the cached stream that exists after a refresh is consumed by the initial
     //  dummy load, and the second load fetches the content as expected.
     //  Must be javascript:false instead of about:blank, otherwise IE6 will complain in https
-    if (!FB.Dom._iframeCreated && isIE) {
+    if (FB.Dom.getBrowserType() == 'ie') {
       div.innerHTML = '<iframe src=\'javascript:false\' ></iframe>';
-      // FB.Dom._iframeCreated = true;
     }
-
     div.innerHTML = '<iframe name = "' + FB.Util.createUnique() + '" src=\"' + src + '"></iframe>';
     return div.childNodes[0];
  },
