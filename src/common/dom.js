@@ -72,25 +72,24 @@ FB.provide('Dom', {
   createHiddenIFrame: function(src) {
     var receiverDom = document.createElement('iframe');
     receiverDom.className = 'FB_RECEIVER_DOM';
-    //  We have to set the src property in carefully chosen (after days of painfully hacking :-))
-    //  in order to get them to work properly on IE and Firefox.
-    //  On IE, we need to set the src property before the DOM elemnt is inserted into
-    //  the document tree in order to avoid the clicking sound IE generates whenever an iframe
-    //  element's src changes.
-    //  On Firefox, doing so caused a very nasty bug where the iframe's content will always
-    //  reload with original content when the top page is reloaded with
-    //  window.location.reload() method (see https://bugzilla.mozilla.org/show_bug.cgi?id=279048).
-    //  I found that we appears to be able to avoid the Firefox bug by setting the src attribute
-    //  after inserting the iframe element into the document tree.
-    if (FB.Dom.getBrowserType() === 'ie') {
-      receiverDom.src = src;
-      receiverDom = FB.Dom.getHidden().appendChild(receiverDom);
+
+    var div = document.createElement('div');
+    var hidden = FB.Dom.getHidden(),
+    isIE = FB.Dom.getBrowserType() == 'ie';
+    div = hidden.appendChild(div);
+
+    //  There is IE bug with iframe cache that we have to work around:
+    //  Dynamically load the iframe to dummy content before loading the real content, as shown below.
+    //  This works because the cached stream that exists after a refresh is consumed by the initial
+    //  dummy load, and the second load fetches the content as expected.
+    //  Must be javascript:false instead of about:blank, otherwise IE6 will complain in https
+    if (!FB.Dom._iframeCreated && isIE) {
+      div.innerHTML = '<iframe src=\'javascript:false\' ></iframe>';
+      // FB.Dom._iframeCreated = true;
     }
-    else {
-      receiverDom = FB.Dom.getHidden().appendChild(receiverDom);
-      receiverDom.src = src;
-    }
-    return receiverDom;
+
+    div.innerHTML = '<iframe name = "' + FB.Util.createUnique() + '" src=\"' + src + '"></iframe>';
+    return div.childNodes[0];
  },
 
   /**

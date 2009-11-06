@@ -160,7 +160,7 @@ FB.provide('App', {
       api_key: FB.App.apiKey,
       session_key: FB.App.session.session_key,
       next: FB.XdComm.getUdp(function() {
-          FB.App._onStatus('');
+          FB.App._onStatus({not_connected: true});
           callback();
         }, null, 'parent'),
       origin: FB.XdComm._origin
@@ -184,11 +184,11 @@ FB.provide('App', {
     var value = 'no_user';
     if (data.session) {
       value = 'connected';
-      FB.Event.setProperty(FB.App, 'session', FB.JSON.deserialize(data.session));
     } else if ('not_connected' in data) {
       value = 'not_connected';
     }
 
+    FB.Event.setProperty(FB.App, 'session', FB.JSON.deserialize(data.session));
     FB.Event.setProperty(FB.App, 'status', value);
   },
 
