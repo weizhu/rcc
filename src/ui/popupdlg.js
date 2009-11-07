@@ -46,7 +46,11 @@ FB.Class('UI.PopupWin',
    * Close this popup window
    */
   close: function(result) {
+    try {
     if (this.win && !this.win.closed) {
+      this.win.close();
+    }
+    } catch (e) {
       this.win.close();
     }
     this.win = null;

@@ -81,8 +81,12 @@ FB.provide('Dom', {
     //  Must be javascript:false instead of about:blank, otherwise IE6 will complain in https
     if (FB.Dom.getBrowserType() == 'ie') {
       div.innerHTML = '<iframe src=\'javascript:false\' ></iframe>';
+      div.innerHTML = '<iframe name = "' + FB.Util.createUnique() + '" src=\"' + src + '"></iframe>';
+    } else {
+      div.innerHTML = '<iframe name = "' + FB.Util.createUnique() + '"></iframe>';
+      div.childNodes[0].src = src;
     }
-    div.innerHTML = '<iframe name = "' + FB.Util.createUnique() + '" src=\"' + src + '"></iframe>';
+
     return div.childNodes[0];
  },
 
