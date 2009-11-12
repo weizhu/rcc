@@ -5,8 +5,22 @@
 
 
 FB.provide('Data', {
-  query: function(template) {
+  query: function(template /*, arg1, arg .. arg n */) {
     var query = (new FB.Data.Query).parse(arguments);
+    FB.Data.queue.push(query);
+    FB.Data._ensureTimer();
+    return query;
+  },
+
+  /**
+   * Alternate method from query, this method is more specific
+   * but more efficient. We use it internally
+   */
+  _selectByIndex: function(fields, table, name, value) {
+    var query = (new FB.Data.Query);
+    query.fields = fields;
+    query.table = table;
+    query.where = {type: 'index', key: name, value: value};
     FB.Data.queue.push(query);
     FB.Data._ensureTimer();
     return query;

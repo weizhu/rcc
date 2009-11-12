@@ -2,7 +2,7 @@
  * @provides FB.Loader
  * @requires FB.Base
  *
- * 
+ *
  */
 
 /**
@@ -27,26 +27,6 @@ FB.provide('Loader', {
 
     if (FB.Loader._onCompLoaded) {
       FB.Loader._onCompLoaded(components);
-    }
-  },
-
-  /**
-   * TODO: Move this off to a different component
-   * @param  String cssSrc
-   */
-  loadCssComps: function(cssComps) {
-    var cssSrc = FB.dynData.resources.base_url_format.replace('{0}',
-    'static.ak')
-    + 'connect_php/'+FB.locale+'/css/' + cssComps.join('/');
-
-    //  Check if the style sheet is already loaded
-    if (!this.loadedCss[cssSrc]) {
-      var linkElement = document.createElement('link');
-      linkElement.setAttribute('rel', 'stylesheet');
-      linkElement.setAttribute('type', 'text/css');
-      linkElement.setAttribute('href', cssSrc);
-      document.getElementsByTagName('head')[0].appendChild(linkElement);
-      this.loadedCss[cssSrc] = true;
     }
   }
 });

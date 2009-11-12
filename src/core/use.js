@@ -7,33 +7,39 @@ FB.provide('Loader', {
   /*
    * Use this to request dynamic loading of components in Facebook Client
    * JavaScript library
-   * @param {string} comps  a component
+   * @param {string} comp  a component
    * @param {function} callback  callback function to be executed when all
-   *                  required comps
+   *                  required comp
    *                  are finished loading
    */
-  use: function(comps, callback) {
-    var request = {'comps': comps, 'cb': callback};
+  use: function(comp, callback) {
+    var request = {'comp': comp, 'cb': callback};
     // Check if request is already completed
-    if (FB.Loader._check(request)) {
+    if (FB.Loader._check(comp)) {
       callback();
       return;
     }
 
     FB.Loader._reqs.push(request);
+    FB.Loader._comps[comp] = true;
 
-    // TODO: We should use a timer trick to queue up multiple components requests
+    // We use a timer trick to queue up multiple components requests
     // so we just need to send out a single script HTTP request
-
-    // Note the '' token a temp hack for co-existance of old code
-    FB.Dom.addScript(FB.dynData.resources.loader_url  + '?comps=' + comps + '&exclude=' +
+    if (!FB.Loader._timer) {
+      FB.Loader._timer = setTimeout(function(){
+        FB.Loader._timer = 0;
+        FB.Dom.addScript(FB.dynData.resources.loader_url  + '?comps=' +
+                         FB.Util.obj2array(FB.Loader._comps).join(',') +
+                         '&exclude=' +
                       FB.Util.obj2array(FB.Loader.loaded).join(','));
+      }, 0);
+    }
   },
 
   _onCompLoaded: function() {
     var completed = [];
     FB.forEach(FB.Loader._reqs, function(req, i) {
-      if (req && FB.Loader._check(req)) {
+      if (req && FB.Loader._check(req.comp)){
         completed.push([i, req.cb]);
       }
     });
@@ -53,22 +59,18 @@ FB.provide('Loader', {
 
 
   /**
-   * Check if a request if fullfilled
+   * Check if a comp if fullfilled
    * @return true if it is done
    */
-  _check: function(req) {
-    var comp = req.comps;
+  _check: function(comp) {
     // Is comp loaded?
-     if (FB.Loader.loaded[comp] || FB.create(comp, false, true)) {
-      return true;
-    }
-
-    return false;
+    return (FB.Loader.loaded[comp] || FB.create(comp, false, true));
   },
 
   /*
    * Global state variables
    */
-  _reqs : []
+  _reqs : [],
+  _comps: {}
 });
 

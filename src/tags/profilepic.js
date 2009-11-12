@@ -1,20 +1,13 @@
 /**
  * @provides FB.XFBML.ProfilePic
- * @requires FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data
+ * @requires FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper
  */
 
 /**
  * @class FB.XFBML.ProfilePic
  * @extends  FB.XFBML.Element
  */
-FB.subclass('XFBML.ProfilePic', 'XFBML.Element',
-  /*
-   * @constructor
-   */
-  function(dom) {
-    this.dom = dom;
-  },
-
+FB.subclass('XFBML.ProfilePic', 'XFBML.Element', null,
   /*
    * Instance methods
    */
@@ -80,8 +73,11 @@ FB.subclass('XFBML.ProfilePic', 'XFBML.Element',
         }
 
         // Get data
-        FB.Data.query('select name, ' + picFieldName + ' from user where uid = ' + uid)
-            .wait(renderFn);
+        // Use profile if uid is a user, but a page
+        FB.Data._selectByIndex(['name', picFieldName],
+          FB.Util.isUser(uid) ? 'user' : 'profile',
+          FB.Util.isUser(uid) ? 'uid' : 'id',
+          uid).wait(renderFn);
       } else {
         // Render default
         renderFn();
@@ -107,20 +103,3 @@ FB.provide('XFBML.ProfilePic', {
     pic_square_with_logo: 'q_silhouette_logo.gif'
   }
 });
-
-/**
- * link to the explicit href or profile.php
- * @param  {FB.UserInfo} userInfo
- * @param  {String} html
- * @param  {String} href
- * @return  String
- */
-FB.create('Util.getProfileLink', function(userInfo, html, href) {
-  href = href || (userInfo ?  FB.Util.getFacebookUrl('www') + 'profile.php?id=' +
-        userInfo.uid : null);
-  if (href) {
-    html = '<a class="FB_Link" href="' + href + '">' + html + '</a>';
-  }
-  return html;
-});
-

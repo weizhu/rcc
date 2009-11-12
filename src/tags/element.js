@@ -6,7 +6,15 @@
 /**
  * @class FB.XFBML.Element
  */
-FB.Class('XFBML.Element', null, {
+FB.Class('XFBML.Element',
+  /*
+   * @constructor
+   */
+  function(dom) {
+    this.dom = dom;
+  },
+
+{
   /**
    * Get the value of an attribute associated with this tag.
    * @param  {String} name

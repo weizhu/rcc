@@ -43,7 +43,7 @@ FB.provide('', {
    * @param {object} proto instance methods for class
    */
   subclass: function(name, baseName, constructor, proto) {
-    if (FB.CLASSES[name]) {
+    if (FB.CLASSES[name]) {1
       return;
     }
     var base = FB.create(baseName);
@@ -54,7 +54,11 @@ FB.provide('', {
       return base.prototype[method].apply(this, args);
     };
 
-    var cls = FB.Class(name, constructor, proto);
+    var cls = FB.Class(name,
+     constructor ? constructor : function() {
+       this._base.apply(this, arguments);
+     },
+     proto);
     return cls;
   },
 
