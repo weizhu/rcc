@@ -121,7 +121,8 @@ FB.provide('XFBML', {
 
   _tagInfos: [
     ['fb', 'profile-pic','FB.XFBML.ProfilePic'],
-    ['fb', 'name','FB.XFBML.Name']
+    ['fb', 'name','FB.XFBML.Name'],
+    ['fb', 'login-button', 'FB.XFBML.LoginButton']
   ],
   _list:[]
 });

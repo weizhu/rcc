@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTDws  XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
-<link rel="stylesheet" type="text/css" href="v2.css" />
 <script src="../src/loader.js.php?comps=Api,App,Data,XFBML,Debug" type="text/javascript"></script>
 </head>
 <body>
   <p>Show an simple XFBML usage</p>
-
+  <fb:login-button></fb:login-button>
+  <input type="button" value="log out" onclick="FB.App.logout(function(){});" />
   <div id="profile_pics"></div>
 
   <fb:profile-pic uid="4"></fb:profile-pic>

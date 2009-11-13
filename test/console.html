@@ -28,7 +28,7 @@
   }
 
   function testPublish() {
-    FB.Api.invoke('ui.connect/prompt_feed', {
+    FB.Api.invoke('ui.publish', {
       message: "Hello world"
     }, function(result) {
       var str = FB.JSON.serialize(result);

@@ -17,20 +17,23 @@ FB.Class('UI.Dialog',
 
   // Instance methods
   {
-  set: function(title, content) {
+  set: function(title, src, w, h) {
+    var content = FB.Util.format('<iframe name="{0}" src="{1}" frameborder="0"'
+                  + 'style="width:{2}px; height:{3}px"></iframe>',
+                  this.id, src, w, h);
     FB.IframeResizer.start();
     var html = FB.Util.format(
       '<div id="{0}" class="fb_css fb_pop_dialog {1}">'
       + '    <div class="fb_dialog_inner">'
+      + '    <a id="fb_dialog_cancel_button" class="fb_dialog_cancel_button" title="close dialog" href="#" '
+      + '        onclick="FB.UI.Dialog.close({3})">'
+      + '          &nbsp;</a>'
       + '      <div class="fb_header">'
       + '        <div class="fb_dialog_icon">'
       + '        </div>'
       + '        <span class="fb_dialog_header" id="fb_dialog_header">{2}</span> '
-      + '        <a id="fb_dialog_cancel_button" class="fb_dialog_cancel_button" title="close dialog" href="#" '
-      + '        onclick="FB.UI.Dialog.close({3})">'
-      + '          &nbsp;</a>'
       + '      </div>'
-      + '      <div class="fb_content" style="width: 400px; height: 300px;">'
+      + '      <div class="fb_content" style="">'
       + '      {4}</div>'
       + '    </div>'
       + '  </div>',
@@ -41,9 +44,6 @@ FB.Class('UI.Dialog',
       content);
     FB.UI.Dialog.getContainer().innerHTML += html;
     this.dom = FB.$(this.id);
-
-
-    this.dom.style.width = '500px';
 
     var windowSize = FB.Dom.getWindowSize();
     var target = document.documentElement;
@@ -108,9 +108,9 @@ FB.provide('UI.Dialog', {
         + '}'
         + ''
         + 'div.fb_dialog_inner {'
-        + ''
+        + '  background: #6d84b4;'
         + '  border: 1px solid #3b5998;'
-        + '  background: #ffffff;'
+        + '  width: 100%;'
         + '}'
         + ''
         + 'div.fb_pop_dialog {'
@@ -131,7 +131,6 @@ FB.provide('UI.Dialog', {
         + ''
         + 'div.fb_header'
         + '{'
-        + '    background: #6d84b4;'
         + '    color: white;'
         + '    font-size: 14px;'
         + '    font-weight: bold;'
@@ -178,8 +177,8 @@ FB.provide('UI.Dialog', {
         + '    outline-width:medium;'
         + '    text-decoration:none;'
         + '    position:absolute;'
-        + '    right:4px;'
-        + '    top: 7px;'
+        + '    right:14px;'
+        + '    top: 17px;'
         + '    width:18px;'
         + '    color:#6D84B4;'
         + '    background:transparent url(http://static.ak.fbcdn.net/images/fbconnect/connect_icon_remove.gif) no-repeat  scroll 3px 0px;'

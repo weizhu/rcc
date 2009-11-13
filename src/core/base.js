@@ -14,15 +14,17 @@ if (!window.FB) {FB = {};}
 if(!FB.dynData) {
   FB.dynData = {
     resources:{
-      /**
+/*
       base_url_format:'http://{0}.facebook.com/',
       base_cdn_url:'http://static.ak.fbcdn.net/',
-      xd_comm_swf_url:'http://www.wzhu-git.devrs002.facebook.com/swf/XdComm.swf'
-       */
+      xd_comm_swf_url:'http://static.ak.fbcdn.net/swf/XdComm.swf',
+      loader_url: 'http://www.wzhu-git.devrs002.facebook.com/js/rcc/src/loader.js.php'
+  */
       base_url_format:'http://{0}.wzhu-git.devrs002.facebook.com/',
       base_cdn_url:'http://www.wzhu-git.devrs002.facebook.com/',
       xd_comm_swf_url:'http://www.wzhu-git.devrs002.facebook.com/swf/XdComm.swf',
       loader_url: 'http://www.wzhu-git.devrs002.facebook.com/js/rcc/src/loader.js.php'
+
     }
   };
 }

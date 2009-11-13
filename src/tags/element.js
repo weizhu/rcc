@@ -4,6 +4,8 @@
  */
 
 /**
+ * Base class for all XFBML element
+ * Note: we removed support for condition attribute that was in V1.
  * @class FB.XFBML.Element
  */
 FB.Class('XFBML.Element',

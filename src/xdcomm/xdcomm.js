@@ -92,7 +92,8 @@ FB.provide('XdComm', {
         origin : FB.XdComm._origin,
         relation: endPoint || 'opener',
         transport: FB.XdComm._transport,
-        df: isRaw ? 1 : 0
+        df: isRaw ? 1 : 0,
+        nd: data
       });
     }
     return url;
@@ -118,8 +119,8 @@ FB.provide('XdComm', {
         var dataString = hash.substr(packetLength);
         packet.nd = packet.df ==  1? FB.Uri.getQueryParameters(dataString)
                             : FB.JSON.deserialize(
-                              decodeURIComponent(dataString)),
-                            FB.XdComm._onPacket(packet);
+                              decodeURIComponent(dataString));
+        FB.XdComm._onPacket(packet);
       });
     }
   },
@@ -153,7 +154,7 @@ FB.provide('XdComm', {
       FB.XdComm._senders[packet.sid] = packet.sf;
     }
 
-    if (packet.id) {
+    if (packet.id !== undefined) {
       var ackMsg = 'FB_msg_ack:' + packet.sid + packet.id.toString();
       if (packet.ackFlashOrigin) {
         document.XdComm.postMessage_send(ackMsg, packet.ackFlashOrigin);

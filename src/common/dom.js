@@ -42,6 +42,37 @@ FB.provide('Dom', {
     }
   },
 
+  /**
+   * Create an unique DOM id
+   * @return {string} an unique DOM id
+   */
+  createId: function() {
+    if (!FB.Dom._domId) {
+      FB.Dom._domId = 1;
+    }
+    return '_fb_dom_' + FB.Dom_domId++;
+  },
+
+  /**
+   * Cross browser way to add event listener to a DOM element, window or document object.
+   * @param  {Object} element
+   * @param  {String} type
+   * @param  {Function} handler
+   *
+   * handler should be a function with no parameters.
+   */
+  addEventListener: function(element, type, handler) {
+    if (element.addEventListener) {
+      element.addEventListener(type, handler, false);
+    }
+    else {
+      handler._ieEventHandler = function() {
+        handler(window.event);
+      };
+      element.attachEvent('on' + type, handler._ieEventHandler);
+    }
+  },
+
   /*
    * Get a hidden DOM container element. This is used to store hidden
    * iframes. If developers do not want the document.write to be called,

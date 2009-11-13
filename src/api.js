@@ -33,12 +33,15 @@ FB.provide('Api', {
       options = {};
     }
 
+    if (FB.Api._map[method]) {
+      FB.copy(options, FB.Api._map[method]);
+    }
+
     // This is rudimentary logic to perform automatically check for conditions
     // that requires for API calls to succeed. Currently, I just check for
     //  methods that need a session. If a session is needed but not available,
     //  the code will automatically invoke login UI, then continue the API call
-    if ((FB.Api.mSessions[method] || options.requireSession) &&
-      !FB.App.session) {
+    if (options.requireSession &&!FB.App.session) {
       // Need to connect first
       FB.App.connect(function() {
         FB.Api.invoke(method, parameters, callback, options);
@@ -124,14 +127,19 @@ FB.provide('Api', {
   _invokeUi: function(method, parameters, callback, options) {
     // TODO: We don't have UI server ready yet.
     // The method is supposed to a path to a endpont url (sans .php)
-    var url = FB.Util.getFacebookUrl('www') + method.substring(3) + '.php';
+    var url = FB.Util.getFacebookUrl('www') + options.url,
+    w = options.w || 600,
+    h = options.h || 400,
+    title = parameters.title || options.title || "";
+    // Always use popup if session does not exist
+    usePopup = !FB.App.session;
 
-    var dialog = new FB.UI.Dialog()
+    var dialog = usePopup ? new FB.UI.PopupWin() : new FB.UI.Dialog();
 
     // We need to encode parameters and a new stuff
     // Let's use a copy instead of modifying parameters
     var params = {
-      in_iframe: 1,
+      in_iframe: usePopup ? 0 : 1,
       callback: dialog.createClosingUrl(),
       preview: 'true',
       api_key: FB.App.apiKey,
@@ -145,20 +153,16 @@ FB.provide('Api', {
     url += "?" + FB.Uri.createQueryString(params, FB.Api._encode);
 
     FB.Event.add(dialog, 'closed', callback);
-    dialog.set(method, FB.Util.format(
-                 '<iframe name="{0}" src="{1}" frameborder="0"></iframe>',
-                 dialog.id, url));
+    dialog.set(title, url, w, h);
   },
 
-  /**
-   * map of methods that requires session.
-   * [TODO] Complete the list
-   * @private
-   */
-  mSessions: {
-    'friends.get': 1
-  },
 
+  _map: {
+    'friends.get': {requireSession: true},
+    'ui.publish': {url: 'connect/prompt_feed.php', w: 600, h: 300,
+                   title:'Publish to Facebook'},
+    'ui.share': {url: 'sharer.php', w: 600, h: 400}
+  },
   /**
    *
    * @type  Number

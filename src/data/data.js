@@ -5,6 +5,15 @@
 
 
 FB.provide('Data', {
+  /**
+   * Perform a FQL query
+   *
+   * @param {string} FQL query string template. It can contains optional
+   *                 formated parameters in forms '{0}', '{1}'. When these
+   *                 parameters are used in the string, the actual data should
+   *                 be passed as parameter following the template parameter.
+   * @return {FB.Data.Query} An async query object that contains query result
+   */
   query: function(template /*, arg1, arg .. arg n */) {
     var query = (new FB.Data.Query).parse(arguments);
     FB.Data.queue.push(query);
