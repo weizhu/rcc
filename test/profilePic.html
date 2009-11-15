@@ -2,15 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <script src="../src/loader.js.php?comps=Api,App,Data,XFBML,Debug" type="text/javascript"></script>
+
 </head>
 <body>
-  <p>Show an simple XFBML usage</p>
+  <p >Show an simple XFBML usage</p>
   <fb:login-button></fb:login-button>
   <input type="button" value="log out" onclick="FB.App.logout(function(){});" />
   <div id="profile_pics"></div>
 
   <fb:profile-pic uid="4"></fb:profile-pic>
   <fb:name uid="4"></fb:name>
+  <fb:share-button href="http://www.cnn.com" type="button_count"></fb:button>
 
 <!--
 

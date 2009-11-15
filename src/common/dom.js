@@ -141,17 +141,22 @@ FB.provide('Dom', {
        return;
      }
 
+     FB.Dom._cssRules[id] = true;
+
      if (FB.Dom.getBrowserType() != 'ie') {
        style = document.createElement('style');
        style.type = "text/css";
        style.innerHTML = s;
        document.getElementsByTagName('HEAD')[0].appendChild(style);
      } else {
-       var re = /([\w|#|\.|\\]+)\s*{(.*?)}/mg,
+       var re = /([\w|#|\.|\\][^{]*){(.*?)}/mg,
          a,
          style = document.createStyleSheet();
        while (a = re.exec(s)) {
-         style.addRule(a[1], a[2]);
+         var rules = FB.Util.a2a(a[1].split(','), FB.Util.trim);
+         for (var i=0; i < rules.length; i++) {
+           style.addRule(rules[i], a[2]);
+         }
        }
      }
    },

@@ -140,17 +140,23 @@ FB.subclass('Data.Query', 'Async.Data',
         s += this.where.value;
         break;
       case 'index':
-        s += this.where.key + '=' + this.where.value;
+
+        s += this.where.key + '=' + this._encode(his.where.value);
         break;
       case 'in':
         if (this.where.value.length == 1) {
-          s += this.where.key + '=' + this.where.value[0];
+          s += this.where.key + '=' +  this._encode(this.where.value[0]);
         } else {
-          s += this.where.key + ' in (' + this.where.value.join(',') + ')';
+          s += this.where.key + ' in (' +
+            FB.Util.a2a(this.where.value, this._encode).join(',') + ')';
         }
         break;
     }
     return s;
+  },
+
+  _encode: function(value) {
+    return typeof(value) == 'string' ?  FB.Util.quote(value) : value;
   },
 
   toString: function() {
