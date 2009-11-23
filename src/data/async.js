@@ -82,9 +82,9 @@ FB.provide('Async', {
 FB.Class('Async.Data',
 
 /**
- * constructor of FB.Async.Data
+ * Constructor
  * @constructor
- * @param {object} [Optional] value of the data, if available.
+ * @param {object} value [Optional] value of the data, if available.
  */
 function(value) {
   this.value = value;
