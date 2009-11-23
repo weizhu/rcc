@@ -6,14 +6,16 @@
 
 
 /**
- * Data access class for accessing Facebook data efficiently
+ * Data access class for accessing Facebook data efficiently.
+ *
  * @class FB.Data
  */
 FB.provide('Data', {
   /**
    * Perform a FQL query
    * Example:
-   * <pre class="prettyprint js">
+   * <div class="code_border">
+   * <xmp class="prettyprint js">
    * // Get random 5 friends ids
    * var friends = FB.Data.query('select uid2 from friend where uid1={0} ORDER BY rand() limit 5', FB.App.session.uid);
    * var friendInfos = FB.Data.query(
@@ -23,18 +25,24 @@ FB.provide('Data', {
    *   // Render info. For illustration of API, I am using any XFBML tags
    *   var html = '';
    *   FB.forEach(data, function(info) {
-   *     html += 'name=' + info.name + 'img=' + info.pic;
+   *    html += '<p>' + info.name + '<img src="' + info.pic + '" /></p>';
    *   });
    *   FB.$('infos').innerHTML = html;
    * });
-   * </pre>
+   * </xmp>
+   * </div>
    *
    * @param {string} template FQL query string template. It can contains optional
    *                 formated parameters. When these
    *                 parameters are used in the string, the actual data should
    *                 be passed as parameter following the template parameter.
-   * @param {object} data optional 0-n arguments of data
-   * @return {FB.Data.Query} An async query object that contains query result
+   * @param {object} data optional 0-n arguments of data. The arguments can be either
+   *   real data or results from previous FB.Data.query().
+   * @return {FB.Async.Data} An async query object that contains query result.
+   *   You can pass the result as arguments to other functions that expect FB.Async.Data
+   *   immediately, such as FB.Data.query(), FB.Async.eval(), FB.Async.wait(). If you want
+   *   wait for the data's value to be available, you can call the wait() method on the
+   *   result.
    * @static
    */
   query: function(template, data) {

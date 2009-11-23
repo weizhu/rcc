@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: FB.Async   async.js  (RCC Library)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.35" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.35" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259016333.71" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259016333.71" />
 
-    <script type="text/javascript" src="assets/api.js?stamp=1258977018.35"></script>
-    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.35"></script>
+    <script type="text/javascript" src="assets/api.js?stamp=1259016333.71"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1259016333.71"></script>
      <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../pretty/prettify.js"></script>
 
@@ -140,10 +140,39 @@
 <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="o">;</span>
 <span class="p">}</span><span class="o">,</span> <span class="p">{</span>
+
+  <span class="c">/**</span>
+<span class="c">   * @param {object} Set value property of the data object. This will</span>
+<span class="c">   *  cause &quot;value&quot; event to be fire on the object. Any callback functions</span>
+<span class="c">   *  that are waiting for the data through wait() methods will be invoked</span>
+<span class="c">   *  if the value was previously not set.</span>
+<span class="c">   */</span>
   <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="k">this</span><span class="o">,</span> <span class="s1">&#39;value&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="p">);</span>
   <span class="p">}</span><span class="o">,</span>
 
+
+  <span class="c">/**</span>
+<span class="c">   * Wait until this.value is set.</span>
+<span class="c">   * Example:</span>
+<span class="c">   * &lt;div class=&quot;code_border&quot;&gt;</span>
+<span class="c">   * &lt;xmp class=&quot;prettyprint lang-js&quot;&gt;</span>
+<span class="c">   *     var friendInfos = FB.Data.query(</span>
+<span class="c">   *      &#39;select name, pic from user where uid in (select uid2 from {0})&#39;, friends);</span>
+<span class="c">   *</span>
+<span class="c">   *     friendInfos.wait(function(data) {</span>
+<span class="c">   *       // Render info. For illustration of API, I am using any XFBML tags</span>
+<span class="c">   *       var html = &#39;&#39;;</span>
+<span class="c">   *       FB.forEach(data, function(info) {</span>
+<span class="c">   *         html += &#39;&lt;p&gt;&#39; + info.name + &#39;&lt;img src=&quot;&#39; + info.pic + &#39;&quot; /&gt;&lt;/p&gt;&#39;;</span>
+<span class="c">   *       });</span>
+<span class="c">   *       FB.$(&#39;infos&#39;).innerHTML = html;</span>
+<span class="c">   *     });</span>
+<span class="c">   * &lt;/xmp&gt;</span>
+<span class="c">   * &lt;/div&gt;</span>
+<span class="c">   * @param {function} A callback function that will be invoked when this.value</span>
+<span class="c">   *   is set.</span>
+<span class="c">   */</span>
   <span class="nx">wait</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">FB</span><span class="p">.</span><span class="nx">Async</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">callback</span><span class="o">,</span> <span class="p">[</span><span class="k">this</span><span class="p">]);</span>
   <span class="p">}</span>
@@ -220,7 +249,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "FB.Async.html#method_eval", "access": "", "host": "FB.Async", "type": "method", "name": "eval"}, {"url": "FB.Async.html#method_wait", "access": "", "host": "FB.Async", "type": "method", "name": "wait"}];
+    ALL_YUI_PROPS = [{"url": "FB.Async.html#method_eval", "access": "", "host": "FB.Async", "type": "method", "name": "eval"}, {"url": "FB.Async.Data.html#method_set", "access": "", "host": "FB.Async.Data", "type": "method", "name": "set"}, {"url": "FB.Async.html#method_wait", "access": "", "host": "FB.Async", "type": "method", "name": "wait"}, {"url": "FB.Async.Data.html#method_wait", "access": "", "host": "FB.Async.Data", "type": "method", "name": "wait"}];
 </script>
 <script type="text/javascript">
 prettyPrint();

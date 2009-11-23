@@ -89,10 +89,39 @@ FB.Class('Async.Data',
 function(value) {
   this.value = value;
 }, {
+
+  /**
+   * @param {object} Set value property of the data object. This will
+   *  cause "value" event to be fire on the object. Any callback functions
+   *  that are waiting for the data through wait() methods will be invoked
+   *  if the value was previously not set.
+   */
   set: function(value) {
     FB.Event.setProperty(this, 'value', value);
   },
 
+
+  /**
+   * Wait until this.value is set.
+   * Example:
+   * <div class="code_border">
+   * <xmp class="prettyprint lang-js">
+   *     var friendInfos = FB.Data.query(
+   *      'select name, pic from user where uid in (select uid2 from {0})', friends);
+   *
+   *     friendInfos.wait(function(data) {
+   *       // Render info. For illustration of API, I am using any XFBML tags
+   *       var html = '';
+   *       FB.forEach(data, function(info) {
+   *         html += '<p>' + info.name + '<img src="' + info.pic + '" /></p>';
+   *       });
+   *       FB.$('infos').innerHTML = html;
+   *     });
+   * </xmp>
+   * </div>
+   * @param {function} A callback function that will be invoked when this.value
+   *   is set.
+   */
   wait: function(callback) {
     FB.Async.wait(callback, [this]);
   }

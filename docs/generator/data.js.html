@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: FB.Data   data.js  (RCC Library)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.32" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.32" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259016333.67" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259016333.67" />
 
-    <script type="text/javascript" src="assets/api.js?stamp=1258977018.32"></script>
-    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.32"></script>
+    <script type="text/javascript" src="assets/api.js?stamp=1259016333.67"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1259016333.67"></script>
      <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../pretty/prettify.js"></script>
 
@@ -57,14 +57,16 @@
 
 
 <span class="c">/**</span>
-<span class="c"> * Data access class for accessing Facebook data efficiently</span>
+<span class="c"> * Data access class for accessing Facebook data efficiently.</span>
+<span class="c"> *</span>
 <span class="c"> * @class FB.Data</span>
 <span class="c"> */</span>
 <span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;Data&#39;</span><span class="o">,</span> <span class="p">{</span>
   <span class="c">/**</span>
 <span class="c">   * Perform a FQL query</span>
 <span class="c">   * Example:</span>
-<span class="c">   * &lt;pre class=&quot;prettyprint js&quot;&gt;</span>
+<span class="c">   * &lt;div class=&quot;code_border&quot;&gt;</span>
+<span class="c">   * &lt;xmp class=&quot;prettyprint js&quot;&gt;</span>
 <span class="c">   * // Get random 5 friends ids</span>
 <span class="c">   * var friends = FB.Data.query(&#39;select uid2 from friend where uid1={0} ORDER BY rand() limit 5&#39;, FB.App.session.uid);</span>
 <span class="c">   * var friendInfos = FB.Data.query(</span>
@@ -74,18 +76,23 @@
 <span class="c">   *   // Render info. For illustration of API, I am using any XFBML tags</span>
 <span class="c">   *   var html = &#39;&#39;;</span>
 <span class="c">   *   FB.forEach(data, function(info) {</span>
-<span class="c">   *     html += &#39;name=&#39; + info.name + &#39;img=&#39; + info.pic;</span>
+<span class="c">   *    html += &#39;&lt;p&gt;&#39; + info.name + &#39;&lt;img src=&quot;&#39; + info.pic + &#39;&quot; /&gt;&lt;/p&gt;&#39;;</span>
 <span class="c">   *   });</span>
 <span class="c">   *   FB.$(&#39;infos&#39;).innerHTML = html;</span>
 <span class="c">   * });</span>
-<span class="c">   * &lt;/pre&gt;</span>
+<span class="c">   * &lt;/xmp&gt;</span>
+<span class="c">   * &lt;/div&gt;</span>
 <span class="c">   *</span>
 <span class="c">   * @param {string} template FQL query string template. It can contains optional</span>
 <span class="c">   *                 formated parameters. When these</span>
 <span class="c">   *                 parameters are used in the string, the actual data should</span>
 <span class="c">   *                 be passed as parameter following the template parameter.</span>
 <span class="c">   * @param {object} data optional 0-n arguments of data</span>
-<span class="c">   * @return {FB.Data.Query} An async query object that contains query result</span>
+<span class="c">   * @return {FB.Async.Data} An async query object that contains query result.</span>
+<span class="c">   *   You can pass the result as arguments to other functions that expect FB.Async.Data</span>
+<span class="c">   *   immediately, such as FB.Data.query(), FB.Async.eval(), FB.Async.wait(). If you want</span>
+<span class="c">   *   wait for the data&#39;s value to be available, you can call the wait() method on the</span>
+<span class="c">   *   result.</span>
 <span class="c">   * @static</span>
 <span class="c">   */</span>
   <span class="nx">query</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">template</span><span class="o">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>

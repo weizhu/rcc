@@ -511,10 +511,10 @@
             "methods": {
                 "query": {
                     "return": {
-                        "type": "FB.Data.Query", 
-                        "description": "An async query object that contains query result"
+                        "type": "FB.Async.Data", 
+                        "description": "An async query object that contains query result.\n   You can pass the result as arguments to other functions that expect FB.Async.Data\n   immediately, such as FB.Data.query(), FB.Async.eval(), FB.Async.wait(). If you want\n   wait for the data's value to be available, you can call the wait() method on the\n   result."
                     }, 
-                    "description": "Perform a FQL query\n Example:\n <pre class=\"prettyprint js\">\n // Get random 5 friends ids\n var friends = FB.Data.query('select uid2 from friend where uid1={0} ORDER BY rand() limit 5', FB.App.session.uid);\n var friendInfos = FB.Data.query(\n      'select name, pic from user where uid in (select uid2 from {0})', friends);\n friendInfos.wait(function(data) {\n   // Render info. For illustration of API, I am using any XFBML tags\n   var html = '';\n   FB.forEach(data, function(info) {\n     html += 'name=' + info.name + 'img=' + info.pic;\n   });\n   FB.$('infos').innerHTML = html;\n });\n </pre>", 
+                    "description": "Perform a FQL query\n Example:\n <div class=\"code_border\">\n <xmp class=\"prettyprint js\">\n // Get random 5 friends ids\n var friends = FB.Data.query('select uid2 from friend where uid1={0} ORDER BY rand() limit 5', FB.App.session.uid);\n var friendInfos = FB.Data.query(\n      'select name, pic from user where uid in (select uid2 from {0})', friends);\n friendInfos.wait(function(data) {\n   // Render info. For illustration of API, I am using any XFBML tags\n   var html = '';\n   FB.forEach(data, function(info) {\n    html += '<p>' + info.name + '<img src=\"' + info.pic + '\" /></p>';\n   });\n   FB.$('infos').innerHTML = html;\n });\n </xmp>\n </div>", 
                     "static": "", 
                     "guessedname": "query", 
                     "guessedtype": "function", 
@@ -548,7 +548,7 @@
             }, 
             "file": "debug.js", 
             "shortname": "FB.Data", 
-            "description": "Data access class for accessing Facebook data efficiently"
+            "description": "Data access class for accessing Facebook data efficiently."
         }, 
         "FB.IframeResizer": {
             "name": "FB.IframeResizer", 
@@ -758,6 +758,31 @@
             ], 
             "namespace": "", 
             "provides": "FB.Async", 
+            "methods": {
+                "set": {
+                    "params": [
+                        {
+                            "type": "object", 
+                            "name": "Set", 
+                            "description": " value property of the data object. This will\n  cause \"value\" event to be fire on the object. Any callback functions\n  that are waiting for the data through wait() methods will be invoked\n  if the value was previously not set."
+                        }
+                    ], 
+                    "guessedname": "set", 
+                    "guessedtype": "function"
+                }, 
+                "wait": {
+                    "params": [
+                        {
+                            "type": "function", 
+                            "name": "A", 
+                            "description": " callback function that will be invoked when this.value\n   is set."
+                        }
+                    ], 
+                    "description": "Wait until this.value is set.\n Example:\n <div class=\"code_border\">\n <xmp class=\"prettyprint lang-js\">\n     var friendInfos = FB.Data.query(\n      'select name, pic from user where uid in (select uid2 from {0})', friends);\n     friendInfos.wait(function(data) {\n       // Render info. For illustration of API, I am using any XFBML tags\n       var html = '';\n       FB.forEach(data, function(info) {\n         html += '<p>' + info.name + '<img src=\"' + info.pic + '\" /></p>';\n       });\n       FB.$('infos').innerHTML = html;\n     });\n </xmp>\n </div>", 
+                    "guessedname": "wait", 
+                    "guessedtype": "function"
+                }
+            }, 
             "file": "data.js", 
             "shortname": "FB.Async.Data", 
             "description": "An node that holds data that may not be available immediately"
