@@ -1,5 +1,6 @@
 /**
 * @provides FB.Debug
+ * @module Basic
 * @requires FB.Base
 */
 

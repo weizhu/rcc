@@ -1,5 +1,6 @@
 /**
  * @provides FB.UI.PopupWin
+ * @module Basic
  * @requires FB.Type FB.Util FB.Event FB.XdComm FB.Dom
  */
 

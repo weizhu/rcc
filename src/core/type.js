@@ -1,5 +1,6 @@
 /**
  * @provides FB.Type
+ * @module Basic
  * @requires FB.Base
  */
 
@@ -16,6 +17,7 @@ FB.provide('', {
    * @param {string} name class name
    * @param {function} constructor class constructor
    * @param {object} proto instance methods for class
+   * @static
    */
   Class: function(name, constructor, proto) {
     if (FB.CLASSES[name]) {
@@ -41,6 +43,7 @@ FB.provide('', {
    * @param {string} baseName,
    * @param {function} constructor class constructor
    * @param {object} proto instance methods for class
+   * @static
    */
   subclass: function(name, baseName, constructor, proto) {
     if (FB.CLASSES[name]) {1

@@ -1,5 +1,6 @@
 /**
  * @provides FB.Base
+ * @module Basic
  */
 
 /**
@@ -14,16 +15,17 @@ if (!window.FB) {FB = {};}
 if(!FB.dynData) {
   FB.dynData = {
     resources:{
+/*
       base_url_format:'http://{0}.facebook.com/',
       base_cdn_url:'http://static.ak.fbcdn.net/',
       xd_comm_swf_url:'http://static.ak.fbcdn.net/swf/XdComm.swf',
       loader_url: 'http://www.wzhu-git.devrs002.facebook.com/js/rcc/src/loader.js.php'
-/*
+  */
       base_url_format:'http://{0}.wzhu-git.devrs002.facebook.com/',
       base_cdn_url:'http://www.wzhu-git.devrs002.facebook.com/',
       xd_comm_swf_url:'http://www.wzhu-git.devrs002.facebook.com/swf/XdComm.swf',
       loader_url: 'http://www.wzhu-git.devrs002.facebook.com/js/rcc/src/loader.js.php'
-*/
+
     }
   };
 }
@@ -83,6 +85,7 @@ FB.copy(FB, {
    *                          appended defaults to false. this need to be
    *                          explicit to detect inadvertent redefinition of
    *                          features.
+   * @static
    */
   provide: function(name, feature, append) {
     FB.copy(FB.create(name), feature, append);
@@ -99,6 +102,7 @@ FB.copy(FB, {
    * @param ...     arguments    additional arguments to be bound to the
    *                             function
    * @returns       {Function}   the bound function
+   * @static
    */
   bind: function() {
     var
@@ -119,6 +123,7 @@ FB.copy(FB, {
    * @param fn     Function  the callback function for iteration
    * @param proto  Boolean   indicate if properties from the prototype should
    *                         be included
+   * @static
    */
   forEach: function(item, fn, proto) {
     if (Object.prototype.toString.apply(item) === '[object Array]') {
@@ -158,6 +163,7 @@ FB.copy(FB, {
    * @param {bool} testOnly  [optional] This is an optional parameter. If set to true, then the function
    *                  will
    * @return object  The created object, or boolean if testOnly is true.
+   * @static
    */
   create: function(name, value, testOnly) {
     var ns = FB, // We will use 'FB' as root namespace

@@ -1,5 +1,6 @@
 /**
  * @provides FB.Util
+ * @module Basic
  * @requires FB.Base
  *
  */
@@ -13,6 +14,7 @@ FB.provide('Util', {
    * @param  {String} subDomain
    * Subdomain of Facebook to use
    * @return  String
+   * @static
    */
   getFacebookUrl: function(subDomain) {
     return FB.Util.format(FB.dynData.resources.base_url_format, subDomain);
@@ -20,6 +22,7 @@ FB.provide('Util', {
 
   /**
    * Create an unique id string
+   * @static
    */
   createUnique: function(prefix) {
     return (prefix || '') + Math.random().toString().substr(0, 5);
@@ -65,6 +68,7 @@ FB.provide('Util', {
   /**
    * Create an array from the keys in an object
    * Example: obj2array({'x': 2, 'y': 3'}) returns ['x', 'y']
+   * @static
    */
   obj2array: function(obj) {
     var a =[];
@@ -86,6 +90,7 @@ FB.provide('Util', {
    * Format a string
    * Example:FB.Util.format('{0}.facebook.com/{1}', 'www', 'login.php') returns
    * 'www.facebook.com/login.php'
+   * @static
    */
   format: function (format) {
     if (!FB.Util.format._formatRE) {

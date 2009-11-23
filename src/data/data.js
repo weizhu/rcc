@@ -1,5 +1,6 @@
 /**
  * @provides FB.Data
+ * @module Data
  * @requires FB.Base FB.Type FB.Util FB.Event FB.Api FB.Async FB.App
  */
 
@@ -13,6 +14,7 @@ FB.provide('Data', {
    *                 parameters are used in the string, the actual data should
    *                 be passed as parameter following the template parameter.
    * @return {FB.Data.Query} An async query object that contains query result
+   * @static
    */
   query: function(template /*, arg1, arg .. arg n */) {
     var query = (new FB.Data.Query).parse(arguments);
@@ -24,6 +26,7 @@ FB.provide('Data', {
   /**
    * Alternate method from query, this method is more specific
    * but more efficient. We use it internally
+   * @static
    */
   _selectByIndex: function(fields, table, name, value) {
     var query = (new FB.Data.Query);
@@ -73,6 +76,7 @@ FB.provide('Data', {
 
   /**
    * Check if y can be merged into x
+   * @static
    */
   _mergeIndexQuery: function(item, mqueries) {
     var key = item.where.key,

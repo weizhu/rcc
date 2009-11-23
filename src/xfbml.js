@@ -1,5 +1,6 @@
 /**
  * @provides FB.XFBML
+ * @module XFBML
  * @requires FB.Base FB.Loader.use FB.Loader
  *
  *
@@ -16,6 +17,7 @@ FB.provide('XFBML', {
    * Example: FB.XFBML.set($('container', '<fb:name uid="4"></fb:name><div>.....')
    * @param {DOMElement} dom  DOM element
    * @param {string} markup XFBML markup. It may contain reguarl HTML markup as well.
+   * @static
    */
   set: function(dom, markup) {
     dom.innerHTML = markup;
@@ -26,6 +28,7 @@ FB.provide('XFBML', {
    * Parse and render XFBML markup inside a DOM element
    * @param [DOMElement} dom [Optional] Container DOM of XFBML
    *         By default, we parse document.body
+   * @static
    */
   parse: function(dom) {
     dom = dom || document.body;
@@ -51,6 +54,7 @@ FB.provide('XFBML', {
    *
    * @param {object} An array of the format ['<xmls-namespace>', '<tag-name>',
    *       '<name of the JS class that implements the tag>']
+   * @static
    */
   registerTag: function(tagInfo) {
     FB.XFBML._tagInfos.push(tagInfo);
@@ -62,6 +66,7 @@ FB.provide('XFBML', {
   /**
    * Process an XFBML element
    * @private
+   * @static
    */
   _processElement: function(dom, tagInfo) {
     // Check if element for the dom already exists
@@ -87,6 +92,7 @@ FB.provide('XFBML', {
    * @param  {String} localName
    * @return  DOMElementCollection
    * @private
+   * @static
    */
   _getDoms: function(dom, xmlns, localName) {
     //  Different browsers behave slightly differently in handling tags with custom namespace.

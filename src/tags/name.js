@@ -1,5 +1,6 @@
 /**
  * @provides FB.XFBML.Name
+ * @module XFBML
  * @requires FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper
  */
 

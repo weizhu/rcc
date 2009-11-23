@@ -1,5 +1,6 @@
 /**
  * @provides FB.Event
+ * @module Basic
  * @requires FB.Type FB.Base
  */
 /**
@@ -28,6 +29,7 @@ FB.provide('Event', {
    * arguments may be passed to the callback. If the callback function
    * returns true, the event will be subscribed.
    *
+   * @static
    */
   add: function (obj, name, callback) {
     FB.Event._get(obj, name).add(callback);
@@ -45,6 +47,7 @@ FB.provide('Event', {
    * @param {string} name Name of event
    * @param {function} callback previous callback function passed to
    *        FB.Event.add
+   * @static
    */
   remove: function(obj, name, callback) {
     FB.Event._get(obj, name).remove(callback);
@@ -57,6 +60,7 @@ FB.provide('Event', {
    * @param {object} args0, .., argN arguments to be passed to callback
    * functions
    *   that subscribed to the event
+   * @static
    */
   fire: function(obj, name) {
     var e = FB.Event._get(obj, name);
@@ -75,6 +79,7 @@ FB.provide('Event', {
    * @param {bool} auto_unsubscribe By default, the callback will be invoked whenever the event fires.
    *      However, if this parameter value is true, the callback will be unsubscribed from the event after
    *      it is fired once.
+   * @static
    */
   monitor: function(obj, name, callback, /*optional*/ no_sync_callback, /*optional*/ auto_unsubscribe) {
     if (no_sync_callback || !callback()) {
@@ -97,6 +102,7 @@ FB.provide('Event', {
    * Set property on an object and fire property
    * changed event if changed
    * @private
+   * @static
    */
   setProperty: function(obj, propertyName, newValue) {
     // Check if property actually changed

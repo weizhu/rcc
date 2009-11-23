@@ -1,5 +1,6 @@
 /**
  * @provides FB.XdComm
+ * @module Basic
  * @requires FB.Base  FB.Util
  *           FB.Uri  FB.JSON FB.Event FB.Flash
  *
@@ -18,6 +19,7 @@ FB.provide('XdComm', {
    * Initialize XdComm
    *
    * @param  {String} Optional xd receiver url
+   * @static
    */
   init: function(receiverUrl) {
     FB.XdComm.receiverUrl = receiverUrl ? FB.Uri.combine(document.URL, receiverUrl) :
@@ -66,6 +68,7 @@ FB.provide('XdComm', {
    * @param  {FB.XdComm.PacketDataFormat} dataFormat
    * format of data attached to string, default JSON
    * @return  String
+   * @static
    */
   getUdp: function(callback, data, endPoint, isRaw) {
     var handlerName = 'udp_' + FB.Util.createUnique();
@@ -102,6 +105,7 @@ FB.provide('XdComm', {
   /**
    * This method should be called by XdCommReceiver.js only!
    * @param  {String} hash
+   * @static
    */
   onReceiverLoaded: function(hash) {
     if (hash) {
@@ -178,6 +182,7 @@ FB.provide('XdComm', {
    * @param  {Object} registeredMethodMap
    * Methods to register as "legal" to be
    * called from this server
+   * @static
    */
   regRpc: function(rpcServerName, registeredMethodMap) {
    FB.Event.add(FB.XdComm, rpcServerName, function(data, sender) {
@@ -189,6 +194,7 @@ FB.provide('XdComm', {
   /**
    *
    * @type  String
+   * @static
    */
   receiverUrl: null,
 
@@ -197,6 +203,7 @@ FB.provide('XdComm', {
   /**
    *
    * @type  String
+   * @static
    */
   _id: FB.Util.createUnique()
 });

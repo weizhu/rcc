@@ -1,5 +1,6 @@
 /**
  * @provides FB.Api
+ * @module Basic
  * @requires FB.App FB.Base FB.Md5 FB.Util FB.Uri FB.Dom
  *
  */
@@ -19,6 +20,7 @@ FB.provide('Api', {
    * @param  callback
    * @param  options
    * optional options
+   * @static
    */
   invoke: function(method, parameters, callback, options) {
     // Set an empty dictionary if the value is null
@@ -68,6 +70,7 @@ FB.provide('Api', {
    * @param  options
    * optional options
    * @private
+   * @static
    */
   _invokeRest: function(method, parameters, callback, options) {
     FB.Api._callId++;
@@ -123,6 +126,7 @@ FB.provide('Api', {
    *          callback function when result is read.
    * @param  {object} options [Optional]
    * @private
+   * @static
    */
   _invokeUi: function(method, parameters, callback, options) {
     // TODO: We don't have UI server ready yet.
@@ -166,6 +170,7 @@ FB.provide('Api', {
   /**
    *
    * @type  Number
+   * @static
    */
   _callId: 0,
   _callbacks: {}

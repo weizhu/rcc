@@ -1,5 +1,6 @@
 /**
 * @provides FB.Md5
+ * @module Basic
 * @requires FB.Base FB.Util
 */
 
@@ -22,6 +23,7 @@ FB.provide('Md5', {
    * @param  {String} secret
    * Secret to use to sign the parameters
    * @return  String
+   * @static
    */
   sign: function(parameters, secret) {
     // Use an array as string builder to avoid expensive

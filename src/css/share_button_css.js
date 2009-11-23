@@ -1,6 +1,7 @@
 /**
  * author arunv
  * @provides FB.share-button-css
+ * @module XFBML
  * @requires FB.connect-button-css FB.Dom
  */
 

@@ -1,5 +1,6 @@
 /**
  * @provides FB.Flash
+ * @module Basic
  * @requires FB.Base FB.Event FB.Dom
  */
 
@@ -86,6 +87,7 @@ FB.provide('Flash', {
    * Code is from Dojo's library
    * @param  {String} data
    * @return  String
+   * @static
    */
   decode: function(data) {
 

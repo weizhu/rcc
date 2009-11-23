@@ -1,5 +1,6 @@
 /**
  * @provides FB.UI.Dialog
+ * @module Basic
  * @requires FB.Type FB.Base FB.XdComm FB.Util FB.Dom FB.Event FB.IframeResizer
  */
 
@@ -74,6 +75,7 @@ FB.provide('UI.Dialog', {
   /**
    * _popupContainer
    * @return  Object
+   * @static
    */
   getContainer: function() {
     if (!FB.UI.Dialog._popupContainer) {

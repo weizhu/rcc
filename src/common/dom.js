@@ -1,16 +1,19 @@
 /**
  * @provides FB.Dom
+ * @module Basic
  * @requires FB.Base
  */
 
 /**
  * This provides helper methods related to DOM
  * @class FB.Dom
+ * @private
  */
 FB.provide('Dom', {
   /**
    * @param  {Object} dom
    * @param  {String} newClass
+   * @static
    */
   addCss: function(dom, newClass) {
     var cssClassWithSpace = ' ' + dom.className + ' ';
@@ -23,6 +26,7 @@ FB.provide('Dom', {
    * @param  {Object} dom
    * @param  {String} className
    * @return  Boolean
+   * @static
    */
   containsCss: function(dom, className) {
     var cssClassWithSpace = ' ' + dom.className + ' ';
@@ -31,6 +35,7 @@ FB.provide('Dom', {
   /**
    * @param  {Object} dom
    * @param  {String} className
+   * @static
    */
   removeCss: function(dom, className) {
     var cssClassWithSpace = ' ' + dom.className + ' ';
@@ -45,6 +50,7 @@ FB.provide('Dom', {
   /**
    * Create an unique DOM id
    * @return {string} an unique DOM id
+   * @static
    */
   createId: function() {
     if (!FB.Dom._domId) {
@@ -60,6 +66,7 @@ FB.provide('Dom', {
    * @param  {Function} handler
    *
    * handler should be a function with no parameters.
+   * @static
    */
   addEventListener: function(element, type, handler) {
     if (element.addEventListener) {
@@ -77,6 +84,7 @@ FB.provide('Dom', {
    * Get a hidden DOM container element. This is used to store hidden
    * iframes. If developers do not want the document.write to be called,
    * they can create their own hidden div named "FB_HiddenContainer".
+   * @static
    */
   getHidden: function() {
     if (FB.$('FB_HiddenContainer') == null) {
@@ -99,6 +107,7 @@ FB.provide('Dom', {
 
   /**
    * Create a hidden iframe
+   * @static
    */
   createHiddenIFrame: function(src) {
     var receiverDom = document.createElement('iframe');
@@ -123,6 +132,7 @@ FB.provide('Dom', {
 
   /**
    * Dynamically add a script tag
+   * @static
    */
    addScript: function(src) {
      var script = document.createElement('script');
@@ -165,6 +175,7 @@ FB.provide('Dom', {
     * Get location of the browser window relative to computer screen
     * windowLocation
     * @return  FB.Point
+    * @static
     */
    getWindowLocation: function() {
      var lc = {x:0, y:0};
@@ -193,6 +204,7 @@ FB.provide('Dom', {
    * Get browser window size
    * windowSize
    * @return  FB.Size
+   * @static
    */
   getWindowSize: function() {
     return {w: (window && window.innerWidth)                                           ||
@@ -211,6 +223,7 @@ FB.provide('Dom', {
   /**
    * Remove a dom element from dom tree
    * @param  {Object} element
+   * @static
    */
   removeDom: function(element) {
     if (element) {
@@ -224,6 +237,7 @@ FB.provide('Dom', {
   /**
    * Get browser type
    * @return string 'ie' | 'mozilla' |'safari' | 'other'
+   * @static
    */
   getBrowserType: function() {
     if (!FB.Dom._browserType) {

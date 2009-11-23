@@ -1,9 +1,13 @@
 /**
  * @provides FB.Async
+ * @module Data
  * @requires FB.Base FB.Type FB.Util FB.Event
  */
 
-
+/**
+ * Async operations
+ * @class FB.Async
+ */
 FB.provide('Async', {
   isAsync: function(obj) {
     return FB.Type.isType(obj, FB.Async.Data);
@@ -13,6 +17,7 @@ FB.provide('Async', {
    *
    * @param {string | function} a string or a function will be evaluated when all data are ready
    * @data a list of objects that needs to be evaluted when they are ready
+   * @static
    */
   eval: function(fn, data) {
     var asyncData = new FB.Async.Data();
@@ -31,6 +36,7 @@ FB.provide('Async', {
   /**
    * Given a list of potential async data,
    * wait until they are all ready
+   * @static
    */
   wait: function(callback, data) {
     var c = data.length;
@@ -69,7 +75,18 @@ FB.provide('Async', {
 
 });
 
-FB.Class('Async.Data', function(value) {
+/**
+ * An node that holds data that may not be available immediately
+ * @class FB.Async.Data
+ */
+FB.Class('Async.Data',
+
+/**
+ * constructor of FB.Async.Data
+ * @constructor
+ * @param {object} [Optional] value of the data, if available.
+ */
+function(value) {
   this.value = value;
 }, {
   set: function(value) {

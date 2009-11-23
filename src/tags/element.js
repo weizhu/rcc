@@ -1,5 +1,6 @@
 /**
  * @provides FB.XFBML.Element
+ * @module XFBML
  * @requires FB.Type
  */
 

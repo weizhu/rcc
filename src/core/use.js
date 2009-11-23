@@ -1,5 +1,6 @@
 /**
  * @provides FB.Loader.use
+ * @module Basic
  * @requires FB.Loader FB.Util FB.Dom FB.Base
  */
 
@@ -11,6 +12,7 @@ FB.provide('Loader', {
    * @param {function} callback  callback function to be executed when all
    *                  required comp
    *                  are finished loading
+   * @static
    */
   use: function(comp, callback) {
     var request = {'comp': comp, 'cb': callback};
@@ -61,6 +63,7 @@ FB.provide('Loader', {
   /**
    * Check if a comp if fullfilled
    * @return true if it is done
+   * @static
    */
   _check: function(comp) {
     // Is comp loaded?

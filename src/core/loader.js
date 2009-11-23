@@ -1,5 +1,6 @@
 /**
  * @provides FB.Loader
+ * @module Basic
  * @requires FB.Base
  *
  *
@@ -18,6 +19,7 @@ FB.provide('Loader', {
 
   /**
    * This function will be invoked at end of each connect.php load
+   * @static
    */
   onScriptLoaded: function(components) {
     var c = components.length;

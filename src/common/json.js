@@ -1,5 +1,6 @@
 /**
  * @provides FB.JSON
+ * @module Basic
  * @requires FB.Base
  */
 

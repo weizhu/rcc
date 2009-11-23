@@ -1,5 +1,6 @@
 /**
  * @provides FB.IframeResizer
+ * @module Basic
  * @requires FB.Base FB.XdComm
  *
  */

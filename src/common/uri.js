@@ -1,5 +1,6 @@
 /**
  * @provides FB.Uri
+ * @module Basic
  * @requires FB.Base
  *
  */
@@ -15,6 +16,7 @@
 FB.provide('Uri', {
   /*
    * combine
+   * @static
    */
   combine: function(absolute, relative) {
     return (absolute.match(/.*\//) + relative).replace(/(https?:\/\/[^\/]+)([^:]*\/\/)(.*)$/, '$1/$3')
@@ -27,6 +29,7 @@ FB.provide('Uri', {
    * the dictionary
    * @param {function} optional encoder for values
    * @return  String
+   * @static
    */
   createQueryString: function(params, valueEncoder) {
     var keyValues = [];
@@ -44,6 +47,7 @@ FB.provide('Uri', {
    * @access private
    * @param   str {String} the query string
    * @returns     {Object} the parameters to encode
+   * @static
    */
   getQueryParameters: function(str) {
     if (str.indexOf('?') == 0) {

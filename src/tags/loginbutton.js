@@ -1,5 +1,6 @@
 /**
  * @provides FB.XFBML.LoginButton
+ * @module XFBML
  * @requires FB.Type FB.XFBML.Element
  */
 

@@ -1,5 +1,6 @@
 /**
  * @provides FB.App
+ * @module Basic
  * @requires FB.Base FB.Event FB.XdComm FB.UI.PopupWin, FB.UI.Dialog FB.Dom
  *
  */
@@ -15,6 +16,7 @@ FB.provide('App', {
    * A dictionary of advanced facebook settings.
    * Currently supported key/value are:
    * @type object
+   * @static
    */
   settings: {
     'checkStatusOnInit': true   // By default, we will start checking connect status when FB.init is called
@@ -27,6 +29,7 @@ FB.provide('App', {
    * Note we use undefined
    * to signal that we don't know yet
    * @type object
+   * @static
    */
   session: undefined,
 
@@ -34,6 +37,7 @@ FB.provide('App', {
    * current connect status. Note we use undefined
    * to signal that we don't know yet
    * @type string
+   * @static
    */
   status: undefined,
 
@@ -44,6 +48,7 @@ FB.provide('App', {
    * @param  {Object} settings
    * An optional dictionary of other application settings.
    * Currently supported key/value are:
+   * @static
    */
   init: function(apiKey, settings) {
     // Check if init is already called.
@@ -78,6 +83,7 @@ FB.provide('App', {
    * @param {bool} auto_unsubscribe By default, the callback will be invoked whenever the event fires.
    *      However, if this parameter value is true, the callback will be unsubscribed from the event after
    *      it is fired once.
+   * @static
    */
   monitor: function(name, callback, /*optional*/ no_sync_callback, /*optional*/ auto_unmonitor) {
     FB.Event.monitor(FB.App, name,  callback, no_sync_callback, auto_unmonitor);
@@ -89,6 +95,7 @@ FB.provide('App', {
    * need to call connect method.
    * @param {function} callback Callback to be invoked after connect result is known
    * @param {object} options
+   * @static
    */
   connect: function(callback, options) {
     // Check if we have session already
@@ -147,6 +154,7 @@ FB.provide('App', {
    * Note this method is a separate component because logout method
    * is not always needed.
    * @param {function} callback This function will be called when operation is completed
+   * @static
    */
   logout: function(callback) {
     // Check if we have session already
@@ -179,6 +187,7 @@ FB.provide('App', {
    * login.php, etc.) Our existing wire prototype is not clean (not JSON
    * encoded), so we basically do some simple parsing for now.
    * @private
+   * @static
    */
   _onStatus: function(data) {
     var value = 'no_user';
@@ -196,6 +205,7 @@ FB.provide('App', {
   /**
    * This function create an hidden iframe to login_status.lphp
    * @private
+   * @static
    */
   _checkStatus: function() {
     var q_params = { api_key: FB.App.apiKey, extern: 0,
