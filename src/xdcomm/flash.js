@@ -1,6 +1,6 @@
 /**
  * @provides FB.Flash
- * @module Basic
+ * @layer Basic
  * @requires FB.Base FB.Event FB.Dom
  */
 

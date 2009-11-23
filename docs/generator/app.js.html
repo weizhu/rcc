@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.App   app.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.26" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.26" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.26"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.26"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.App&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; app.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.App</span>
+<span class="c"> * @layer Basic</span>
+<span class="c"> * @requires FB.Base FB.Event FB.XdComm FB.UI.PopupWin, FB.UI.Dialog FB.Dom</span>
+<span class="c"> *</span>
+<span class="c"> */</span>
+
+
+<span class="c">/**</span>
+<span class="c"> * This module provides application settings, states (session states, permissions, etc.) and auth related</span>
+<span class="c"> * methods (connect, logout)</span>
+<span class="c"> * @class FB.App</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;App&#39;</span><span class="o">,</span> <span class="p">{</span>
+  <span class="c">/**</span>
+<span class="c">   * A dictionary of advanced facebook settings.</span>
+<span class="c">   * Currently supported key/value are:</span>
+<span class="c">   * @type object</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">settings</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;checkStatusOnInit&#39;</span><span class="o">:</span> <span class="kc">true</span>   <span class="c">// By default, we will start checking connect status when FB.init is called</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * current session.</span>
+<span class="c">   * When session exists, it is standard session structure that contains session_key,</span>
+<span class="c">   * uid, session_secret, expire_time</span>
+<span class="c">   * Note we use undefined</span>
+<span class="c">   * to signal that we don&#39;t know yet</span>
+<span class="c">   * @type object</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">session</span><span class="o">:</span> <span class="kc">undefined</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * current connect status. Note we use undefined</span>
+<span class="c">   * to signal that we don&#39;t know yet</span>
+<span class="c">   * @type string</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">status</span><span class="o">:</span> <span class="kc">undefined</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * initialize an Facebook app. xdChannelUrl parameter may not be needed if stats shows postMessage and flash XdComm have enough coverage</span>
+<span class="c">   * @param  {String} apiKey</span>
+<span class="c">   * API key for your Facebook application</span>
+<span class="c">   * @param  {Object} settings</span>
+<span class="c">   * An optional dictionary of other application settings.</span>
+<span class="c">   * Currently supported key/value are:</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">apiKey</span><span class="o">,</span> <span class="nx">settings</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// Check if init is already called.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">apiKey</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">apiKey</span> <span class="o">=</span> <span class="nx">apiKey</span><span class="o">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">settings</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">settings</span><span class="o">,</span> <span class="nx">settings</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">settings</span><span class="p">[</span><span class="s1">&#39;xdChannelUrl&#39;</span><span class="p">]);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">checkStatusOnInit</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_checkStatus</span><span class="p">();</span>
+      <span class="c">// Also start a timer to check every 60 min because our session expires</span>
+      <span class="c">// every two hours.</span>
+      <span class="nx">setInterval</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_checkStatus</span><span class="o">,</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="o">,</span> <span class="s1">&#39;init&#39;</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Watch for changes in FB.App.</span>
+<span class="c">   * @param {string} name Name of event. possible values are &#39;session&#39;, &#39;status&#39;, &#39;init&#39;</span>
+<span class="c">   * @param {function} callback A callback function. arguments may be passed to the callback.</span>
+<span class="c">   *     If the callback function returns true, the event will be unsubscribed.</span>
+<span class="c">   * @param {bool} no_sync_callback By default, the callback will be invoked immediately before</span>
+<span class="c">   *    the event is fired, unless this parameter specified a true value</span>
+<span class="c">   * @param {bool} auto_unsubscribe By default, the callback will be invoked whenever the event fires.</span>
+<span class="c">   *      However, if this parameter value is true, the callback will be unsubscribed from the event after</span>
+<span class="c">   *      it is fired once.</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">monitor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="o">,</span> <span class="nx">callback</span><span class="o">,</span> <span class="c">/*optional*/</span> <span class="nx">no_sync_callback</span><span class="o">,</span> <span class="c">/*optional*/</span> <span class="nx">auto_unmonitor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">monitor</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="o">,</span> <span class="nx">name</span><span class="o">,</span>  <span class="nx">callback</span><span class="o">,</span> <span class="nx">no_sync_callback</span><span class="o">,</span> <span class="nx">auto_unmonitor</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Add connect method to FB.App</span>
+<span class="c">   * This method is in a separate component because App&#39;s don&#39;t always</span>
+<span class="c">   * need to call connect method.</span>
+<span class="c">   * @param {function} callback Callback to be invoked after connect result is known</span>
+<span class="c">   * @param {object} options</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">connect</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="o">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// Check if we have session already</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="p">);</span>
+      <span class="k">return</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="c">// Create login window if it&#39;s not already</span>
+    <span class="c">// open</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_loginWin</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c">// Create a popup window dialog</span>
+      <span class="kd">var</span> <span class="nx">dlg</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">PopupWin</span><span class="p">()</span><span class="o">,</span>
+      <span class="nx">q_params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">return_session</span><span class="o">:</span> <span class="mi">1</span><span class="o">,</span>
+        <span class="nx">nochrome</span><span class="o">:</span> <span class="mi">1</span><span class="o">,</span>
+        <span class="nx">fbconnect</span><span class="o">:</span> <span class="mi">1</span><span class="o">,</span>
+        <span class="nx">extern</span><span class="o">:</span> <span class="mi">0</span><span class="o">,</span>
+        <span class="nx">display</span><span class="o">:</span> <span class="s1">&#39;popup&#39;</span><span class="o">,</span>
+        <span class="nx">api_key</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">apiKey</span> <span class="o">,</span>
+        <span class="nx">v</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">version</span><span class="o">,</span>
+        <span class="nx">origin</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_origin</span><span class="o">,</span>
+        <span class="nx">next</span><span class="o">:</span> <span class="nx">dlg</span><span class="p">.</span><span class="nx">createClosingUrl</span><span class="p">()</span><span class="o">,</span>
+        <span class="nx">cancel_url</span><span class="o">:</span> <span class="nx">dlg</span><span class="p">.</span><span class="nx">createClosingUrl</span><span class="p">()</span><span class="o">,</span>
+        <span class="s1">&#39;perms&#39;</span><span class="o">:</span> <span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">perms</span><span class="p">)</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span>
+      <span class="p">}</span><span class="o">,</span>
+
+      <span class="nx">url</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getFacebookUrl</span><span class="p">(</span><span class="s1">&#39;www&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;login.php?&#39;</span> <span class="o">+</span>
+              <span class="nx">FB</span><span class="p">.</span><span class="nx">Uri</span><span class="p">.</span><span class="nx">createQueryString</span><span class="p">(</span><span class="nx">q_params</span><span class="p">);</span>
+
+      <span class="c">// When the dialog is closed, we will get an possible session</span>
+      <span class="c">// string back. At that time, we need to process updates</span>
+      <span class="c">// to FB.App.session and FB.App.connectState, then</span>
+      <span class="c">// fire a &#39;logoutResult&#39; event to notify all the callback</span>
+      <span class="c">// functions passed to FB.App.connect methods.</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">dlg</span><span class="o">,</span> <span class="s1">&#39;closed&#39;</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_loginWin</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_onStatus</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="o">,</span> <span class="s1">&#39;loginResult&#39;</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="p">)</span>
+        <span class="p">});</span>
+      <span class="nx">dlg</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Login&#39;</span><span class="o">,</span> <span class="nx">url</span><span class="o">,</span> <span class="mi">448</span><span class="o">,</span> <span class="mi">426</span><span class="p">);</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_loginWin</span> <span class="o">=</span> <span class="nx">dlg</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="c">// Listen to loginResult event, which will be fired when</span>
+    <span class="c">// login popup closes.</span>
+    <span class="c">// Note we use event here because multiple FB.App.connect</span>
+    <span class="c">// calls may be made while a single login popup is up.</span>
+    <span class="c">// With event module, it naturally takes cares of notifying</span>
+    <span class="c">// multiple callbacks</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="o">,</span> <span class="s1">&#39;loginResult&#39;</span><span class="o">,</span> <span class="nx">callback</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Log out of current session and facebook if current session.</span>
+<span class="c">   * Note this method is a separate component because logout method</span>
+<span class="c">   * is not always needed.</span>
+<span class="c">   * @param {function} callback This function will be called when operation is completed</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">logout</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// Check if we have session already</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">();</span>
+      <span class="k">return</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="c">// Construct query parameters to logout.php</span>
+    <span class="nx">q_params</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">api_key</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">apiKey</span><span class="o">,</span>
+      <span class="nx">session_key</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">session_key</span><span class="o">,</span>
+      <span class="nx">next</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">getUdp</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_onStatus</span><span class="p">({</span><span class="nx">not_connected</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+          <span class="nx">callback</span><span class="p">();</span>
+        <span class="p">}</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s1">&#39;parent&#39;</span><span class="p">)</span><span class="o">,</span>
+      <span class="nx">origin</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_origin</span>
+    <span class="p">};</span>
+
+    <span class="c">// Create a hiden iframe to perform the logout</span>
+    <span class="nx">url</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getFacebookUrl</span><span class="p">(</span><span class="s1">&#39;www&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;logout.php?&#39;</span> <span class="o">+</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Uri</span><span class="p">.</span><span class="nx">createQueryString</span><span class="p">(</span><span class="nx">q_params</span><span class="p">);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">createHiddenIFrame</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">///////////////////////// Private Members ///////////////////////////////////</span>
+
+  <span class="c">/**</span>
+<span class="c">   * callback handler when status string returned from somewhere (login_status,</span>
+<span class="c">   * login.php, etc.) Our existing wire prototype is not clean (not JSON</span>
+<span class="c">   * encoded), so we basically do some simple parsing for now.</span>
+<span class="c">   * @private</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">_onStatus</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;no_user&#39;</span><span class="o">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;connected&#39;</span><span class="o">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;not_connected&#39;</span> <span class="k">in</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;not_connected&#39;</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="o">,</span> <span class="s1">&#39;session&#39;</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">deserialize</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">session</span><span class="p">));</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="o">,</span> <span class="s1">&#39;status&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+
+  <span class="c">/**</span>
+<span class="c">   * This function create an hidden iframe to login_status.lphp</span>
+<span class="c">   * @private</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">_checkStatus</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">q_params</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">api_key</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">apiKey</span><span class="o">,</span> <span class="nx">extern</span><span class="o">:</span> <span class="mi">0</span><span class="o">,</span>
+        <span class="nx">origin</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_origin</span><span class="o">,</span>
+        <span class="nx">ok_session</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">getUdp</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_onStatus</span><span class="o">,</span> <span class="s1">&#39;&#39;</span><span class="o">,</span> <span class="s1">&#39;parent&#39;</span><span class="o">,</span> <span class="kc">true</span><span class="p">)</span><span class="o">,</span>
+        <span class="nx">no_session</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">getUdp</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_onStatus</span><span class="o">,</span> <span class="s1">&#39;not_connected&#39;</span><span class="o">,</span> <span class="s1">&#39;parent&#39;</span><span class="o">,</span> <span class="kc">true</span><span class="p">)</span><span class="o">,</span>
+        <span class="nx">no_user</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">getUdp</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">_onStatus</span><span class="o">,</span> <span class="s1">&#39;no_user&#39;</span><span class="o">,</span> <span class="s1">&#39;parent&#39;</span><span class="o">,</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">};</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">createHiddenIFrame</span><span class="p">(</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getFacebookUrl</span><span class="p">(</span><span class="s1">&#39;www&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;extern/login_status.php?&#39;</span> <span class="o">+</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Uri</span><span class="p">.</span><span class="nx">createQueryString</span><span class="p">(</span><span class="nx">q_params</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class="selected"><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="FB.App.html" title="FB.App">FB.App</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="app.js.html" title="app.js">app.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.App.html#method__checkStatus", "access": "private", "host": "FB.App", "type": "method", "name": "_checkStatus"}, {"url": "FB.App.html#method_connect", "access": "", "host": "FB.App", "type": "method", "name": "connect"}, {"url": "FB.App.html#method_init", "access": "", "host": "FB.App", "type": "method", "name": "init"}, {"url": "FB.App.html#method_logout", "access": "", "host": "FB.App", "type": "method", "name": "logout"}, {"url": "FB.App.html#method_monitor", "access": "", "host": "FB.App", "type": "method", "name": "monitor"}, {"url": "FB.App.html#method__onStatus", "access": "private", "host": "FB.App", "type": "method", "name": "_onStatus"}, {"url": "FB.App.html#property_session", "access": "", "host": "FB.App", "type": "property", "name": "session"}, {"url": "FB.App.html#property_settings", "access": "", "host": "FB.App", "type": "property", "name": "settings"}, {"url": "FB.App.html#property_status", "access": "", "host": "FB.App", "type": "property", "name": "status"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

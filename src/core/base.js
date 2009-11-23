@@ -1,13 +1,14 @@
 /**
  * @provides FB.Base
- * @module Basic
+ * @layer Basic
  */
 
 /**
- *
  * Provide a lowest level base functions for Connect JS. We should only place
  * commonly used generally purpose methods in this namespace
  * Every methods in this file are in FB namespace.
+ * @class FB
+ * @private
  */
 
 if (!window.FB) {FB = {};}
@@ -56,6 +57,7 @@ FB.copy = function(target, source, overwrite, transform) {
 FB.copy(FB, {
   /**
    * Shortcut for document.getElementById
+   * @method $
    * @param {string} DOM id
    * @return DOMElement
    */
@@ -75,9 +77,7 @@ FB.copy(FB, {
    *     // ...
    *   }
    * });
-
    *
-   *    *
    * @access protected
    * @param name    {String}  a dot separated string naming the feature
    * @param feature {Object}  the feature being provided
@@ -96,10 +96,10 @@ FB.copy(FB, {
    * Bind a function to a given context and arguments.
    *
    * @access protected
-   * @param fn      {Function}   the function to bind
-   * @param context {Object}     object to be used as the context when
+   * @param {Function} fn  the function to bind
+   * @param {Object} context     object to be used as the context when
    *                             calling the function
-   * @param ...     arguments    additional arguments to be bound to the
+   * @param {...} arguments    additional arguments to be bound to the
    *                             function
    * @returns       {Function}   the bound function
    * @static
@@ -159,9 +159,9 @@ FB.copy(FB, {
    *
    * @access private
    * @param {string} name full qualified name ('Util.foo', etc.)
-   * @param {string} value [optional] value to set. Default value is {}
-   * @param {bool} testOnly  [optional] This is an optional parameter. If set to true, then the function
-   *                  will
+   * @param {string} value value to set. Default value is {}. [Optional]
+   * @param {bool} testOnly This is an optional parameter. If set to true, then the function
+   *                  will only check if the name exists. [Optional]
    * @return object  The created object, or boolean if testOnly is true.
    * @static
    */

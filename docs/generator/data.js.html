@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.Data   data.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.32" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.32" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.32"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.32"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.Data&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; data.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.Data</span>
+<span class="c"> * @layer Data</span>
+<span class="c"> * @requires FB.Base FB.Type FB.Util FB.Event FB.Api FB.Async FB.App</span>
+<span class="c"> */</span>
+
+
+<span class="c">/**</span>
+<span class="c"> * Data access class for accessing Facebook data efficiently</span>
+<span class="c"> * @class FB.Data</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;Data&#39;</span><span class="o">,</span> <span class="p">{</span>
+  <span class="c">/**</span>
+<span class="c">   * Perform a FQL query</span>
+<span class="c">   * Example:</span>
+<span class="c">   * &lt;pre class=&quot;prettyprint js&quot;&gt;</span>
+<span class="c">   * // Get random 5 friends ids</span>
+<span class="c">   * var friends = FB.Data.query(&#39;select uid2 from friend where uid1={0} ORDER BY rand() limit 5&#39;, FB.App.session.uid);</span>
+<span class="c">   * var friendInfos = FB.Data.query(</span>
+<span class="c">   *      &#39;select name, pic from user where uid in (select uid2 from {0})&#39;, friends);</span>
+<span class="c">   *</span>
+<span class="c">   * friendInfos.wait(function(data) {</span>
+<span class="c">   *   // Render info. For illustration of API, I am using any XFBML tags</span>
+<span class="c">   *   var html = &#39;&#39;;</span>
+<span class="c">   *   FB.forEach(data, function(info) {</span>
+<span class="c">   *     html += &#39;name=&#39; + info.name + &#39;img=&#39; + info.pic;</span>
+<span class="c">   *   });</span>
+<span class="c">   *   FB.$(&#39;infos&#39;).innerHTML = html;</span>
+<span class="c">   * });</span>
+<span class="c">   * &lt;/pre&gt;</span>
+<span class="c">   *</span>
+<span class="c">   * @param {string} template FQL query string template. It can contains optional</span>
+<span class="c">   *                 formated parameters. When these</span>
+<span class="c">   *                 parameters are used in the string, the actual data should</span>
+<span class="c">   *                 be passed as parameter following the template parameter.</span>
+<span class="c">   * @param {object} data optional 0-n arguments of data</span>
+<span class="c">   * @return {FB.Data.Query} An async query object that contains query result</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">query</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">template</span><span class="o">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">query</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">Query</span><span class="p">).</span><span class="nx">parse</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">_ensureTimer</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nx">query</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Alternate method from query, this method is more specific</span>
+<span class="c">   * but more efficient. We use it internally</span>
+<span class="c">   * @static</span>
+<span class="c">   * @private</span>
+<span class="c">   */</span>
+  <span class="nx">_selectByIndex</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fields</span><span class="o">,</span> <span class="nx">table</span><span class="o">,</span> <span class="nx">name</span><span class="o">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">query</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">Query</span><span class="p">);</span>
+    <span class="nx">query</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="nx">fields</span><span class="o">;</span>
+    <span class="nx">query</span><span class="p">.</span><span class="nx">table</span> <span class="o">=</span> <span class="nx">table</span><span class="o">;</span>
+    <span class="nx">query</span><span class="p">.</span><span class="nx">where</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;index&#39;</span><span class="o">,</span> <span class="nx">key</span><span class="o">:</span> <span class="nx">name</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">value</span><span class="p">};</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">_ensureTimer</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nx">query</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_ensureTimer</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">timer</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">_process</span><span class="o">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_process</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">timer</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+
+    <span class="kd">var</span> <span class="nx">mergedQ</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="kd">var</span> <span class="nx">q</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">queue</span><span class="o">;</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">queue</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">var</span> <span class="nx">mqueries</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">q</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">q</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">&#39;index&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">item</span><span class="p">.</span><span class="nx">hasDependency</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">_mergeIndexQuery</span><span class="p">(</span><span class="nx">item</span><span class="o">,</span> <span class="nx">mqueries</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">mqueries</span><span class="p">[</span><span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">item</span><span class="o">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c">// Now make a single multi-query API call</span>
+    <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span><span class="nx">queries</span><span class="o">:</span> <span class="p">{}};</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">queries</span><span class="o">,</span> <span class="nx">mqueries</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">query</span><span class="p">.</span><span class="nx">toFql</span><span class="p">();</span>
+    <span class="p">});</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;fql.multiquery&#39;</span><span class="o">,</span> <span class="nx">params</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">result</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">mqueries</span><span class="p">[</span><span class="nx">o</span><span class="p">.</span><span class="nx">name</span><span class="p">].</span><span class="nx">set</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">fql_result_set</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Check if y can be merged into x</span>
+<span class="c">   * @private</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">_mergeIndexQuery</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="o">,</span> <span class="nx">mqueries</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">key</span><span class="o">,</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
+
+    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;index_&#39;</span> <span class="o">+</span>  <span class="nx">item</span><span class="p">.</span><span class="nx">table</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nx">key</span><span class="o">;</span>
+    <span class="kd">var</span> <span class="nx">master</span> <span class="o">=</span> <span class="nx">mqueries</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">master</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">master</span> <span class="o">=</span> <span class="nx">mqueries</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">Query</span><span class="p">();</span>
+      <span class="nx">master</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+      <span class="nx">master</span><span class="p">.</span><span class="nx">table</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">table</span><span class="o">;</span>
+      <span class="nx">master</span><span class="p">.</span><span class="nx">where</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;in&#39;</span><span class="o">,</span> <span class="nx">key</span><span class="o">:</span> <span class="nx">key</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span> <span class="p">[]};</span>
+    <span class="p">}</span>
+
+    <span class="c">// Merge fields</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">master</span><span class="p">.</span><span class="nx">fields</span><span class="o">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">fields</span><span class="p">);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">master</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="p">[</span><span class="nx">value</span><span class="p">]);</span>
+
+    <span class="c">// Link data from master to item</span>
+    <span class="nx">master</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">item</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">r</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">==</span> <span class="nx">value</span><span class="o">;</span>
+      <span class="p">}));</span>
+    <span class="p">});</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">timer</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="o">,</span>
+  <span class="nx">queue</span><span class="o">:</span> <span class="p">[]</span>
+<span class="p">});</span>
+
+
+<span class="c">/**</span>
+<span class="c"> * Query class that represent a FQL query</span>
+<span class="c"> * @class FB.Data.Query</span>
+<span class="c"> * @extends FB.Async.Data</span>
+<span class="c"> * @private</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="s1">&#39;Data.Query&#39;</span><span class="o">,</span> <span class="s1">&#39;Async.Data&#39;</span><span class="o">,</span>
+  <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">Query</span><span class="p">.</span><span class="nx">_c</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">Query</span><span class="p">.</span><span class="nx">_c</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;v_&#39;</span> <span class="o">+</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">Query</span><span class="p">.</span><span class="nx">_c</span><span class="o">++;</span>
+  <span class="p">}</span><span class="o">,</span>
+  <span class="p">{</span>
+  <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">fql</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="o">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="c">// Parse it</span>
+    <span class="nx">re</span> <span class="o">=</span> <span class="p">(</span><span class="sr">/^select (.*?) from (\w+)\s+where (.*)$/i</span><span class="p">).</span><span class="nx">exec</span><span class="p">(</span><span class="nx">fql</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_toFields</span><span class="p">(</span><span class="nx">re</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">table</span> <span class="o">=</span> <span class="nx">re</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">where</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_parseWhere</span><span class="p">(</span><span class="nx">re</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nx">isType</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">Query</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c">// Indicate this query can not be merged because</span>
+        <span class="c">// others depend on it.</span>
+        <span class="nx">args</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">hasDependency</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">toFql</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s1">&#39;select &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; from &#39;</span> <span class="o">+</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">table</span> <span class="o">+</span> <span class="s1">&#39; where &#39;</span><span class="o">;</span>
+    <span class="nx">switch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">case</span> <span class="s1">&#39;unknown&#39;</span><span class="o">:</span>
+        <span class="nx">s</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="o">;</span>
+        <span class="k">break</span><span class="o">;</span>
+      <span class="nx">case</span> <span class="s1">&#39;index&#39;</span><span class="o">:</span>
+
+        <span class="nx">s</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">key</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">_encode</span><span class="p">(</span><span class="nx">his</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+        <span class="k">break</span><span class="o">;</span>
+      <span class="nx">case</span> <span class="s1">&#39;in&#39;</span><span class="o">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">s</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">key</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span>  <span class="k">this</span><span class="p">.</span><span class="nx">_encode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">s</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">key</span> <span class="o">+</span> <span class="s1">&#39; in (&#39;</span> <span class="o">+</span>
+            <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">a2a</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_encode</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="o">;</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="o">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">s</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_encode</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">typeof</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;string&#39;</span> <span class="o">?</span>  <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">quote</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">:</span> <span class="nx">value</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">toString</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_toFields</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">a2a</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">trim</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_parseWhere</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="p">(</span><span class="sr">/^\s*(\w+)\s*=\s*([^=\s]*)\s*$/i</span><span class="p">).</span><span class="nx">exec</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">result</span><span class="o">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">re</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c">// a simple &lt;key&gt;=&lt;value&gt; clause</span>
+      <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;index&#39;</span><span class="o">,</span> <span class="nx">key</span><span class="o">:</span><span class="nx">re</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span><span class="nx">re</span><span class="p">[</span><span class="mi">2</span><span class="p">]};</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c">// Not a simple &lt;key&gt;=&lt;value&gt; clause</span>
+      <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;unknown&#39;</span><span class="o">,</span> <span class="nx">value</span><span class="o">:</span><span class="nx">s</span><span class="p">};</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="o">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class="selected"><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="FB.Data.html" title="FB.Data">FB.Data</a></li>
+                                <li class="private"><a href="FB.Data.Query.html" title="FB.Data.Query">FB.Data.Query</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="data.js.html" title="data.js">data.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.Data.html#method__mergeIndexQuery", "access": "private", "host": "FB.Data", "type": "method", "name": "_mergeIndexQuery"}, {"url": "FB.Data.html#method_query", "access": "", "host": "FB.Data", "type": "method", "name": "query"}, {"url": "FB.Data.html#method__selectByIndex", "access": "private", "host": "FB.Data", "type": "method", "name": "_selectByIndex"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

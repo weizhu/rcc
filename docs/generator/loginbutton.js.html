@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.XFBML.LoginButton   loginbutton.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.22" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.22" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.22"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.22"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.XFBML.LoginButton&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; loginbutton.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.XFBML.LoginButton</span>
+<span class="c"> * @layer XFBML</span>
+<span class="c"> * @requires FB.Type FB.XFBML.Element</span>
+<span class="c"> */</span>
+
+<span class="c">/**</span>
+<span class="c"> * Implementation for fb:login-button tag.</span>
+<span class="c"> * Note this implementation does not suppport the following features</span>
+<span class="c"> * in Connect V1:</span>
+<span class="c"> * 1. i18n support</span>
+<span class="c"> * 2. logout button</span>
+<span class="c"> * 3. &#39;onlogin&#39; and &#39;onlogout&#39; attributes</span>
+<span class="c"> * 3. Validation of allowed values on attributes</span>
+<span class="c"> * @class FB.XFBML.LoginButton</span>
+<span class="c"> * @extends  FB.XFBML.Element</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="s1">&#39;XFBML.LoginButton&#39;</span><span class="o">,</span> <span class="s1">&#39;XFBML.Element&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span>
+  <span class="c">/*</span>
+<span class="c">   * Instance methods</span>
+<span class="c">   */</span>
+  <span class="p">{</span>
+  <span class="nx">process</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">size</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="o">,</span> <span class="s1">&#39;medium&#39;</span><span class="p">)</span><span class="o">,</span>
+    <span class="nx">background</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;background&#39;</span><span class="o">,</span> <span class="s1">&#39;light&#39;</span><span class="p">)</span><span class="o">,</span>
+    <span class="nx">length</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="o">,</span> <span class="s1">&#39;short&#39;</span><span class="p">)</span><span class="o">,</span>
+    <span class="nx">imgMap</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">dark_small_short</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/zF1W2\/hash\/a969rwcd.gif&quot;</span><span class="o">,</span>
+      <span class="nx">dark_medium_short</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/zEF9L\/hash\/156b4b3s.gif&quot;</span><span class="o">,</span>
+      <span class="nx">dark_medium_long</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/zBIU2\/hash\/85b5jlja.gif&quot;</span><span class="o">,</span>
+      <span class="nx">dark_large_short</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/z1UX3\/hash\/a22m3ibb.gif&quot;</span><span class="o">,</span>
+      <span class="nx">dark_large_long</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/z7SXD\/hash\/8mzymam2.gif&quot;</span><span class="o">,</span>
+      <span class="nx">light_small_short</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/zDGBW\/hash\/8t35mjql.gif&quot;</span><span class="o">,</span>
+      <span class="nx">light_medium_short</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/z38X1\/hash\/6ad3z8m6.gif&quot;</span><span class="o">,</span>
+      <span class="nx">light_medium_long</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/zB6N8\/hash\/4li2k73z.gif&quot;</span><span class="o">,</span>
+      <span class="nx">light_large_short</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/zA114\/hash\/7e3mp7ee.gif&quot;</span><span class="o">,</span>
+      <span class="nx">light_large_long</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/z4Z4Q\/hash\/8rc0izvz.gif&quot;</span><span class="o">,</span>
+      <span class="nx">white_small_short</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/z900E\/hash\/di0gkqrt.gif&quot;</span><span class="o">,</span>
+      <span class="nx">white_medium_short</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/z10GM\/hash\/cdozw38w.gif&quot;</span><span class="o">,</span>
+      <span class="nx">white_medium_long</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/zBT3E\/hash\/338d3m67.gif&quot;</span><span class="o">,</span>
+      <span class="nx">white_large_short</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/zCOUP\/hash\/8yzn0wu3.gif&quot;</span><span class="o">,</span>
+      <span class="nx">white_large_long</span><span class="o">:</span> <span class="s2">&quot;http:\/\/static.ak.fbcdn.net\/rsrc.php\/zC6AR\/hash\/5pwowlag.gif&quot;</span>
+    <span class="p">}</span><span class="o">,</span>
+    <span class="nx">src</span> <span class="o">=</span> <span class="nx">imgMap</span><span class="p">[</span><span class="nx">background</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nx">size</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nx">length</span><span class="p">];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;a onclick=&quot;FB.App.connect(function(){});&quot;  class=\&quot;fbconnect_login_button\&quot;&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;&lt;img src=&quot;&#39;</span> <span class="o">+</span> <span class="nx">src</span> <span class="o">+</span> <span class="s1">&#39;&quot; alt=&quot;Connect&quot;/&gt;&lt;/a&gt;&#39;</span><span class="o">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class="selected"><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="FB.XFBML.LoginButton.html" title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="loginbutton.js.html" title="loginbutton.js">loginbutton.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

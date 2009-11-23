@@ -1,6 +1,6 @@
 /**
  * @provides FB.IframeResizer
- * @module Basic
+ * @layer Basic
  * @requires FB.Base FB.XdComm
  *
  */
@@ -8,6 +8,7 @@
 /**
  * This class enable service to allow iframe to request size changes
  * @class FB.IframeResizer
+ * @private
  */
 FB.provide('IframeResizer', {
   start: function() {

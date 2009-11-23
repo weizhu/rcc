@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.UI.Dialog   dialog.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.57" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.57" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.57"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.57"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.UI.Dialog&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; dialog.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.UI.Dialog</span>
+<span class="c"> * @layer Basic</span>
+<span class="c"> * @requires FB.Type FB.Base FB.XdComm FB.Util FB.Dom FB.Event FB.IframeResizer</span>
+<span class="c"> */</span>
+
+<span class="c">/**</span>
+<span class="c"> * An iframe dialog</span>
+<span class="c"> * @class FB.UI.Dialog</span>
+<span class="c"> * @private</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">Class</span><span class="p">(</span><span class="s1">&#39;UI.Dialog&#39;</span><span class="o">,</span>
+  <span class="c">// Constructor</span>
+  <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">loadStyle</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s1">&#39;fb_dialog_&#39;</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">().</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">dlgs</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">// Instance methods</span>
+  <span class="p">{</span>
+  <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">title</span><span class="o">,</span> <span class="nx">src</span><span class="o">,</span> <span class="nx">w</span><span class="o">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;&lt;iframe name=&quot;{0}&quot; src=&quot;{1}&quot; frameborder=&quot;0&quot;&#39;</span>
+                  <span class="o">+</span> <span class="s1">&#39;style=&quot;width:{2}px; height:{3}px&quot;&gt;&lt;/iframe&gt;&#39;</span><span class="o">,</span>
+                  <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="nx">src</span><span class="o">,</span> <span class="nx">w</span><span class="o">,</span> <span class="nx">h</span><span class="p">);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">IframeResizer</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span>
+      <span class="s1">&#39;&lt;div id=&quot;{0}&quot; class=&quot;fb_css fb_pop_dialog {1}&quot;&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;    &lt;div class=&quot;fb_dialog_inner&quot;&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;      &lt;div class=&quot;fb_header&quot;&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;        &lt;div class=&quot;fb_dialog_icon&quot;&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;        &lt;/div&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;        &lt;span class=&quot;fb_dialog_header&quot; id=&quot;fb_dialog_header&quot;&gt;{2}&lt;/span&gt; &#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;      &lt;/div&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;    &lt;a id=&quot;fb_dialog_cancel_button&quot; class=&quot;fb_dialog_cancel_button&quot; title=&quot;close dialog&quot; href=&quot;#&quot; &#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;        onclick=&quot;FB.UI.Dialog.close({3})&quot;&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;          &amp;nbsp;&lt;/a&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;      &lt;div class=&quot;fb_content&quot; style=&quot;&quot;&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;      {4}&lt;/div&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;    &lt;/div&gt;&#39;</span>
+      <span class="o">+</span> <span class="s1">&#39;  &lt;/div&gt;&#39;</span><span class="o">,</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getBrowserType</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;ie&#39;</span> <span class="o">?</span> <span class="s1">&#39;pop_borderopacity&#39;</span> <span class="o">:</span>  <span class="s2">&quot;pop_container_advanced&quot;</span><span class="o">,</span>
+      <span class="nx">title</span><span class="o">,</span>
+      <span class="s2">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span><span class="o">,</span>
+      <span class="nx">content</span><span class="p">);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">getContainer</span><span class="p">().</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">html</span><span class="o">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">windowSize</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getWindowSize</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="o">;</span>
+    <span class="kd">var</span> <span class="nx">topHeight</span> <span class="o">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">target</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">:</span>
+                     <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollTop</span><span class="o">;</span>
+    <span class="kd">var</span> <span class="nx">location</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="nx">target</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">+</span> <span class="p">(</span><span class="nx">windowSize</span><span class="p">.</span><span class="nx">w</span> <span class="o">-</span><span class="mi">700</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">,</span>
+                    <span class="nx">y</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="nx">topHeight</span> <span class="o">+</span> <span class="nx">windowSize</span><span class="p">.</span><span class="nx">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">200</span><span class="p">};</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">x</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="o">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">y</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">createClosingUrl</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">getUdp</span><span class="p">(</span>
+      <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="o">,</span> <span class="nx">sender</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">token</span><span class="o">,</span> <span class="nx">data</span><span class="p">);</span>
+      <span class="p">}</span><span class="o">,</span>
+      <span class="p">{</span>
+        <span class="nx">token</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span>
+        <span class="nx">ctx</span><span class="o">:</span> <span class="nx">ctx</span><span class="o">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="s1">&#39;xxRESULTTOKENxx&#39;</span>
+      <span class="p">}</span><span class="o">,</span> <span class="s1">&#39;parent&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="p">});</span>
+
+<span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;UI.Dialog&#39;</span><span class="o">,</span> <span class="p">{</span>
+  <span class="c">/**</span>
+<span class="c">   * _popupContainer</span>
+<span class="c">   * @return  Object</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">getContainer</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">_popupContainer</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">_popupContainer</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;fb_popupContainer&#39;</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">_popupContainer</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+        <span class="nx">div</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;fb_resetstyles fb_popupContainer&#39;</span><span class="o">;</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">_popupContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="c">// Ensure that the container is the last of the body&#39;s children</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">_popupContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">_popupContainer</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">_popupContainer</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">close</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="o">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">dlgs</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">dlgs</span><span class="o">,</span>
+    <span class="nx">dlg</span> <span class="o">=</span> <span class="nx">dlgs</span><span class="p">[</span><span class="nx">id</span><span class="p">];</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">dlg</span><span class="o">,</span> <span class="s1">&#39;closed&#39;</span><span class="o">,</span> <span class="nx">result</span><span class="p">);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">removeDom</span><span class="p">(</span><span class="nx">dlg</span><span class="p">.</span><span class="nx">dom</span><span class="p">);</span>
+    <span class="nx">delete</span> <span class="nx">dlgs</span><span class="p">[</span><span class="nx">id</span><span class="p">];</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">loadStyle</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">addCssRules</span><span class="p">(</span>
+      <span class="s1">&#39;#fb_popupContainer {&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  position: absolute;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  top: 0px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  left: 0px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;div.fb_dialog_inner {&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  background: #6d84b4;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  border: 1px solid #3b5998;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  width: 100%;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;div.fb_pop_dialog {&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  padding:10px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  position:absolute; left:-10000px; top:-10000px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;div.fb_pop_dialog.pop_container_advanced {&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  background: rgba(82,82,82,0.7);&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  padding: 10px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  -moz-border-radius: 8px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  -webkit-border-radius: 8px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;div.fb_pop_dialog.pop_borderopacity {&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  background: #757575;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;div.fb_header&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;{&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    color: white;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    font-size: 14px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    font-weight: bold;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    font-family: &quot;lucida grande&quot;, tahoma, verdana, arial, sans-serif;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    margin: 0px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    position:relative;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    overflow: hidden;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    letter-spacing:normal;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    line-height:normal;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    padding: 0px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    text-align: left;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    zoom: 1;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    float:none;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    display: block;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    position:relative;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;div.fb_header span {&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  padding: 5px 10px 5px 10px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;div.fb_content {&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  height: 100%;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  width: 100%;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;.fb_dialog_header {&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;  padding: 5px 10px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;.fb_dialog_icon&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;{&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    margin: 5px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    float:left;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    width:16px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    height:16px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    background: #6D84B4 url(http://static.ak.fbcdn.net/images/icons-unsprited/favicon_fordarkbg.gif) no-repeat scroll center;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;a.fb_dialog_cancel_button&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;{&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    outline-color:invert;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    outline-style:none;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    outline-width:medium;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    text-decoration:none;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    position:absolute;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    right:14px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    top: 17px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    width:18px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    color:#6D84B4;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    background:transparent url(http://static.ak.fbcdn.net/images/fbconnect/connect_icon_remove.gif) no-repeat  scroll 3px 0px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;a.fb_dialog_cancel_button:hover&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;{&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;    background:transparent url(http://static.ak.fbcdn.net/images/fbconnect/connect_icon_remove.gif) no-repeat scroll -10px 0px;&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;}&#39;</span><span class="o">,</span> <span class="s1">&#39;fb_dialog_css&#39;</span>
+    <span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">dlgs</span> <span class="o">:</span> <span class="p">{}</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class="selected"><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class="private"><a href="FB.UI.Dialog.html" title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="dialog.js.html" title="dialog.js">dialog.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.UI.Dialog.html#method_getContainer", "access": "", "host": "FB.UI.Dialog", "type": "method", "name": "getContainer"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

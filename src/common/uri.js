@@ -1,6 +1,6 @@
 /**
  * @provides FB.Uri
- * @module Basic
+ * @layer Basic
  * @requires FB.Base
  *
  */

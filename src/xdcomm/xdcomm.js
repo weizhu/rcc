@@ -1,6 +1,6 @@
 /**
  * @provides FB.XdComm
- * @module Basic
+ * @layer Basic
  * @requires FB.Base  FB.Util
  *           FB.Uri  FB.JSON FB.Event FB.Flash
  *

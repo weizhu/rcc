@@ -1,6 +1,6 @@
 /**
  * @provides FB.XFBML
- * @module XFBML
+ * @layer XFBML
  * @requires FB.Base FB.Loader.use FB.Loader
  *
  *

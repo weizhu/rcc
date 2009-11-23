@@ -1,0 +1,766 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.Type  FB   (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.62" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.62" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.62"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.62"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.Type&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                 &gt; FB 
+                
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <h2>
+                        <code>private</code>
+
+                        
+                        
+                            Class <b property="yui:name">FB</b>
+                        <span class="extends">
+                        </span>
+
+                    </h2>
+                    <!-- class tree goes here -->
+
+
+
+
+                    <div class="summary description" property="yui:description">
+                        Provide a lowest level base functions for Connect JS. We should only place
+ commonly used generally purpose methods in this namespace
+ Every methods in this file are in FB namespace.
+                    </div>
+
+
+                    <div rel="yui:properties" resource="#properties">
+
+                    </div>
+
+                    <div rel="yui:methods" resource="#methods">
+                        <div class="section method details">
+                            <h3 id="methods">Methods</h3>
+                            <div class="content">
+                                    <div class="" rel="yui:method" resource="#method_$">
+                                    <h4>
+                                        <a name="method_$">$</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">$</strong>
+                                           (
+                                                
+                                                        
+                                                         DOM
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Shortcut for document.getElementById
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">DOM</span>
+                                                        &lt;<span property="yui:type">string</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> id</span>
+                                                        </dd>
+                                                </dl>
+
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="protected" rel="yui:method" resource="#method_bind">
+                                    <h4>
+                                        <a name="method_bind">bind</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         protected 
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">bind</strong>
+                                           (
+                                                
+                                                        
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         context
+                                                    
+                                                
+                                                        , 
+                                                         arguments
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Bind a function to a given context and arguments.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">fn</span>
+                                                        &lt;<span property="yui:type">Function</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  the function to bind</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">context</span>
+                                                        &lt;<span property="yui:type">Object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">     object to be used as the context when
+                             calling the function</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">arguments</span>
+                                                        &lt;<span property="yui:type">...</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">    additional arguments to be bound to the
+                             function</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_Class">
+                                    <h4>
+                                        <a name="method_Class">Class</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">Class</strong>
+                                           (
+                                                
+                                                        
+                                                         name
+                                                    
+                                                
+                                                        , 
+                                                         constructor
+                                                    
+                                                
+                                                        , 
+                                                         proto
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Create a new class.
+ Note: I have to use 'Class' instead of 'class' because 'class' is
+ a reserved (but unused) keyword.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">name</span>
+                                                        &lt;<span property="yui:type">string</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> class name</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">constructor</span>
+                                                        &lt;<span property="yui:type">function</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> class constructor</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">proto</span>
+                                                        &lt;<span property="yui:type">object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> instance methods for class</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="protected" rel="yui:method" resource="#method_copy">
+                                    <h4>
+                                        <a name="method_copy">copy</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         protected 
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">copy</strong>
+                                           (
+                                                
+                                                        
+                                                         target
+                                                    
+                                                
+                                                        , 
+                                                         source
+                                                    
+                                                
+                                                        , 
+                                                         overwrite
+                                                    
+                                                
+                                                        , 
+                                                         tranform
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Copies things from source into target.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">target</span>
+                                                        &lt;<span property="yui:type">Object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">      the target object where things will be copied
+                            into</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">source</span>
+                                                        &lt;<span property="yui:type">Object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">      the source object where things will be copied
+                            from</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">overwrite</span>
+                                                        &lt;<span property="yui:type">Boolean</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  indicate if existing items should be
+                            overwritten</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">tranform</span>
+                                                        &lt;<span property="yui:type">function</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">   [Optional], transformation function for each item</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="private" rel="yui:method" resource="#method_create">
+                                    <h4>
+                                        <a name="method_create">create</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         private 
+                                         static 
+                                        
+                                        
+                                            <strong property="yui:name">create</strong>
+                                           (
+                                                
+                                                        
+                                                         name
+                                                    
+                                                
+                                                        , 
+                                                         .
+                                                    
+                                                
+                                                        , 
+                                                         testOnly
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Create a namespaced object
+ This create an fullly namespaced name.
+ Examples:
+ FB.create('XFBML.ProfilePic') = function() {...}
+   create FB.XFBML.ProfilePic and assign the value of the function. If FB.XFBML does not exist, this call
+   would automatically create it.
+ FB.create('Util');
+   create a namespace FB.Util if it doesn't already exist;
+ FB.create('Util.foo', null, true)
+   Check if FB.Util.foo exists
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">name</span>
+                                                        &lt;<span property="yui:type">string</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> full qualified name ('Util.foo', etc.)</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">.</span>
+                                                        &lt;<span property="yui:type">string} value value to set. Default value is {</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> [Optional]</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">testOnly</span>
+                                                        &lt;<span property="yui:type">bool</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> This is an optional parameter. If set to true, then the function
+                  will only check if the name exists. [Optional]</span>
+                                                        </dd>
+                                                </dl>
+
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_forEach">
+                                    <h4>
+                                        <a name="method_forEach">forEach</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">forEach</strong>
+                                           (
+                                                
+                                                        
+                                                         item
+                                                    
+                                                
+                                                        , 
+                                                         fn
+                                                    
+                                                
+                                                        , 
+                                                         proto
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            For looping through Arrays and Objects.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">item</span>
+                                                        &lt;<span property="yui:type">object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">   Variant   an Array or an Object</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">fn</span>
+                                                        &lt;<span property="yui:type">object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">     Function  the callback function for iteration</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">proto</span>
+                                                        &lt;<span property="yui:type">object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">  Boolean   indicate if properties from the prototype should
+                         be included</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="protected" rel="yui:method" resource="#method_provide">
+                                    <h4>
+                                        <a name="method_provide">provide</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         protected 
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">provide</strong>
+                                           (
+                                                
+                                                        
+                                                         name
+                                                    
+                                                
+                                                        , 
+                                                         feature
+                                                    
+                                                
+                                                        , 
+                                                         append
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Provide a module or static class methods with fully qualified namespace. The name
+ is a dot separated string. The feature is an object from which
+ properties are _copied_ into the target.
+ Example:
+ FB.provide('Server.Auth', {
+   init: function() {
+     // ...
+   }
+ });
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">name</span>
+                                                        &lt;<span property="yui:type">String</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">      a dot separated string naming the feature</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">feature</span>
+                                                        &lt;<span property="yui:type">Object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">   the feature being provided</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">append</span>
+                                                        &lt;<span property="yui:type">Boolean</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">   indicate if an existing object should be
+                          appended defaults to false. this need to be
+                          explicit to detect inadvertent redefinition of
+                          features.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_subclass">
+                                    <h4>
+                                        <a name="method_subclass">subclass</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">subclass</strong>
+                                           (
+                                                
+                                                        
+                                                         name
+                                                    
+                                                
+                                                        , 
+                                                         baseName,
+                                                    
+                                                
+                                                        , 
+                                                         constructor
+                                                    
+                                                
+                                                        , 
+                                                         proto
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Create a subclass
+ Note: To call base class constructor, use this._base(...).
+ If you override a method 'foo' but still want to call
+ the base class's method 'foo', use this._callBase('foo', ...)
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">name</span>
+                                                        &lt;<span property="yui:type">string</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> class name</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">baseName,</span>
+                                                        &lt;<span property="yui:type">string</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"></span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">constructor</span>
+                                                        &lt;<span property="yui:type">function</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> class constructor</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">proto</span>
+                                                        &lt;<span property="yui:type">object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> instance methods for class</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div rel="yui:events" resource="#events">
+
+
+                    </div>
+
+                    <div rel="yui:attributes" resource="#configattributes">
+
+                    </div>
+
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class="selected"><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="FB.html" title="FB">FB</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class=""><a href="type.js.html" title="type.js">type.js</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div id="methodsList" class="module">
+                        <h4>Methods</h4>
+                        <ul class="content">
+                                <li class=""><a href="#method_$" title="$">$</a></li>
+                                <li class="protected"><a href="#method_bind" title="bind">bind</a></li>
+                                <li class=""><a href="#method_Class" title="Class">Class</a></li>
+                                <li class="protected"><a href="#method_copy" title="copy">copy</a></li>
+                                <li class="private"><a href="#method_create" title="create">create</a></li>
+                                <li class=""><a href="#method_forEach" title="forEach">forEach</a></li>
+                                <li class="protected"><a href="#method_provide" title="provide">provide</a></li>
+                                <li class=""><a href="#method_subclass" title="subclass">subclass</a></li>
+                        </ul>
+                    </div>
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.html#method_$", "access": "", "host": "FB", "type": "method", "name": "$"}, {"url": "FB.html#method_bind", "access": "protected", "host": "FB", "type": "method", "name": "bind"}, {"url": "FB.html#method_Class", "access": "", "host": "FB", "type": "method", "name": "Class"}, {"url": "FB.html#method_copy", "access": "protected", "host": "FB", "type": "method", "name": "copy"}, {"url": "FB.html#method_create", "access": "private", "host": "FB", "type": "method", "name": "create"}, {"url": "FB.html#method_forEach", "access": "", "host": "FB", "type": "method", "name": "forEach"}, {"url": "FB.html#method_provide", "access": "protected", "host": "FB", "type": "method", "name": "provide"}, {"url": "FB.html#method_subclass", "access": "", "host": "FB", "type": "method", "name": "subclass"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

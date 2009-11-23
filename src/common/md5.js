@@ -1,6 +1,6 @@
 /**
 * @provides FB.Md5
- * @module Basic
+ * @layer Basic
 * @requires FB.Base FB.Util
 */
 

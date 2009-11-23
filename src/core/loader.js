@@ -1,6 +1,6 @@
 /**
  * @provides FB.Loader
- * @module Basic
+ * @layer Basic
  * @requires FB.Base
  *
  *
@@ -9,7 +9,7 @@
 /**
 * This base loader that does housekeeping of loaded components and support
 * automatic loading of required css for a a component.
-* @class
+* @class FB.Loader
 * @private
 */
 FB.provide('Loader', {

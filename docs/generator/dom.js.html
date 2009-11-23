@@ -1,0 +1,387 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.Dom   dom.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.36" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.36" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.36"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.36"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.Dom&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; dom.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.Dom</span>
+<span class="c"> * @layer Basic</span>
+<span class="c"> * @requires FB.Base</span>
+<span class="c"> */</span>
+
+<span class="c">/**</span>
+<span class="c"> * This provides helper methods related to DOM</span>
+<span class="c"> * @class FB.Dom</span>
+<span class="c"> * @private</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;Dom&#39;</span><span class="o">,</span> <span class="p">{</span>
+  <span class="c">/**</span>
+<span class="c">   * @param  {Object} dom</span>
+<span class="c">   * @param  {String} newClass</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">addCss</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="o">,</span> <span class="nx">newClass</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cssClassWithSpace</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">className</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">;</span>
+    <span class="kd">var</span> <span class="nx">newClassWithSpace</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">newClass</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">cssClassWithSpace</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">newClassWithSpace</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">dom</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">className</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">newClass</span><span class="o">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+  <span class="c">/**</span>
+<span class="c">   * @param  {Object} dom</span>
+<span class="c">   * @param  {String} className</span>
+<span class="c">   * @return  Boolean</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">containsCss</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="o">,</span> <span class="nx">className</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cssClassWithSpace</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">className</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">;</span>
+    <span class="k">return</span> <span class="nx">cssClassWithSpace</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">className</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+  <span class="c">/**</span>
+<span class="c">   * @param  {Object} dom</span>
+<span class="c">   * @param  {String} className</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">removeCss</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="o">,</span> <span class="nx">className</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cssClassWithSpace</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">className</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">;</span>
+    <span class="kd">var</span> <span class="nx">classNameWithSpace</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">className</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">;</span>
+    <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">cssClassWithSpace</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">classNameWithSpace</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">newClassName</span> <span class="o">=</span> <span class="nx">cssClassWithSpace</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="o">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">+</span> <span class="nx">cssClassWithSpace</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">index</span> <span class="o">+</span> <span class="nx">classNameWithSpace</span><span class="p">.</span><span class="nx">length</span><span class="o">,</span> <span class="nx">cssClassWithSpace</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="nx">dom</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">newClassName</span><span class="o">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Create an unique DOM id</span>
+<span class="c">   * @return {string} an unique DOM id</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">createId</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">_domId</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">_domId</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s1">&#39;_fb_dom_&#39;</span> <span class="o">+</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom_domId</span><span class="o">++;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Cross browser way to add event listener to a DOM element, window or document object.</span>
+<span class="c">   * @param  {Object} element</span>
+<span class="c">   * @param  {String} type</span>
+<span class="c">   * @param  {Function} handler</span>
+<span class="c">   *</span>
+<span class="c">   * handler should be a function with no parameters.</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">addEventListener</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="o">,</span> <span class="nx">type</span><span class="o">,</span> <span class="nx">handler</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">type</span><span class="o">,</span> <span class="nx">handler</span><span class="o">,</span> <span class="kc">false</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">handler</span><span class="p">.</span><span class="nx">_ieEventHandler</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">handler</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">);</span>
+      <span class="p">};</span>
+      <span class="nx">element</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">type</span><span class="o">,</span> <span class="nx">handler</span><span class="p">.</span><span class="nx">_ieEventHandler</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/*</span>
+<span class="c">   * Get a hidden DOM container element. This is used to store hidden</span>
+<span class="c">   * iframes. If developers do not want the document.write to be called,</span>
+<span class="c">   * they can create their own hidden div named &quot;FB_HiddenContainer&quot;.</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">getHidden</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;FB_HiddenContainer&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="s2">&quot;complete&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">hiddenDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+        <span class="nx">hiddenDiv</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;FB_HiddenContainer&quot;</span><span class="o">;</span>
+        <span class="nx">hiddenDiv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="s2">&quot;absolute&quot;</span><span class="o">;</span>
+        <span class="nx">hiddenDiv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="s2">&quot;-10000px&quot;</span><span class="o">;</span>
+        <span class="nx">hiddenDiv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="s2">&quot;0px&quot;</span><span class="o">;</span>
+        <span class="nx">hiddenDiv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;0px&quot;</span><span class="o">;</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">hiddenDiv</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&quot;FB_HiddenContainer&quot; &#39;</span>
+                     <span class="o">+</span> <span class="s1">&#39;style=&quot;position:absolute; top:-10000px; left:-10000px; width:0px; height:0px;&quot; &gt;&#39;</span>
+                     <span class="o">+</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;FB_HiddenContainer&#39;</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Create a hidden iframe</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">createHiddenIFrame</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">receiverDom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;iframe&#39;</span><span class="p">);</span>
+    <span class="nx">receiverDom</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;FB_RECEIVER_DOM&#39;</span><span class="o">;</span>
+
+    <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getHidden</span><span class="p">().</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">));</span>
+    <span class="c">//  There is IE bug with iframe cache that we have to work around:</span>
+    <span class="c">//  Dynamically load the iframe to dummy content before loading the real content, as shown below.</span>
+    <span class="c">//  This works because the cached stream that exists after a refresh is consumed by the initial</span>
+    <span class="c">//  dummy load, and the second load fetches the content as expected.</span>
+    <span class="c">//  Must be javascript:false instead of about:blank, otherwise IE6 will complain in https</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getBrowserType</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;ie&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">div</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;iframe src=\&#39;javascript:false\&#39; &gt;&lt;/iframe&gt;&#39;</span><span class="o">;</span>
+      <span class="nx">div</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;iframe name = &quot;&#39;</span> <span class="o">+</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">createUnique</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;&quot; src=\&quot;&#39;</span> <span class="o">+</span> <span class="nx">src</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&lt;/iframe&gt;&#39;</span><span class="o">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">div</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;iframe name = &quot;&#39;</span> <span class="o">+</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">createUnique</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&lt;/iframe&gt;&#39;</span><span class="o">;</span>
+      <span class="nx">div</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">div</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+ <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Dynamically add a script tag</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+   <span class="nx">addScript</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span> <span class="p">{</span>
+     <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+     <span class="nx">script</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;text/javascript&quot;</span><span class="o">;</span>
+     <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="o">;</span>
+     <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;HEAD&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+   <span class="p">}</span><span class="o">,</span>
+
+   <span class="nx">addCssRules</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="o">,</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">_cssRules</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">_cssRules</span> <span class="o">=</span> <span class="p">{};</span>
+     <span class="p">}</span>
+
+     <span class="c">// Check if this style sheet is already applied</span>
+     <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="k">in</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">_cssRules</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span><span class="o">;</span>
+     <span class="p">}</span>
+
+     <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">_cssRules</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+     <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getBrowserType</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;ie&#39;</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">style</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">);</span>
+       <span class="nx">style</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;text/css&quot;</span><span class="o">;</span>
+       <span class="nx">style</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">s</span><span class="o">;</span>
+       <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;HEAD&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">style</span><span class="p">);</span>
+     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+       <span class="kd">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="sr">/([\w|#|\.|\\][^{]*){(.*?)}/mg</span><span class="o">,</span>
+         <span class="nx">a</span><span class="o">,</span>
+         <span class="nx">style</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createStyleSheet</span><span class="p">();</span>
+       <span class="k">while</span> <span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="nx">re</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span> <span class="p">{</span>
+         <span class="kd">var</span> <span class="nx">rules</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">a2a</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">trim</span><span class="p">);</span>
+         <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">rules</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+           <span class="nx">style</span><span class="p">.</span><span class="nx">addRule</span><span class="p">(</span><span class="nx">rules</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">,</span> <span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+     <span class="p">}</span>
+   <span class="p">}</span><span class="o">,</span>
+
+   <span class="c">/**</span>
+<span class="c">    * Get location of the browser window relative to computer screen</span>
+<span class="c">    * windowLocation</span>
+<span class="c">    * @return  FB.Point</span>
+<span class="c">    * @static</span>
+<span class="c">    */</span>
+   <span class="nx">getWindowLocation</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+     <span class="kd">var</span> <span class="nx">lc</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="o">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">};</span>
+     <span class="kd">var</span> <span class="nx">l</span><span class="o">,</span> <span class="nx">t</span><span class="o">;</span>
+     <span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">screenLeft</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">l</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screenLeft</span><span class="o">;</span>
+       <span class="nx">t</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screenTop</span><span class="o">;</span>
+     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+       <span class="nx">l</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screenX</span><span class="o">;</span>
+       <span class="nx">t</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screenY</span><span class="o">;</span>
+     <span class="p">}</span>
+     <span class="nx">lc</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">l</span><span class="o">;</span>
+     <span class="nx">lc</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">t</span><span class="o">;;</span>
+     <span class="c">//  We need to check for undefined because undefined does not</span>
+     <span class="c">//  behave the same as 0 in math operations.</span>
+     <span class="k">if</span> <span class="p">(</span><span class="nx">lc</span><span class="p">.</span><span class="nx">x</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">lc</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+     <span class="p">}</span>
+     <span class="k">if</span> <span class="p">(</span><span class="nx">lc</span><span class="p">.</span><span class="nx">y</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">lc</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="nx">lc</span><span class="o">;</span>
+   <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Get browser window size</span>
+<span class="c">   * windowSize</span>
+<span class="c">   * @return  FB.Size</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">getWindowSize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">w</span><span class="o">:</span> <span class="p">(</span><span class="nb">window</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span><span class="p">)</span>                                           <span class="o">||</span>
+      <span class="p">(</span><span class="nb">document</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span>
+                <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span><span class="p">)</span>                      <span class="o">||</span>
+      <span class="p">(</span><span class="nb">document</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">clientWidth</span><span class="p">)</span>                <span class="o">||</span>
+      <span class="mi">0</span><span class="o">,</span>
+      <span class="nx">h</span><span class="o">:</span> <span class="p">(</span><span class="nb">window</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span><span class="p">)</span>                                          <span class="o">||</span>
+      <span class="p">(</span><span class="nb">document</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span>
+                <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">)</span>                     <span class="o">||</span>
+      <span class="p">(</span><span class="nb">document</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">)</span>               <span class="o">||</span>
+      <span class="mi">0</span><span class="p">};</span>
+  <span class="p">}</span><span class="o">,</span>
+
+
+  <span class="c">/**</span>
+<span class="c">   * Remove a dom element from dom tree</span>
+<span class="c">   * @param  {Object} element</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">removeDom</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">parentNode</span><span class="o">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">parent</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">parent</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Get browser type</span>
+<span class="c">   * @return string &#39;ie&#39; | &#39;mozilla&#39; |&#39;safari&#39; | &#39;other&#39;</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">getBrowserType</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">_browserType</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">userAgent</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+          <span class="c">// list of known browser and</span>
+          <span class="nx">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;msie&#39;</span><span class="o">,</span> <span class="s1">&#39;firefox&#39;</span><span class="o">,</span> <span class="s1">&#39;gecko&#39;</span><span class="o">,</span>   <span class="s1">&#39;safari&#39;</span><span class="p">];</span>
+          <span class="nx">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ie&#39;</span><span class="o">,</span>  <span class="s1">&#39;mozilla&#39;</span><span class="o">,</span> <span class="s1">&#39;mozilla&#39;</span><span class="o">,</span> <span class="s1">&#39;safari&#39;</span><span class="p">];</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">hostName</span> <span class="o">=</span> <span class="s1">&#39;other&#39;</span><span class="o">;</span>
+      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">keys</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">_browserType</span> <span class="o">=</span> <span class="nx">names</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+          <span class="k">break</span><span class="o">;;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">_browserType</span><span class="o">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class="selected"><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class="private"><a href="FB.Dom.html" title="FB.Dom">FB.Dom</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="dom.js.html" title="dom.js">dom.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.Dom.html#method_addCss", "access": "", "host": "FB.Dom", "type": "method", "name": "addCss"}, {"url": "FB.Dom.html#method_addEventListener", "access": "", "host": "FB.Dom", "type": "method", "name": "addEventListener"}, {"url": "FB.Dom.html#method_addScript", "access": "", "host": "FB.Dom", "type": "method", "name": "addScript"}, {"url": "FB.Dom.html#method_containsCss", "access": "", "host": "FB.Dom", "type": "method", "name": "containsCss"}, {"url": "FB.Dom.html#method_createHiddenIFrame", "access": "", "host": "FB.Dom", "type": "method", "name": "createHiddenIFrame"}, {"url": "FB.Dom.html#method_createId", "access": "", "host": "FB.Dom", "type": "method", "name": "createId"}, {"url": "FB.Dom.html#method_getBrowserType", "access": "", "host": "FB.Dom", "type": "method", "name": "getBrowserType"}, {"url": "FB.Dom.html#method_getWindowLocation", "access": "", "host": "FB.Dom", "type": "method", "name": "getWindowLocation"}, {"url": "FB.Dom.html#method_getWindowSize", "access": "", "host": "FB.Dom", "type": "method", "name": "getWindowSize"}, {"url": "FB.Dom.html#method_removeCss", "access": "", "host": "FB.Dom", "type": "method", "name": "removeCss"}, {"url": "FB.Dom.html#method_removeDom", "access": "", "host": "FB.Dom", "type": "method", "name": "removeDom"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

@@ -1,12 +1,13 @@
 /**
  * @provides FB.Type
- * @module Basic
+ * @layer Basic
  * @requires FB.Base
  */
 
 /**
  * Provide Class/Type support
- *
+ * @class FB
+ * @private
  */
 FB.provide('', {
 

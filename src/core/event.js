@@ -1,6 +1,6 @@
 /**
  * @provides FB.Event
- * @module Basic
+ * @layer Basic
  * @requires FB.Type FB.Base
  */
 /**

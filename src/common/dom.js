@@ -1,6 +1,6 @@
 /**
  * @provides FB.Dom
- * @module Basic
+ * @layer Basic
  * @requires FB.Base
  */
 

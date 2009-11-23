@@ -1,11 +1,12 @@
 /**
  * @provides FB.UI.PopupWin
- * @module Basic
+ * @layer Basic
  * @requires FB.Type FB.Util FB.Event FB.XdComm FB.Dom
  */
 
 /**
  * @class FB.UI.PopupWin
+ * @private
  */
 FB.Class('UI.PopupWin',
   /*

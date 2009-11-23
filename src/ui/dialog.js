@@ -1,12 +1,13 @@
 /**
  * @provides FB.UI.Dialog
- * @module Basic
+ * @layer Basic
  * @requires FB.Type FB.Base FB.XdComm FB.Util FB.Dom FB.Event FB.IframeResizer
  */
 
 /**
  * An iframe dialog
  * @class FB.UI.Dialog
+ * @private
  */
 FB.Class('UI.Dialog',
   // Constructor

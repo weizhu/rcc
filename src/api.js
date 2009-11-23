@@ -1,6 +1,6 @@
 /**
  * @provides FB.Api
- * @module Basic
+ * @layer Basic
  * @requires FB.App FB.Base FB.Md5 FB.Util FB.Uri FB.Dom
  *
  */

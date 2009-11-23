@@ -1,6 +1,6 @@
 /**
  * @provides FB.XFBML.ProfilePic
- * @module XFBML
+ * @layer XFBML
  * @requires FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper
  */
 

@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.Event   event.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.5" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.5" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.5"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.5"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.Event&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; event.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.Event</span>
+<span class="c"> * @layer Basic</span>
+<span class="c"> * @requires FB.Type FB.Base</span>
+<span class="c"> */</span>
+<span class="c">/**</span>
+<span class="c"> * Basic Event system</span>
+<span class="c"> *</span>
+<span class="c"> * @class FB.Event</span>
+<span class="c"> * @private</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;Event&#39;</span><span class="o">,</span> <span class="p">{</span>
+  <span class="c">/**</span>
+<span class="c">   * Subscribe to an event on the given object</span>
+<span class="c">   * Example:</span>
+<span class="c">   * FB.Event.add(FB.App, &#39;session&#39;, function(session) {</span>
+<span class="c">   *   if (session) {</span>
+<span class="c">   *     // Yeah!. User is connected</span>
+<span class="c">   *     ...</span>
+<span class="c">   *     return true; // I don&#39;t need to listen anymore</span>
+<span class="c">   *   }</span>
+<span class="c">   *</span>
+<span class="c">   *   // Hmm. no session. Keep listening</span>
+<span class="c">   * }</span>
+<span class="c">   *</span>
+<span class="c">   * @param {object} obj object that exposes the named event</span>
+<span class="c">   * @param {string} name Name of event</span>
+<span class="c">   * @param {function} callback A callback function.</span>
+<span class="c">   * arguments may be passed to the callback. If the callback function</span>
+<span class="c">   * returns true, the event will be subscribed.</span>
+<span class="c">   *</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="o">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">_get</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Unsubscribe to an event on the given object. Note you can also unsubscribe an event</span>
+<span class="c">   * by simply return true in the callback function provided to FB.Event.subscribe.</span>
+<span class="c">   * Example:</span>
+<span class="c">   * FB.Event.add(FB.App, &#39;connectState&#39;, mycallback);</span>
+<span class="c">   * ...</span>
+<span class="c">   * // Dont&#39; need to subscribe to the event anymore</span>
+<span class="c">   * FB.Event.remove(FB.App, &#39;connectState&#39;, mycallback);</span>
+<span class="c">   * @param {object} obj object that exposes the named event</span>
+<span class="c">   * @param {string} name Name of event</span>
+<span class="c">   * @param {function} callback previous callback function passed to</span>
+<span class="c">   *        FB.Event.add</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="o">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">_get</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="p">).</span><span class="nx">remove</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Fire an event on the given object</span>
+<span class="c">   * @param {object} obj object that exposes the named event</span>
+<span class="c">   * @param {string} name Name of event</span>
+<span class="c">   * @param {object} args0, .., argN arguments to be passed to callback</span>
+<span class="c">   * functions</span>
+<span class="c">   *   that subscribed to the event</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">fire</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">_get</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="p">);</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">invoke</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">e</span><span class="o">,</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="o">,</span> <span class="mi">2</span><span class="p">));</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">////////////////////// Helper Methods ///////////////////////////////////////</span>
+  <span class="c">/**</span>
+<span class="c">   * Watch for changes</span>
+<span class="c">   * @param {object} obj object that exposes the named event</span>
+<span class="c">   * @param {string} name Name of event.</span>
+<span class="c">   * @param {function} callback A callback function. arguments may be passed to the callback.</span>
+<span class="c">   *     If the callback function returns true, the event will be unsubscribed.</span>
+<span class="c">   * @param {bool} no_sync_callback By default, the callback will be invoked immediately before</span>
+<span class="c">   *    the event is fired, unless this parameter specified a true value</span>
+<span class="c">   * @param {bool} auto_unsubscribe By default, the callback will be invoked whenever the event fires.</span>
+<span class="c">   *      However, if this parameter value is true, the callback will be unsubscribed from the event after</span>
+<span class="c">   *      it is fired once.</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">monitor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="o">,</span> <span class="nx">callback</span><span class="o">,</span> <span class="c">/*optional*/</span> <span class="nx">no_sync_callback</span><span class="o">,</span> <span class="c">/*optional*/</span> <span class="nx">auto_unsubscribe</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">no_sync_callback</span> <span class="o">||</span> <span class="o">!</span><span class="nx">callback</span><span class="p">())</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">auto_unsubscribe</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="o">,</span> <span class="nx">callback</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="o">,</span> <span class="nx">callback</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">once</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="o">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+      <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="p">});</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/*</span>
+<span class="c">   * Set property on an object and fire property</span>
+<span class="c">   * changed event if changed</span>
+<span class="c">   * @private</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">setProperty</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">propertyName</span><span class="o">,</span> <span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// Check if property actually changed</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">serialize</span><span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">serialize</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">propertyName</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="nx">obj</span><span class="p">[</span><span class="nx">propertyName</span><span class="p">]</span> <span class="o">=</span> <span class="nx">newValue</span><span class="o">;</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">propertyName</span><span class="o">,</span> <span class="nx">newValue</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_get</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="o">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// It is a bit tricky to find a way to quickly</span>
+    <span class="c">// and safely attach events with a JavaScript object.</span>
+    <span class="c">// I decided to use a functin to store it so that</span>
+    <span class="c">// it won&#39;t alter JSON encoding behavior.</span>
+    <span class="c">//</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">obj</span><span class="p">.</span><span class="nx">$evts</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">obj</span><span class="p">.</span><span class="nx">$evts</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){};</span>
+      <span class="nx">obj</span><span class="p">.</span><span class="nx">$evts</span><span class="p">.</span><span class="nx">map</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">$evts</span><span class="p">.</span><span class="nx">map</span><span class="o">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">map</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span>  <span class="k">new</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Delegate</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">map</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+  <span class="p">}</span>
+
+<span class="p">});</span>
+
+
+
+<span class="c">/**</span>
+<span class="c"> * @class FB.Delegate</span>
+<span class="c"> * @private</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">Class</span><span class="p">(</span><span class="s1">&#39;Delegate&#39;</span><span class="o">,</span>
+  <span class="c">/*</span>
+<span class="c">   *  constructor</span>
+<span class="c">   */</span>
+  <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">subs</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/*</span>
+<span class="c">   * Instance methods</span>
+<span class="c">   */</span>
+  <span class="p">{</span>
+  <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">subs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">subs</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subs</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">delete</span> <span class="k">this</span><span class="p">.</span><span class="nx">subs</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="k">return</span><span class="o">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">invoke</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nx">arguments</span><span class="o">;</span>
+    <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subs</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c">// Invoke handler. If handler returns true</span>
+      <span class="c">// remove it</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">callback</span> <span class="o">||</span> <span class="nx">callback</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">callback</span><span class="o">,</span> <span class="nx">args</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class="selected"><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class="private"><a href="FB.Delegate.html" title="FB.Delegate">FB.Delegate</a></li>
+                                <li class="private"><a href="FB.Event.html" title="FB.Event">FB.Event</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="event.js.html" title="event.js">event.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.Event.html#method_add", "access": "", "host": "FB.Event", "type": "method", "name": "add"}, {"url": "FB.Event.html#method_fire", "access": "", "host": "FB.Event", "type": "method", "name": "fire"}, {"url": "FB.Event.html#method_monitor", "access": "", "host": "FB.Event", "type": "method", "name": "monitor"}, {"url": "FB.Event.html#method_remove", "access": "", "host": "FB.Event", "type": "method", "name": "remove"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

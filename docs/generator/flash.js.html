@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.Flash   flash.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.49" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.49" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.49"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.49"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.Flash&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; flash.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.Flash</span>
+<span class="c"> * @layer Basic</span>
+<span class="c"> * @requires FB.Base FB.Event FB.Dom</span>
+<span class="c"> */</span>
+
+<span class="c">// XdComm part of flash</span>
+<span class="c">//</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;Flash&#39;</span><span class="o">,</span> <span class="p">{</span>
+  <span class="nx">state</span><span class="o">:</span> <span class="kc">undefined</span><span class="o">,</span>
+
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Flash</span><span class="p">.</span><span class="nx">getState</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;disabled&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c">// This function will be called when XdComm flash</span>
+      <span class="c">// is ready</span>
+
+      <span class="nb">window</span><span class="p">.</span><span class="nx">FB_OnFlashXdCommReady</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Flash</span><span class="o">,</span> <span class="s1">&#39;isReady&#39;</span><span class="o">,</span> <span class="kc">true</span><span class="p">);</span>
+        <span class="p">}</span><span class="o">,</span> <span class="mi">0</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="kd">var</span> <span class="nx">swf</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">dynData</span><span class="p">.</span><span class="nx">resources</span><span class="p">.</span><span class="nx">xd_comm_swf_url</span><span class="o">;</span>
+
+      <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;object type=&quot;application/x-shockwave-flash&quot; id=&quot;XdComm&quot; &#39;</span> <span class="o">+</span>
+           <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getBrowserType</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;ie&#39;</span> <span class="o">?</span>
+                 <span class="s1">&#39;name=&quot;XdComm&quot; classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot; &#39;</span> <span class="o">:</span>
+                 <span class="s1">&#39;data=&quot;&#39;</span> <span class="o">+</span> <span class="nx">swf</span> <span class="o">+</span> <span class="s1">&#39;&quot; &#39;</span><span class="p">)</span> <span class="o">+</span>
+        <span class="s1">&#39;allowscriptaccess=&quot;always&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;&#39;</span> <span class="o">+</span> <span class="nx">swf</span> <span class="o">+</span>
+        <span class="s1">&#39;&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;/object&gt;&#39;</span><span class="o">,</span>
+
+      <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getHidden</span><span class="p">().</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+      <span class="nx">div</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">html</span><span class="o">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">getState</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Flash</span><span class="p">.</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">verArray</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;0&#39;</span><span class="o">,</span> <span class="s1">&#39;0&#39;</span> <span class="p">];</span>
+      <span class="kd">var</span> <span class="nx">isIE</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">getBrowserType</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;ie&#39;</span><span class="o">;</span>
+      <span class="kd">var</span> <span class="nx">plugins</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">plugins</span><span class="o">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">plugins</span> <span class="o">&amp;&amp;</span> <span class="nx">plugins</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">plugins</span><span class="p">[</span><span class="s1">&#39;Shockwave Flash 2.0&#39;</span><span class="p">]</span> <span class="o">||</span> <span class="nx">plugins</span><span class="p">[</span><span class="s1">&#39;Shockwave Flash&#39;</span><span class="p">])</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">description</span><span class="o">;</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">plugins</span><span class="p">[</span><span class="s1">&#39;Shockwave Flash 2.0&#39;</span><span class="p">])</span> <span class="p">{</span>
+            <span class="nx">description</span> <span class="o">=</span> <span class="p">(</span><span class="nx">plugins</span><span class="p">[</span><span class="s1">&#39;Shockwave Flash 2.0&#39;</span><span class="p">].</span><span class="nx">description</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">description</span> <span class="o">=</span> <span class="p">(</span><span class="nx">plugins</span><span class="p">[</span><span class="s1">&#39;Shockwave Flash&#39;</span><span class="p">].</span><span class="nx">description</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="nx">verArray</span> <span class="o">=</span> <span class="nx">description</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">isIE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">versionStr</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="kd">var</span> <span class="nx">activexObj</span><span class="o">;</span>
+        <span class="k">try</span> <span class="p">{</span>
+          <span class="nx">activexObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ActiveXObject</span><span class="p">(</span><span class="s1">&#39;ShockwaveFlash.ShockwaveFlash.7&#39;</span><span class="p">);</span>
+          <span class="nx">versionStr</span> <span class="o">=</span> <span class="nx">activexObj</span><span class="p">.</span><span class="nx">GetVariable</span><span class="p">(</span><span class="s1">&#39;$version&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="nx">e1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">versionStr</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">try</span> <span class="p">{</span>
+            <span class="nx">activexObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ActiveXObject</span><span class="p">(</span><span class="s1">&#39;ShockwaveFlash.ShockwaveFlash.6&#39;</span><span class="p">);</span>
+            <span class="nx">versionStr</span> <span class="o">=</span> <span class="s1">&#39;WIN 6,0,21,0&#39;</span><span class="o">;</span>
+          <span class="p">}</span>
+          <span class="k">catch</span> <span class="p">(</span><span class="nx">e2</span><span class="p">)</span> <span class="p">{</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">versionStr</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">verArray</span> <span class="o">=</span> <span class="nx">versionStr</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c">// We currently require minimum version of 9.0</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Flash</span><span class="o">,</span> <span class="s1">&#39;state&#39;</span><span class="o">,</span>
+                           <span class="nb">parseInt</span><span class="p">(</span><span class="nx">verArray</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">9</span> <span class="o">?</span> <span class="s1">&#39;hasVersion&#39;</span> <span class="o">:</span> <span class="s1">&#39;disabled&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Flash</span><span class="p">.</span><span class="nx">state</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Custom decoding to workaround bug in flash&#39;s ExternInterface</span>
+<span class="c">   * Code is from Dojo&#39;s library</span>
+<span class="c">   * @param  {String} data</span>
+<span class="c">   * @return  String</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">decode</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c">// wierdly enough, Flash sometimes returns the result as an</span>
+    <span class="c">// &#39;object&#39; that is actually an array, rather than as a String;</span>
+    <span class="c">// detect this by looking for a length property; for IE</span>
+    <span class="c">// we also make sure that we aren&#39;t dealing with a typeof string</span>
+    <span class="c">// since string objects have length property there</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">data</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">data</span> <span class="o">!=</span> <span class="s2">&quot;string&quot;</span><span class="p">){</span>
+      <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">data</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">data</span> <span class="o">!=</span> <span class="s2">&quot;string&quot;</span><span class="p">){</span>
+      <span class="k">return</span> <span class="nx">data</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="c">// certain XMLish characters break Flash&#39;s wire serialization for</span>
+    <span class="c">// ExternalInterface; these are encoded on the</span>
+    <span class="c">// DojoExternalInterface side into a custom encoding, rather than</span>
+    <span class="c">// the standard entity encoding, because otherwise we won&#39;t be able to</span>
+    <span class="c">// differentiate between our own encoding and any entity characters</span>
+    <span class="c">// that are being used in the string itself</span>
+    <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\&amp;custom_lt\;/g</span><span class="o">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">);</span>
+    <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\&amp;custom_gt\;/g</span><span class="o">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">);</span>
+    <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\&amp;custom_backslash\;/g</span><span class="o">,</span> <span class="s1">&#39;\\&#39;</span><span class="p">);</span>
+
+    <span class="c">// needed for IE; \0 is the NULL character</span>
+    <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\\0/g</span><span class="o">,</span> <span class="s2">&quot;\0&quot;</span><span class="p">);;</span>
+    <span class="k">return</span> <span class="nx">data</span><span class="o">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class="selected"><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="flash.js.html" title="flash.js">flash.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

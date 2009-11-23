@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.XFBML.ProfilePic   profilepic.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.25" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.25" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.25"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.25"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.XFBML.ProfilePic&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; profilepic.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.XFBML.ProfilePic</span>
+<span class="c"> * @layer XFBML</span>
+<span class="c"> * @requires FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper</span>
+<span class="c"> */</span>
+
+<span class="c">/**</span>
+<span class="c"> * @class FB.XFBML.ProfilePic</span>
+<span class="c"> * @extends  FB.XFBML.Element</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="s1">&#39;XFBML.ProfilePic&#39;</span><span class="o">,</span> <span class="s1">&#39;XFBML.Element&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span>
+  <span class="c">/*</span>
+<span class="c">   * Instance methods</span>
+<span class="c">   */</span>
+  <span class="p">{</span>
+  <span class="nx">process</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">size</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="o">,</span> <span class="s1">&#39;thumb&#39;</span><span class="p">)</span><span class="o">,</span>
+    <span class="nx">sizeToPicFieldMap</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">thumb</span><span class="o">:</span> <span class="s1">&#39;pic_small&#39;</span><span class="o">,</span> <span class="nx">small</span><span class="o">:</span> <span class="s1">&#39;pic&#39;</span><span class="o">,</span> <span class="nx">normal</span><span class="o">:</span> <span class="s1">&#39;pic_big&#39;</span><span class="o">,</span>
+                              <span class="nx">square</span><span class="o">:</span> <span class="s1">&#39;pic_square&#39;</span><span class="o">,</span> <span class="nx">t</span><span class="o">:</span> <span class="s1">&#39;pic_small&#39;</span><span class="o">,</span>
+                              <span class="nx">s</span><span class="o">:</span> <span class="s1">&#39;pic&#39;</span><span class="o">,</span> <span class="nx">n</span><span class="o">:</span> <span class="s1">&#39;pic_big&#39;</span><span class="o">,</span> <span class="nx">q</span><span class="o">:</span> <span class="s1">&#39;pic_square&#39;</span> <span class="p">}</span><span class="o">,</span>
+    <span class="nx">picFieldName</span> <span class="o">=</span> <span class="nx">sizeToPicFieldMap</span><span class="p">[</span><span class="nx">size</span><span class="p">]</span><span class="o">,</span>
+        <span class="nx">widthAttribute</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">)</span><span class="o">,</span>
+    <span class="nx">heightAttribute</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">)</span><span class="o">,</span>
+    <span class="nx">style</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">style</span><span class="o">,</span>
+    <span class="nx">uid</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;uid&#39;</span><span class="p">);</span>
+
+    <span class="c">//  Check if we need to add facebook logo image</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_getBoolAttribute</span><span class="p">(</span><span class="s1">&#39;facebook-logo&#39;</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">picFieldName</span> <span class="o">+=</span> <span class="s1">&#39;_with_logo&#39;</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">widthAttribute</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getUnit</span><span class="p">(</span><span class="nx">widthAttribute</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">heightAttribute</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getUnit</span><span class="p">(</span><span class="nx">heightAttribute</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">renderFn</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">userInfo</span> <span class="o">=</span> <span class="nx">result</span> <span class="o">?</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
+      <span class="kd">var</span> <span class="nx">imageSrc</span> <span class="o">=</span> <span class="p">(</span><span class="nx">userInfo</span><span class="p">)</span> <span class="o">?</span> <span class="nx">userInfo</span><span class="p">[</span><span class="nx">picFieldName</span><span class="p">]</span> <span class="o">:</span> <span class="kc">null</span><span class="o">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">imageSrc</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c">// Create default</span>
+        <span class="kd">var</span> <span class="nx">subdomain</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;https&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="s1">&#39;ssl&#39;</span> <span class="o">:</span> <span class="s1">&#39;static.ak&#39;</span><span class="o">;</span>
+        <span class="nx">imageSrc</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getFacebookUrl</span><span class="p">(</span><span class="nx">subdomain</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;pics/&#39;</span> <span class="o">+</span>
+          <span class="nx">FB</span><span class="p">.</span><span class="nx">XFBML</span><span class="p">.</span><span class="nx">ProfilePic</span><span class="p">.</span><span class="nx">_defPicMap</span><span class="p">[</span><span class="nx">picFieldName</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="c">//  Copy width, height style, and class name of fb:profile-pic down to the image</span>
+      <span class="c">//  element we create</span>
+      <span class="kd">var</span> <span class="nx">styleValue</span> <span class="o">=</span> <span class="p">((</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;width:&#39;</span> <span class="o">+</span> <span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="s1">&#39;;&#39;</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span>
+        <span class="p">((</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;height:&#39;</span> <span class="o">+</span> <span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="s1">&#39;;&#39;</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;&lt;img src=\&#39;{0}\&#39; alt=\&#39;{1}\&#39; title=\&#39;{1}\&#39; style=\&#39;{2}\&#39; class=\&#39;{3}\&#39; /&gt;&#39;</span><span class="o">,</span>
+                               <span class="nx">imageSrc</span><span class="o">,</span> <span class="nx">userInfo</span> <span class="o">?</span> <span class="nx">userInfo</span><span class="p">.</span><span class="nx">name</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="o">,</span> <span class="nx">styleValue</span><span class="o">,</span>
+                               <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">className</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_getBoolAttribute</span><span class="p">(</span><span class="s1">&#39;linked&#39;</span><span class="o">,</span> <span class="kc">true</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">html</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getProfileLink</span><span class="p">(</span><span class="nx">userInfo</span><span class="o">,</span> <span class="nx">html</span><span class="o">,</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="o">,</span> <span class="kc">null</span><span class="p">));</span>
+      <span class="p">}</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">html</span><span class="o">;</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">addCss</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="o">,</span> <span class="s1">&#39;fb_profile_pic_rendered&#39;</span><span class="p">);</span>
+
+    <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="p">);</span>
+
+    <span class="c">// Wait for status to be known</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">monitor</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c">//Is Element still in DOM tree</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isValid</span><span class="p">())</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span> <span class="c">// Stop processing</span>
+
+      <span class="c">// Is status known?</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">uid</span> <span class="o">===</span> <span class="s1">&#39;loggedinuser&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">uid</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">uid</span><span class="o">;</span>
+        <span class="p">}</span>
+
+        <span class="c">// Get data</span>
+        <span class="c">// Use profile if uid is a user, but a page</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Data</span><span class="p">.</span><span class="nx">_selectByIndex</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="o">,</span> <span class="nx">picFieldName</span><span class="p">]</span><span class="o">,</span>
+          <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">isUser</span><span class="p">(</span><span class="nx">uid</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;user&#39;</span> <span class="o">:</span> <span class="s1">&#39;profile&#39;</span><span class="o">,</span>
+          <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">isUser</span><span class="p">(</span><span class="nx">uid</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;uid&#39;</span> <span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="o">,</span>
+          <span class="nx">uid</span><span class="p">).</span><span class="nx">wait</span><span class="p">(</span><span class="nx">renderFn</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c">// Render default</span>
+        <span class="nx">renderFn</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">}</span><span class="o">,</span> <span class="k">this</span><span class="p">));</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">getUnit</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">value</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span> <span class="o">==</span> <span class="nx">value</span> <span class="o">?</span> <span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span> <span class="o">:</span> <span class="nx">value</span><span class="o">;</span>
+  <span class="p">}</span>
+
+
+<span class="p">});</span>
+
+<span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;XFBML.ProfilePic&#39;</span><span class="o">,</span> <span class="p">{</span>
+  <span class="nx">_defPicMap</span><span class="o">:</span> <span class="p">{</span> <span class="nx">pic_small</span><span class="o">:</span> <span class="s1">&#39;t_silhouette.jpg&#39;</span><span class="o">,</span>
+    <span class="nx">pic</span><span class="o">:</span> <span class="s1">&#39;s_silhouette.jpg&#39;</span><span class="o">,</span>
+    <span class="nx">pic_big</span><span class="o">:</span> <span class="s1">&#39;d_silhouette.gif&#39;</span><span class="o">,</span>
+    <span class="nx">pic_square</span><span class="o">:</span> <span class="s1">&#39;q_silhouette.gif&#39;</span><span class="o">,</span>
+    <span class="nx">pic_small_with_logo</span><span class="o">:</span> <span class="s1">&#39;t_silhouette_logo.gif&#39;</span><span class="o">,</span>
+    <span class="nx">pic_with_logo</span><span class="o">:</span> <span class="s1">&#39;s_silhouette_logo.gif&#39;</span><span class="o">,</span>
+    <span class="nx">pic_big_with_logo</span><span class="o">:</span> <span class="s1">&#39;d_silhouette_logo.gif&#39;</span><span class="o">,</span>
+    <span class="nx">pic_square_with_logo</span><span class="o">:</span> <span class="s1">&#39;q_silhouette_logo.gif&#39;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class="selected"><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="FB.XFBML.ProfilePic.html" title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="profilepic.js.html" title="profilepic.js">profilepic.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

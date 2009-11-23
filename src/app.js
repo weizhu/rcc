@@ -1,6 +1,6 @@
 /**
  * @provides FB.App
- * @module Basic
+ * @layer Basic
  * @requires FB.Base FB.Event FB.XdComm FB.UI.PopupWin, FB.UI.Dialog FB.Dom
  *
  */

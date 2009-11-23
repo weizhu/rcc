@@ -1,12 +1,13 @@
 /**
  * @provides FB.Util
- * @module Basic
+ * @layer Basic
  * @requires FB.Base
  *
  */
 
 /**
  * @class FB.Util
+ * @private
  */
 FB.provide('Util', {
   /**

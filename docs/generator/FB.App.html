@@ -1,0 +1,582 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.App  FB.App   (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.26" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.26" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.26"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.26"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.App&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                 &gt; FB.App 
+                
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <h2>
+                        
+
+                        
+                        
+                            Class <b property="yui:name">FB.App</b>
+                        <span class="extends">
+                        </span>
+
+                    </h2>
+                    <!-- class tree goes here -->
+
+
+
+
+                    <div class="summary description" property="yui:description">
+                        This module provides application settings, states (session states, permissions, etc.) and auth related
+ methods (connect, logout)
+                    </div>
+
+
+                    <div rel="yui:properties" resource="#properties">
+                        <div class="section field details">
+                            <h3 id="properties">Properties</h3>
+                            <div class="content">
+                                    <div class="" rel="yui:property" resource="#property_session">
+                                    <h4><a name="property_session" property="yui:name">session</a>
+                                        - <code>static <span property="yui:type">object</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            current session.
+ When session exists, it is standard session structure that contains session_key,
+ uid, session_secret, expire_time
+ Note we use undefined
+ to signal that we don't know yet
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:property" resource="#property_settings">
+                                    <h4><a name="property_settings" property="yui:name">settings</a>
+                                        - <code>static <span property="yui:type">object</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            A dictionary of advanced facebook settings.
+ Currently supported key/value are:
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:property" resource="#property_status">
+                                    <h4><a name="property_status" property="yui:name">status</a>
+                                        - <code>static <span property="yui:type">string</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            current connect status. Note we use undefined
+ to signal that we don't know yet
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div rel="yui:methods" resource="#methods">
+                        <div class="section method details">
+                            <h3 id="methods">Methods</h3>
+                            <div class="content">
+                                    <div class="private" rel="yui:method" resource="#method__checkStatus">
+                                    <h4>
+                                        <a name="method__checkStatus">_checkStatus</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         private 
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">_checkStatus</strong>
+                                           (
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            This function create an hidden iframe to login_status.lphp
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="private" rel="yui:method" resource="#method__onStatus">
+                                    <h4>
+                                        <a name="method__onStatus">_onStatus</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                         private 
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">_onStatus</strong>
+                                           (
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            callback handler when status string returned from somewhere (login_status,
+ login.php, etc.) Our existing wire prototype is not clean (not JSON
+ encoded), so we basically do some simple parsing for now.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_connect">
+                                    <h4>
+                                        <a name="method_connect">connect</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">connect</strong>
+                                           (
+                                                
+                                                        
+                                                         callback
+                                                    
+                                                
+                                                        , 
+                                                         options
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Add connect method to FB.App
+ This method is in a separate component because App's don't always
+ need to call connect method.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">callback</span>
+                                                        &lt;<span property="yui:type">function</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> Callback to be invoked after connect result is known</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">options</span>
+                                                        &lt;<span property="yui:type">object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"></span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_init">
+                                    <h4>
+                                        <a name="method_init">init</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">init</strong>
+                                           (
+                                                
+                                                        
+                                                         apiKey
+                                                    
+                                                
+                                                        , 
+                                                         settings
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            initialize an Facebook app. xdChannelUrl parameter may not be needed if stats shows postMessage and flash XdComm have enough coverage
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">apiKey</span>
+                                                        &lt;<span property="yui:type">String</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">
+ API key for your Facebook application</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">settings</span>
+                                                        &lt;<span property="yui:type">Object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description">
+ An optional dictionary of other application settings.
+ Currently supported key/value are:</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_logout">
+                                    <h4>
+                                        <a name="method_logout">logout</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">logout</strong>
+                                           (
+                                                
+                                                        
+                                                         callback
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Log out of current session and facebook if current session.
+ Note this method is a separate component because logout method
+ is not always needed.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">callback</span>
+                                                        &lt;<span property="yui:type">function</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> This function will be called when operation is completed</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_monitor">
+                                    <h4>
+                                        <a name="method_monitor">monitor</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                         static 
+                                        
+                                        void
+                                            <strong property="yui:name">monitor</strong>
+                                           (
+                                                
+                                                        
+                                                         name
+                                                    
+                                                
+                                                        , 
+                                                         callback
+                                                    
+                                                
+                                                        , 
+                                                         no_sync_callback
+                                                    
+                                                
+                                                        , 
+                                                         auto_unsubscribe
+                                                    
+                                                
+                                            )
+                                        </code>
+
+                                        <div class="description" property="yui:description">
+                                            Watch for changes in FB.App.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">name</span>
+                                                        &lt;<span property="yui:type">string</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> Name of event. possible values are 'session', 'status', 'init'</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">callback</span>
+                                                        &lt;<span property="yui:type">function</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> A callback function. arguments may be passed to the callback.
+     If the callback function returns true, the event will be unsubscribed.</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">no_sync_callback</span>
+                                                        &lt;<span property="yui:type">bool</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> By default, the callback will be invoked immediately before
+    the event is fired, unless this parameter specified a true value</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">auto_unsubscribe</span>
+                                                        &lt;<span property="yui:type">bool</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> By default, the callback will be invoked whenever the event fires.
+      However, if this parameter value is true, the callback will be unsubscribed from the event after
+      it is fired once.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div rel="yui:events" resource="#events">
+
+
+                    </div>
+
+                    <div rel="yui:attributes" resource="#configattributes">
+
+                    </div>
+
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class="selected"><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="FB.App.html" title="FB.App">FB.App</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class=""><a href="app.js.html" title="app.js">app.js</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="propertyList" class="module">
+                        <h4>Properties</h4>
+                        <ul class="content">
+                                <li class=""><a href="#property_session" title="session">session</a></li>
+                                <li class=""><a href="#property_settings" title="settings">settings</a></li>
+                                <li class=""><a href="#property_status" title="status">status</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="methodsList" class="module">
+                        <h4>Methods</h4>
+                        <ul class="content">
+                                <li class="private"><a href="#method__checkStatus" title="_checkStatus">_checkStatus</a></li>
+                                <li class="private"><a href="#method__onStatus" title="_onStatus">_onStatus</a></li>
+                                <li class=""><a href="#method_connect" title="connect">connect</a></li>
+                                <li class=""><a href="#method_init" title="init">init</a></li>
+                                <li class=""><a href="#method_logout" title="logout">logout</a></li>
+                                <li class=""><a href="#method_monitor" title="monitor">monitor</a></li>
+                        </ul>
+                    </div>
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.App.html#method__checkStatus", "access": "private", "host": "FB.App", "type": "method", "name": "_checkStatus"}, {"url": "FB.App.html#method_connect", "access": "", "host": "FB.App", "type": "method", "name": "connect"}, {"url": "FB.App.html#method_init", "access": "", "host": "FB.App", "type": "method", "name": "init"}, {"url": "FB.App.html#method_logout", "access": "", "host": "FB.App", "type": "method", "name": "logout"}, {"url": "FB.App.html#method_monitor", "access": "", "host": "FB.App", "type": "method", "name": "monitor"}, {"url": "FB.App.html#method__onStatus", "access": "private", "host": "FB.App", "type": "method", "name": "_onStatus"}, {"url": "FB.App.html#property_session", "access": "", "host": "FB.App", "type": "property", "name": "session"}, {"url": "FB.App.html#property_settings", "access": "", "host": "FB.App", "type": "property", "name": "settings"}, {"url": "FB.App.html#property_status", "access": "", "host": "FB.App", "type": "property", "name": "status"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

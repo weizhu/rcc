@@ -1,22 +1,43 @@
 /**
  * @provides FB.Data
- * @module Data
+ * @layer Data
  * @requires FB.Base FB.Type FB.Util FB.Event FB.Api FB.Async FB.App
  */
 
 
+/**
+ * Data access class for accessing Facebook data efficiently
+ * @class FB.Data
+ */
 FB.provide('Data', {
   /**
    * Perform a FQL query
+   * Example:
+   * <pre class="prettyprint js">
+   * // Get random 5 friends ids
+   * var friends = FB.Data.query('select uid2 from friend where uid1={0} ORDER BY rand() limit 5', FB.App.session.uid);
+   * var friendInfos = FB.Data.query(
+   *      'select name, pic from user where uid in (select uid2 from {0})', friends);
    *
-   * @param {string} FQL query string template. It can contains optional
-   *                 formated parameters in forms '{0}', '{1}'. When these
+   * friendInfos.wait(function(data) {
+   *   // Render info. For illustration of API, I am using any XFBML tags
+   *   var html = '';
+   *   FB.forEach(data, function(info) {
+   *     html += 'name=' + info.name + 'img=' + info.pic;
+   *   });
+   *   FB.$('infos').innerHTML = html;
+   * });
+   * </pre>
+   *
+   * @param {string} template FQL query string template. It can contains optional
+   *                 formated parameters. When these
    *                 parameters are used in the string, the actual data should
    *                 be passed as parameter following the template parameter.
+   * @param {object} data optional 0-n arguments of data
    * @return {FB.Data.Query} An async query object that contains query result
    * @static
    */
-  query: function(template /*, arg1, arg .. arg n */) {
+  query: function(template, data) {
     var query = (new FB.Data.Query).parse(arguments);
     FB.Data.queue.push(query);
     FB.Data._ensureTimer();
@@ -27,6 +48,7 @@ FB.provide('Data', {
    * Alternate method from query, this method is more specific
    * but more efficient. We use it internally
    * @static
+   * @private
    */
   _selectByIndex: function(fields, table, name, value) {
     var query = (new FB.Data.Query);
@@ -76,6 +98,7 @@ FB.provide('Data', {
 
   /**
    * Check if y can be merged into x
+   * @private
    * @static
    */
   _mergeIndexQuery: function(item, mqueries) {
@@ -108,6 +131,12 @@ FB.provide('Data', {
 });
 
 
+/**
+ * Query class that represent a FQL query
+ * @class FB.Data.Query
+ * @extends FB.Async.Data
+ * @private
+ */
 FB.subclass('Data.Query', 'Async.Data',
   function () {
     if (!FB.Data.Query._c) {

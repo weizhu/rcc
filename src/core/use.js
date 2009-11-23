@@ -1,9 +1,14 @@
 /**
  * @provides FB.Loader.use
- * @module Basic
+ * @layer Basic
  * @requires FB.Loader FB.Util FB.Dom FB.Base
  */
 
+/**
+ * Provide dynamic loading feature
+ * @class FB.Loader
+ * @private
+ */
 FB.provide('Loader', {
   /*
    * Use this to request dynamic loading of components in Facebook Client

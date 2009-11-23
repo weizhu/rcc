@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.Api   api.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.23" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.23" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.23"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.23"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.Api&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; api.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.Api</span>
+<span class="c"> * @layer Basic</span>
+<span class="c"> * @requires FB.App FB.Base FB.Md5 FB.Util FB.Uri FB.Dom</span>
+<span class="c"> *</span>
+<span class="c"> */</span>
+
+<span class="c">/**</span>
+<span class="c"> * This module provides unified API access (both REST and UI)</span>
+<span class="c"> * @class FB.Api</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;Api&#39;</span><span class="o">,</span> <span class="p">{</span>
+  <span class="c">/**</span>
+<span class="c">   * Calls the specified Facebook API method with given parameters, or</span>
+<span class="c">   * queues it on the Sequencer.</span>
+<span class="c">   * @param  {String} method</span>
+<span class="c">   * API method to call</span>
+<span class="c">   * @param  {Object} parameters</span>
+<span class="c">   * parameters corresponding to the method</span>
+<span class="c">   * @param  callback</span>
+<span class="c">   * @param  options</span>
+<span class="c">   * optional options</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">invoke</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">method</span><span class="o">,</span> <span class="nx">parameters</span><span class="o">,</span> <span class="nx">callback</span><span class="o">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// Set an empty dictionary if the value is null</span>
+    <span class="c">// so later code doesn&#39;t have to check for null condition</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">parameters</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">parameters</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="p">}</span>
+
+    <span class="c">// Set an empty dictionary if the value is null</span>
+    <span class="c">// so later code doesn&#39;t have to check for null condition</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_map</span><span class="p">[</span><span class="nx">method</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">options</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_map</span><span class="p">[</span><span class="nx">method</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="c">// This is rudimentary logic to perform automatically check for conditions</span>
+    <span class="c">// that requires for API calls to succeed. Currently, I just check for</span>
+    <span class="c">//  methods that need a session. If a session is needed but not available,</span>
+    <span class="c">//  the code will automatically invoke login UI, then continue the API call</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">requireSession</span> <span class="o">&amp;&amp;!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c">// Need to connect first</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">invoke</span><span class="p">(</span><span class="nx">method</span><span class="o">,</span> <span class="nx">parameters</span><span class="o">,</span> <span class="nx">callback</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+      <span class="p">});</span>
+      <span class="k">return</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="c">// Is this UI method?</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">method</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;ui.&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_invokeUi</span><span class="p">(</span><span class="nx">method</span><span class="o">,</span> <span class="nx">parameters</span><span class="o">,</span> <span class="nx">callback</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_invokeRest</span><span class="p">(</span><span class="nx">method</span><span class="o">,</span> <span class="nx">parameters</span><span class="o">,</span> <span class="nx">callback</span><span class="o">,</span> <span class="nx">options</span><span class="p">);</span>
+    <span class="p">}</span>
+
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Make a REST Api call</span>
+<span class="c">   * @param  {String} method</span>
+<span class="c">   * API method to call</span>
+<span class="c">   * @param  {Object} parameters</span>
+<span class="c">   * parameters corresponding to the method</span>
+<span class="c">   * @param  callback</span>
+<span class="c">   * @param  options</span>
+<span class="c">   * optional options</span>
+<span class="c">   * @private</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">_invokeRest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">method</span><span class="o">,</span> <span class="nx">parameters</span><span class="o">,</span> <span class="nx">callback</span><span class="o">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_callId</span><span class="o">++;</span>
+    <span class="kd">var</span> <span class="nx">session</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="o">,</span>
+    <span class="nx">callback_fn</span> <span class="o">=</span> <span class="s2">&quot;fb_&quot;</span> <span class="o">+</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_callId</span><span class="o">;</span>
+
+    <span class="c">// We need to encode parameters and a new stuff</span>
+    <span class="c">// Let&#39;s use a copy instead of modifying parameters</span>
+    <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">method</span><span class="o">:</span> <span class="nx">method</span><span class="o">,</span>
+      <span class="nx">api_key</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">apiKey</span><span class="o">,</span>
+      <span class="nx">format</span><span class="o">:</span> <span class="s1">&#39;JSON&#39;</span><span class="o">,</span>
+      <span class="nx">call_id</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_callId</span><span class="o">,</span>
+      <span class="nx">v</span><span class="o">:</span> <span class="s1">&#39;1.0&#39;</span><span class="o">,</span>
+      <span class="nx">session_key</span><span class="o">:</span> <span class="p">(</span><span class="nx">session</span> <span class="o">?</span> <span class="nx">session</span><span class="p">.</span><span class="nx">session_key</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">,</span>
+      <span class="nx">callback</span><span class="o">:</span> <span class="s1">&#39;FB.Api._callbacks.&#39;</span> <span class="o">+</span> <span class="nx">callback_fn</span>
+    <span class="p">};</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">params</span><span class="o">,</span> <span class="nx">parameters</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_encode</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">session</span> <span class="o">&amp;&amp;</span> <span class="nx">session</span><span class="p">.</span><span class="nx">secret</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c">// Use session secret</span>
+      <span class="nx">params</span><span class="p">[</span><span class="s1">&#39;ss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+      <span class="nx">params</span><span class="p">[</span><span class="s1">&#39;sig&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Md5</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">params</span><span class="o">,</span> <span class="nx">session</span><span class="p">.</span><span class="nx">secret</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c">// JSONP Callback</span>
+    <span class="kd">var</span> <span class="nx">script</span><span class="o">;</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_callbacks</span><span class="p">[</span><span class="nx">callback_fn</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">delete</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_callbacks</span><span class="p">[</span><span class="nx">callback_fn</span><span class="p">];</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">removeDom</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">script</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">addScript</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getFacebookUrl</span><span class="p">(</span><span class="s1">&#39;api&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;restserver.php?&#39;</span> <span class="o">+</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Uri</span><span class="p">.</span><span class="nx">createQueryString</span><span class="p">(</span><span class="nx">params</span><span class="p">));</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_encode</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">typeof</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="o">?</span> <span class="nx">obj</span> <span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">serialize</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+
+  <span class="c">/**</span>
+<span class="c">   *</span>
+<span class="c">   * Calls the specified Facebook UI method with given parameters</span>
+<span class="c">   * @param  {String} method</span>
+<span class="c">   * API method to call</span>
+<span class="c">   * @param  {Object} parameters</span>
+<span class="c">   * parameters corresponding to the method</span>
+<span class="c">   * @param  {function} callback callback function. The API result will passed to</span>
+<span class="c">   *          callback function when result is read.</span>
+<span class="c">   * @param  {object} options [Optional]</span>
+<span class="c">   * @private</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">_invokeUi</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">method</span><span class="o">,</span> <span class="nx">parameters</span><span class="o">,</span> <span class="nx">callback</span><span class="o">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// TODO: We don&#39;t have UI server ready yet.</span>
+    <span class="c">// The method is supposed to a path to a endpont url (sans .php)</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getFacebookUrl</span><span class="p">(</span><span class="s1">&#39;www&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">options</span><span class="p">.</span><span class="nx">url</span><span class="o">,</span>
+    <span class="nx">w</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">w</span> <span class="o">||</span> <span class="mi">600</span><span class="o">,</span>
+    <span class="nx">h</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">h</span> <span class="o">||</span> <span class="mi">400</span><span class="o">,</span>
+    <span class="nx">title</span> <span class="o">=</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">title</span> <span class="o">||</span> <span class="nx">options</span><span class="p">.</span><span class="nx">title</span> <span class="o">||</span> <span class="s2">&quot;&quot;</span><span class="o">;</span>
+    <span class="c">// Always use popup if session does not exist</span>
+    <span class="nx">usePopup</span> <span class="o">=</span> <span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="o">;</span>
+
+    <span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="nx">usePopup</span> <span class="o">?</span> <span class="k">new</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">PopupWin</span><span class="p">()</span> <span class="o">:</span> <span class="k">new</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">();</span>
+
+    <span class="c">// We need to encode parameters and a new stuff</span>
+    <span class="c">// Let&#39;s use a copy instead of modifying parameters</span>
+    <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">in_iframe</span><span class="o">:</span> <span class="nx">usePopup</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="o">,</span>
+      <span class="nx">callback</span><span class="o">:</span> <span class="nx">dialog</span><span class="p">.</span><span class="nx">createClosingUrl</span><span class="p">()</span><span class="o">,</span>
+      <span class="nx">preview</span><span class="o">:</span> <span class="s1">&#39;true&#39;</span><span class="o">,</span>
+      <span class="nx">api_key</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">apiKey</span><span class="o">,</span>
+      <span class="nx">channel_url</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">receiverUrl</span><span class="o">,</span>
+      <span class="nx">origin</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_origin</span><span class="o">,</span>
+      <span class="nx">session_key</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span> <span class="o">?</span>  <span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">session_key</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span>
+    <span class="p">};</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">params</span><span class="o">,</span> <span class="nx">parameters</span><span class="p">);</span>
+
+    <span class="nx">url</span> <span class="o">+=</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Uri</span><span class="p">.</span><span class="nx">createQueryString</span><span class="p">(</span><span class="nx">params</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Api</span><span class="p">.</span><span class="nx">_encode</span><span class="p">);</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">dialog</span><span class="o">,</span> <span class="s1">&#39;closed&#39;</span><span class="o">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="nx">dialog</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">title</span><span class="o">,</span> <span class="nx">url</span><span class="o">,</span> <span class="nx">w</span><span class="o">,</span> <span class="nx">h</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+
+  <span class="nx">_map</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;friends.get&#39;</span><span class="o">:</span> <span class="p">{</span><span class="nx">requireSession</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span><span class="o">,</span>
+    <span class="s1">&#39;ui.publish&#39;</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;connect/prompt_feed.php&#39;</span><span class="o">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">600</span><span class="o">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">300</span><span class="o">,</span>
+                   <span class="nx">title</span><span class="o">:</span><span class="s1">&#39;Publish to Facebook&#39;</span><span class="p">}</span><span class="o">,</span>
+    <span class="s1">&#39;ui.share&#39;</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;sharer.php&#39;</span><span class="o">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">600</span><span class="o">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">400</span><span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+  <span class="c">/**</span>
+<span class="c">   *</span>
+<span class="c">   * @type  Number</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">_callId</span><span class="o">:</span> <span class="mi">0</span><span class="o">,</span>
+  <span class="nx">_callbacks</span><span class="o">:</span> <span class="p">{}</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="FB.Api.html" title="FB.Api">FB.Api</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="api.js.html" title="api.js">api.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.Api.html#property__callId", "access": "", "host": "FB.Api", "type": "property", "name": "_callId"}, {"url": "FB.Api.html#method_invoke", "access": "", "host": "FB.Api", "type": "method", "name": "invoke"}, {"url": "FB.Api.html#method__invokeRest", "access": "private", "host": "FB.Api", "type": "method", "name": "_invokeRest"}, {"url": "FB.Api.html#method__invokeUi", "access": "private", "host": "FB.Api", "type": "method", "name": "_invokeUi"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

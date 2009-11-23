@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.XdComm   xdcomm.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.52" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.52" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.52"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.52"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.XdComm&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; xdcomm.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.XdComm</span>
+<span class="c"> * @layer Basic</span>
+<span class="c"> * @requires FB.Base  FB.Util</span>
+<span class="c"> *           FB.Uri  FB.JSON FB.Event FB.Flash</span>
+<span class="c"> *</span>
+<span class="c"> */</span>
+
+
+<span class="c">/**</span>
+<span class="c"> * Server for cross domain communication</span>
+<span class="c"> * @class FB.XdComm</span>
+<span class="c"> * @private</span>
+<span class="c"> */</span>
+
+
+<span class="nx">FB</span><span class="p">.</span><span class="nx">provide</span><span class="p">(</span><span class="s1">&#39;XdComm&#39;</span><span class="o">,</span> <span class="p">{</span>
+  <span class="c">/**</span>
+<span class="c">   * Initialize XdComm</span>
+<span class="c">   *</span>
+<span class="c">   * @param  {String} Optional xd receiver url</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">receiverUrl</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">receiverUrl</span> <span class="o">=</span> <span class="nx">receiverUrl</span> <span class="o">?</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Uri</span><span class="p">.</span><span class="nx">combine</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">URL</span><span class="o">,</span> <span class="nx">receiverUrl</span><span class="p">)</span> <span class="o">:</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">dynData</span><span class="p">.</span><span class="nx">resources</span><span class="p">.</span><span class="nx">base_cdn_url</span> <span class="o">+</span> <span class="s1">&#39;connect/xd_proxy.php#?=&amp;&#39;</span><span class="o">;</span>
+
+    <span class="c">// The origin is used for:</span>
+    <span class="c">// 1) postMessage origin, provides security</span>
+    <span class="c">// 2) Flash Local Connection name</span>
+    <span class="c">// It is required and validated by Facebook as part of the xd_proxy.php.</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_origin</span> <span class="o">=</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">+</span>
+        <span class="s1">&#39;//&#39;</span> <span class="o">+</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">host</span> <span class="o">+</span>
+        <span class="s1">&#39;/&#39;</span> <span class="o">+</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">createUnique</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_transport</span> <span class="o">=</span> <span class="s1">&#39;postmessage&#39;</span><span class="o">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Flash</span><span class="p">.</span><span class="nx">getState</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;hasVersion&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_transport</span> <span class="o">=</span> <span class="s1">&#39;flash&#39;</span><span class="o">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_transport</span> <span class="o">=</span> <span class="s1">&#39;fragment&#39;</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span>
+      <span class="o">?</span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_onNativeMessage</span><span class="o">,</span> <span class="kc">false</span><span class="p">)</span>
+      <span class="o">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onmessage&#39;</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_onNativeMessage</span><span class="p">);</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Flash</span><span class="o">,</span> <span class="s1">&#39;isReady&#39;</span><span class="o">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nb">document</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">postMessage_init</span><span class="p">(</span><span class="s1">&#39;FB.XdComm._onFlashMessage&#39;</span><span class="o">,</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_origin</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Flash</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+
+    <span class="c">// createXdCommSwf();</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Create an url that can be used to send a UDP like single message to</span>
+<span class="c">   * the specified end point when this url is opened.</span>
+<span class="c">   * @param {function} callback</span>
+<span class="c">   * @param  {Object} data</span>
+<span class="c">   * data to send.</span>
+<span class="c">   * @param  {FB.XdComm.EndPoint} endPoint</span>
+<span class="c">   * target to send message to</span>
+<span class="c">   * @param  {FB.XdComm.PacketDataFormat} dataFormat</span>
+<span class="c">   * format of data attached to string, default JSON</span>
+<span class="c">   * @return  String</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">getUdp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="o">,</span> <span class="nx">data</span><span class="o">,</span> <span class="nx">endPoint</span><span class="o">,</span> <span class="nx">isRaw</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">handlerName</span> <span class="o">=</span> <span class="s1">&#39;udp_&#39;</span> <span class="o">+</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">createUnique</span><span class="p">();</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="o">,</span> <span class="nx">handlerName</span><span class="o">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">receiverUrl</span><span class="o">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_transport</span> <span class="o">==</span> <span class="s1">&#39;fragment&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">packet</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">t</span><span class="o">:</span> <span class="mi">3</span><span class="o">,</span> <span class="c">// udpSingle</span>
+        <span class="nx">h</span><span class="o">:</span> <span class="nx">handlerName</span><span class="o">,</span>
+        <span class="nx">sid</span><span class="o">:</span><span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_id</span><span class="o">,</span>
+        <span class="nx">df</span><span class="o">:</span> <span class="nx">isRaw</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span>
+      <span class="p">};</span>
+
+      <span class="c">//  Note that we don&#39;t specify packet.d in sending because we don&#39;t use</span>
+      <span class="c">//  JSON to encode packet.d</span>
+      <span class="nx">url</span> <span class="o">+=</span> <span class="s1">&#39;#fname=_&#39;</span> <span class="o">+</span> <span class="nx">endPoint</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span>
+        <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">serialize</span><span class="p">(</span><span class="nx">packet</span><span class="p">));</span>
+
+      <span class="nx">url</span> <span class="o">+=</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">isRaw</span><span class="o">?</span> <span class="nx">data</span> <span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">serialize</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">url</span> <span class="o">+=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Uri</span><span class="p">.</span><span class="nx">createQueryString</span><span class="p">({</span>
+        <span class="nx">cb</span> <span class="o">:</span> <span class="nx">handlerName</span><span class="o">,</span>
+        <span class="nx">origin</span> <span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_origin</span><span class="o">,</span>
+        <span class="nx">relation</span><span class="o">:</span> <span class="nx">endPoint</span> <span class="o">||</span> <span class="s1">&#39;opener&#39;</span><span class="o">,</span>
+        <span class="nx">transport</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_transport</span><span class="o">,</span>
+        <span class="nx">df</span><span class="o">:</span> <span class="nx">isRaw</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="o">,</span>
+        <span class="nx">nd</span><span class="o">:</span> <span class="nx">data</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">url</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * This method should be called by XdCommReceiver.js only!</span>
+<span class="c">   * @param  {String} hash</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">onReceiverLoaded</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hash</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">hash</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c">// There appears to be bug with Firefox&#39;s XMLHttpRequest when</span>
+      <span class="c">// it&#39;s run in the context of another iframe. I have to use this</span>
+      <span class="c">// workaround</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c">//  The hashString is created in this format.</span>
+        <span class="c">//  Data can either be URI-encoded JSON, or raw text</span>
+        <span class="c">//  uriencode(json_encode(packet)) + data</span>
+        <span class="c">//  Here&#39;s an example string. %7D (which is &quot;}&quot;) is the end of the packet</span>
+        <span class="c">//  %7B%22t%22%3A3%2C%22h%22%3A%22openIDresponse%22%2C%22sid%22%3A%220.672%22%7D?arbitrary=data&amp;other=data</span>
+        <span class="kd">var</span> <span class="nx">packetLength</span> <span class="o">=</span> <span class="nx">hash</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;%7D&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="o">,</span>
+          <span class="nx">packet</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">deserialize</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="nx">packetLength</span><span class="p">)));</span>
+        <span class="kd">var</span> <span class="nx">dataString</span> <span class="o">=</span> <span class="nx">hash</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">packetLength</span><span class="p">);</span>
+        <span class="nx">packet</span><span class="p">.</span><span class="nx">nd</span> <span class="o">=</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">df</span> <span class="o">==</span>  <span class="mi">1</span><span class="o">?</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Uri</span><span class="p">.</span><span class="nx">getQueryParameters</span><span class="p">(</span><span class="nx">dataString</span><span class="p">)</span>
+                            <span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">deserialize</span><span class="p">(</span>
+                              <span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">dataString</span><span class="p">));</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_onPacket</span><span class="p">(</span><span class="nx">packet</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_onNativeMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_onData</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="o">,</span> <span class="nx">e</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_onFlashMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_onData</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">message</span><span class="p">));</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_onData</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="o">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// Unfortunately, xd_proxy uses a different data format</span>
+    <span class="c">// from original packet data format, so we have to</span>
+    <span class="c">// handle both now.</span>
+    <span class="kd">var</span> <span class="nx">header</span> <span class="o">=</span> <span class="s1">&#39;FB_msg:&#39;</span><span class="o">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">header</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">header</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+      <span class="c">// original packet format</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_onPacket</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">deserialize</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="o">,</span> <span class="nx">e</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c">// Xd Proxy format</span>
+      <span class="nx">data</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Uri</span><span class="p">.</span><span class="nx">getQueryParameters</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="o">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cb</span><span class="o">,</span> <span class="nx">data</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="nx">_onPacket</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">packet</span><span class="o">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">packet</span><span class="p">.</span><span class="nx">sid</span> <span class="o">&amp;&amp;</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">sf</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_senders</span><span class="p">[</span><span class="nx">packet</span><span class="p">.</span><span class="nx">sid</span><span class="p">]</span> <span class="o">=</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">sf</span><span class="o">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">packet</span><span class="p">.</span><span class="nx">id</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">ackMsg</span> <span class="o">=</span> <span class="s1">&#39;FB_msg_ack:&#39;</span> <span class="o">+</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">sid</span> <span class="o">+</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">id</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">packet</span><span class="p">.</span><span class="nx">ackFlashOrigin</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">postMessage_send</span><span class="p">(</span><span class="nx">ackMsg</span><span class="o">,</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">ackFlashOrigin</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">source</span><span class="p">).</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">ackMsg</span><span class="o">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">fire</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="o">,</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">h</span><span class="o">,</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">nd</span><span class="o">,</span>
+      <span class="p">{</span><span class="nx">frameName</span><span class="o">:</span><span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">_senders</span><span class="p">[</span><span class="nx">packet</span><span class="p">.</span><span class="nx">sid</span><span class="p">]});</span>
+  <span class="p">}</span><span class="o">,</span>
+
+
+
+  <span class="c">/**</span>
+<span class="c">   * Register an RPC service. This allow us backward compatibility that would make migration from v1</span>
+<span class="c">   * smoother since we will have to support both for some time.</span>
+<span class="c">   * @constructor</span>
+<span class="c">   * @param  {String} rpcServerName</span>
+<span class="c">   * Name of the server</span>
+<span class="c">   * @param  {Object} registeredMethodMap</span>
+<span class="c">   * Methods to register as &quot;legal&quot; to be</span>
+<span class="c">   * called from this server</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">regRpc</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">rpcServerName</span><span class="o">,</span> <span class="nx">registeredMethodMap</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="o">,</span> <span class="nx">rpcServerName</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="o">,</span> <span class="nx">sender</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">registeredMethodMap</span><span class="p">[</span><span class="nx">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]](</span><span class="nx">data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">,</span> <span class="nx">sender</span><span class="p">);</span>
+                                    <span class="p">});</span>
+  <span class="p">}</span><span class="o">,</span>
+
+
+  <span class="c">/**</span>
+<span class="c">   *</span>
+<span class="c">   * @type  String</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">receiverUrl</span><span class="o">:</span> <span class="kc">null</span><span class="o">,</span>
+
+  <span class="nx">_senders</span><span class="o">:</span> <span class="p">{}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   *</span>
+<span class="c">   * @type  String</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">_id</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">createUnique</span><span class="p">()</span>
+<span class="p">});</span>
+
+
+
+<span class="c">// Set up Server and onReceiverLoaded to backwards compat</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">Server</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">singleton</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">onReceiverLoaded</span><span class="o">:</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XdComm</span><span class="p">.</span><span class="nx">onReceiverLoaded</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class="selected"><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class="private"><a href="FB.XdComm.html" title="FB.XdComm">FB.XdComm</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="xdcomm.js.html" title="xdcomm.js">xdcomm.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.XdComm.html#method_decode", "access": "", "host": "FB.XdComm", "type": "method", "name": "decode"}, {"url": "FB.XdComm.html#method_getUdp", "access": "", "host": "FB.XdComm", "type": "method", "name": "getUdp"}, {"url": "FB.XdComm.html#property__id", "access": "", "host": "FB.XdComm", "type": "property", "name": "_id"}, {"url": "FB.XdComm.html#method_init", "access": "", "host": "FB.XdComm", "type": "method", "name": "init"}, {"url": "FB.XdComm.html#method_onReceiverLoaded", "access": "", "host": "FB.XdComm", "type": "method", "name": "onReceiverLoaded"}, {"url": "FB.XdComm.html#property_receiverUrl", "access": "", "host": "FB.XdComm", "type": "property", "name": "receiverUrl"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

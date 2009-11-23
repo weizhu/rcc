@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: FB.Base   base.js  (RCC Library)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1258977018.38" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1258977018.38" />
+
+    <script type="text/javascript" src="assets/api.js?stamp=1258977018.38"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1258977018.38"></script>
+     <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../pretty/prettify.js"></script>
+
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://developer.yahoo.com/yui/" title="RCC Library">RCC Library</a></h1>
+        <h3>FB.Base&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="RCC Library">RCC Library</a>
+                
+                 &gt; base.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="c">/**</span>
+<span class="c"> * @provides FB.Base</span>
+<span class="c"> * @layer Basic</span>
+<span class="c"> */</span>
+
+<span class="c">/**</span>
+<span class="c"> * Provide a lowest level base functions for Connect JS. We should only place</span>
+<span class="c"> * commonly used generally purpose methods in this namespace</span>
+<span class="c"> * Every methods in this file are in FB namespace.</span>
+<span class="c"> * @class FB</span>
+<span class="c"> * @private</span>
+<span class="c"> */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">FB</span><span class="p">)</span> <span class="p">{</span><span class="nx">FB</span> <span class="o">=</span> <span class="p">{};}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">dynData</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">FB</span><span class="p">.</span><span class="nx">dynData</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">resources</span><span class="o">:</span><span class="p">{</span>
+<span class="c">/*</span>
+<span class="c">      base_url_format:&#39;http://{0}.facebook.com/&#39;,</span>
+<span class="c">      base_cdn_url:&#39;http://static.ak.fbcdn.net/&#39;,</span>
+<span class="c">      xd_comm_swf_url:&#39;http://static.ak.fbcdn.net/swf/XdComm.swf&#39;,</span>
+<span class="c">      loader_url: &#39;http://www.wzhu-git.devrs002.facebook.com/js/rcc/src/loader.js.php&#39;</span>
+<span class="c">  */</span>
+      <span class="nx">base_url_format</span><span class="o">:</span><span class="s1">&#39;http://{0}.wzhu-git.devrs002.facebook.com/&#39;</span><span class="o">,</span>
+      <span class="nx">base_cdn_url</span><span class="o">:</span><span class="s1">&#39;http://www.wzhu-git.devrs002.facebook.com/&#39;</span><span class="o">,</span>
+      <span class="nx">xd_comm_swf_url</span><span class="o">:</span><span class="s1">&#39;http://www.wzhu-git.devrs002.facebook.com/swf/XdComm.swf&#39;</span><span class="o">,</span>
+      <span class="nx">loader_url</span><span class="o">:</span> <span class="s1">&#39;http://www.wzhu-git.devrs002.facebook.com/js/rcc/src/loader.js.php&#39;</span>
+
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+
+
+<span class="c">/**</span>
+<span class="c"> * Copies things from source into target.</span>
+<span class="c"> *</span>
+<span class="c"> * @access protected</span>
+<span class="c"> * @param target    {Object}  the target object where things will be copied</span>
+<span class="c"> *                            into</span>
+<span class="c"> * @param source    {Object}  the source object where things will be copied</span>
+<span class="c"> *                            from</span>
+<span class="c"> * @param overwrite {Boolean} indicate if existing items should be</span>
+<span class="c"> *                            overwritten</span>
+<span class="c"> * @param tranform  {function} [Optional], transformation function for each item</span>
+<span class="c"> */</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">copy</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="o">,</span> <span class="nx">source</span><span class="o">,</span> <span class="nx">overwrite</span><span class="o">,</span> <span class="nx">transform</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">overwrite</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">transform</span> <span class="o">?</span> <span class="nx">transform</span><span class="p">(</span><span class="nx">source</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span> <span class="o">:</span>  <span class="nx">source</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+
+<span class="nx">FB</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">FB</span><span class="o">,</span> <span class="p">{</span>
+  <span class="c">/**</span>
+<span class="c">   * Shortcut for document.getElementById</span>
+<span class="c">   * @method $</span>
+<span class="c">   * @param {string} DOM id</span>
+<span class="c">   * @return DOMElement</span>
+<span class="c">   */</span>
+  <span class="nx">$</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Provide a module or static class methods with fully qualified namespace. The name</span>
+<span class="c">   * is a dot separated string. The feature is an object from which</span>
+<span class="c">   * properties are _copied_ into the target.</span>
+<span class="c">   *</span>
+<span class="c">   * Example:</span>
+<span class="c">   *</span>
+<span class="c">   * FB.provide(&#39;Server.Auth&#39;, {</span>
+<span class="c">   *   init: function() {</span>
+<span class="c">   *     // ...</span>
+<span class="c">   *   }</span>
+<span class="c">   * });</span>
+<span class="c">   *</span>
+<span class="c">   * @access protected</span>
+<span class="c">   * @param name    {String}  a dot separated string naming the feature</span>
+<span class="c">   * @param feature {Object}  the feature being provided</span>
+<span class="c">   * @param append  {Boolean} indicate if an existing object should be</span>
+<span class="c">   *                          appended defaults to false. this need to be</span>
+<span class="c">   *                          explicit to detect inadvertent redefinition of</span>
+<span class="c">   *                          features.</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">provide</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="o">,</span> <span class="nx">feature</span><span class="o">,</span> <span class="nx">append</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="o">,</span> <span class="nx">feature</span><span class="o">,</span> <span class="nx">append</span><span class="p">);</span>
+  <span class="p">}</span><span class="o">,</span>
+
+
+  <span class="c">/**</span>
+<span class="c">   * Bind a function to a given context and arguments.</span>
+<span class="c">   *</span>
+<span class="c">   * @access protected</span>
+<span class="c">   * @param {Function} fn  the function to bind</span>
+<span class="c">   * @param {Object} context     object to be used as the context when</span>
+<span class="c">   *                             calling the function</span>
+<span class="c">   * @param {...} arguments    additional arguments to be bound to the</span>
+<span class="c">   *                             function</span>
+<span class="c">   * @returns       {Function}   the bound function</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">bind</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span>
+     <span class="nx">args</span>    <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)</span><span class="o">,</span>
+     <span class="nx">fn</span>      <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span><span class="o">,</span>
+     <span class="nx">context</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span><span class="o">,</span>
+     <span class="nx">result</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">context</span><span class="o">,</span>
+          <span class="nx">args</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)));</span>
+     <span class="p">};</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="o">;</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * For looping through Arrays and Objects.</span>
+<span class="c">   *</span>
+<span class="c">   * @param item   Variant   an Array or an Object</span>
+<span class="c">   * @param fn     Function  the callback function for iteration</span>
+<span class="c">   * @param proto  Boolean   indicate if properties from the prototype should</span>
+<span class="c">   *                         be included</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">forEach</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="o">,</span> <span class="nx">fn</span><span class="o">,</span> <span class="nx">proto</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;[object Array]&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">forEach</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">item</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span> <span class="nx">l</span><span class="o">=</span><span class="nx">item</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">l</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">fn</span><span class="p">(</span><span class="nx">item</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">,</span> <span class="nx">i</span><span class="o">,</span> <span class="nx">item</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">proto</span> <span class="o">||</span> <span class="nx">item</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+          <span class="nx">fn</span><span class="p">(</span><span class="nx">item</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="o">,</span> <span class="nx">key</span><span class="o">,</span> <span class="nx">item</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="o">,</span>
+
+  <span class="c">/**</span>
+<span class="c">   * Create a namespaced object</span>
+<span class="c">   * This create an fullly namespaced name.</span>
+<span class="c">   * Examples:</span>
+<span class="c">   * FB.create(&#39;XFBML.ProfilePic&#39;) = function() {...}</span>
+<span class="c">   *   create FB.XFBML.ProfilePic and assign the value of the function. If FB.XFBML does not exist, this call</span>
+<span class="c">   *   would automatically create it.</span>
+<span class="c">   *</span>
+<span class="c">   * FB.create(&#39;Util&#39;);</span>
+<span class="c">   *   create a namespace FB.Util if it doesn&#39;t already exist;</span>
+<span class="c">   *</span>
+<span class="c">   * FB.create(&#39;Util.foo&#39;, null, true)</span>
+<span class="c">   *   Check if FB.Util.foo exists</span>
+<span class="c">   *</span>
+<span class="c">   * @access private</span>
+<span class="c">   * @param {string} name full qualified name (&#39;Util.foo&#39;, etc.)</span>
+<span class="c">   * @param {string} value value to set. Default value is {}. [Optional]</span>
+<span class="c">   * @param {bool} testOnly This is an optional parameter. If set to true, then the function</span>
+<span class="c">   *                  will only check if the name exists. [Optional]</span>
+<span class="c">   * @return object  The created object, or boolean if testOnly is true.</span>
+<span class="c">   * @static</span>
+<span class="c">   */</span>
+  <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="o">,</span> <span class="nx">value</span><span class="o">,</span> <span class="nx">testOnly</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">ns</span> <span class="o">=</span> <span class="nx">FB</span><span class="o">,</span> <span class="c">// We will use &#39;FB&#39; as root namespace</span>
+    <span class="nx">nameParts</span> <span class="o">=</span> <span class="nx">name</span> <span class="o">?</span> <span class="nx">name</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="p">[]</span><span class="o">,</span>
+    <span class="nx">c</span> <span class="o">=</span> <span class="nx">nameParts</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">c</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">part</span> <span class="o">=</span> <span class="nx">nameParts</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="kd">var</span> <span class="nx">nso</span> <span class="o">=</span> <span class="nx">ns</span><span class="p">[</span><span class="nx">part</span><span class="p">];</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">nso</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">testOnly</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">nso</span> <span class="o">=</span> <span class="nx">value</span><span class="o">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">nso</span> <span class="o">=</span> <span class="p">{};</span>
+        <span class="p">}</span>
+
+        <span class="nx">ns</span><span class="p">[</span><span class="nx">part</span><span class="p">]</span> <span class="o">=</span> <span class="nx">nso</span><span class="o">;</span>
+      <span class="p">}</span>
+      <span class="nx">ns</span> <span class="o">=</span> <span class="nx">nso</span><span class="o">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">ns</span><span class="o">;</span>
+  <span class="p">}</span>
+
+<span class="p">});</span>
+</pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
+                                <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
+                                <li class="selected"><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
+                                <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
+                                <li class=""><a href="module_fbdata.html"  title="FB.Data">FB.Data</a></li>
+                                <li class=""><a href="module_fbdebug.html"  title="FB.Debug">FB.Debug</a></li>
+                                <li class=""><a href="module_fbdom.html"  title="FB.Dom">FB.Dom</a></li>
+                                <li class=""><a href="module_fbevent.html"  title="FB.Event">FB.Event</a></li>
+                                <li class=""><a href="module_fbflash.html"  title="FB.Flash">FB.Flash</a></li>
+                                <li class=""><a href="module_fbhelperfblayerxfbml.html"  title="FB.Helper
+ fblayer XFBML">FB.Helper
+ fblayer XFBML</a></li>
+                                <li class=""><a href="module_fbiframeresizer.html"  title="FB.IframeResizer">FB.IframeResizer</a></li>
+                                <li class=""><a href="module_fbjson.html"  title="FB.JSON">FB.JSON</a></li>
+                                <li class=""><a href="module_fbloader.html"  title="FB.Loader">FB.Loader</a></li>
+                                <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
+                                <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
+                                <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
+                                <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
+                                <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
+                                <li class=""><a href="module_fburi.html"  title="FB.Uri">FB.Uri</a></li>
+                                <li class=""><a href="module_fbutil.html"  title="FB.Util">FB.Util</a></li>
+                                <li class=""><a href="module_fbxdcomm.html"  title="FB.XdComm">FB.XdComm</a></li>
+                                <li class=""><a href="module_fbxfbml.html"  title="FB.XFBML">FB.XFBML</a></li>
+                                <li class=""><a href="module_fbxfbmlelement.html"  title="FB.XFBML.Element">FB.XFBML.Element</a></li>
+                                <li class=""><a href="module_fbxfbmlloginbutton.html"  title="FB.XFBML.LoginButton">FB.XFBML.LoginButton</a></li>
+                                <li class=""><a href="module_fbxfbmlname.html"  title="FB.XFBML.Name">FB.XFBML.Name</a></li>
+                                <li class=""><a href="module_fbxfbmlprofilepic.html"  title="FB.XFBML.ProfilePic">FB.XFBML.ProfilePic</a></li>
+                                <li class=""><a href="module_fbxfbmlsharebutton.html"  title="FB.XFBML.ShareButton">FB.XFBML.ShareButton</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class="private"><a href="FB.html" title="FB">FB</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="base.js.html" title="base.js">base.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2009 <a href="http://www.facebook./wei">Wei Zhu</a>
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "FB.html#method_$", "access": "", "host": "FB", "type": "method", "name": "$"}, {"url": "FB.html#method_bind", "access": "protected", "host": "FB", "type": "method", "name": "bind"}, {"url": "FB.html#method_Class", "access": "", "host": "FB", "type": "method", "name": "Class"}, {"url": "FB.html#method_copy", "access": "protected", "host": "FB", "type": "method", "name": "copy"}, {"url": "FB.html#method_create", "access": "private", "host": "FB", "type": "method", "name": "create"}, {"url": "FB.html#method_forEach", "access": "", "host": "FB", "type": "method", "name": "forEach"}, {"url": "FB.html#method_provide", "access": "protected", "host": "FB", "type": "method", "name": "provide"}, {"url": "FB.html#method_subclass", "access": "", "host": "FB", "type": "method", "name": "subclass"}];
+</script>
+<script type="text/javascript">
+prettyPrint();
+</script>
+</body>
+</html>

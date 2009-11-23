@@ -1,6 +1,6 @@
 /**
  * @provides FB.Async
- * @module Data
+ * @layer Data
  * @requires FB.Base FB.Type FB.Util FB.Event
  */
 

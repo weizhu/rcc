@@ -1,7 +1,7 @@
 /**
  * author blaise
  * @provides FB.connect-button-css
- * @module XFBML
+ * @layer XFBML
  * @requires FB.Dom
  * @option preserve-image-urls
  */

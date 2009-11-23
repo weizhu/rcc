@@ -1,6 +1,6 @@
 /**
  * @provides FB.JSON
- * @module Basic
+ * @layer Basic
  * @requires FB.Base
  */
 
