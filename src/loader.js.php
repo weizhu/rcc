@@ -11,12 +11,11 @@ class ResourceMap {
     $modules = $docInfo['modules'];
     foreach ($modules as $comp => $info) {
       $this->map[$comp] = array(
-        'name' => $info['provides'],
+        'name' => $comp,
         'file' => $info['fullPath'],
         'requires' => self::getCompsFromString($info['requires'])
       );
     }
-    error_log('maps ' . var_export($this->map, true));
   }
 
   public static function getCompsFromString($s, $prefix = null) {

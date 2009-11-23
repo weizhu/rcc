@@ -12,6 +12,9 @@
             "description": "Implementation for fb:login-button tag.\n Note this implementation does not suppport the following features\n in Connect V1:\n 1. i18n support\n 2. logout button\n 3. 'onlogin' and 'onlogout' attributes\n 3. Validation of allowed values on attributes"
         }, 
         "FB.Api": {
+            "name": "FB.Api", 
+            "namespace": "", 
+            "provides": "FB.Api", 
             "methods": {
                 "_invokeUi": {
                     "description": "Calls the specified Facebook UI method with given parameters", 
@@ -100,9 +103,7 @@
                     "guessedtype": "function"
                 }
             }, 
-            "description": "This module provides unified API access (both REST and UI)", 
-            "namespace": "", 
-            "provides": "FB.Api", 
+            "file": "button_css.js", 
             "shortname": "FB.Api", 
             "properties": {
                 "_callId": {
@@ -112,7 +113,7 @@
                     "guessedtype": "property"
                 }
             }, 
-            "name": "FB.Api"
+            "description": "This module provides unified API access (both REST and UI)"
         }, 
         "FB.XFBML.ProfilePic": {
             "name": "FB.XFBML.ProfilePic", 
@@ -454,9 +455,6 @@
             "description": "This module provides application settings, states (session states, permissions, etc.) and auth related\n methods (connect, logout)"
         }, 
         "FB.XFBML.Element": {
-            "name": "FB.XFBML.Element", 
-            "namespace": "", 
-            "provides": "FB.XFBML.Element", 
             "methods": {
                 "getAttribute": {
                     "return": {
@@ -485,9 +483,11 @@
                     "guessedtype": "function"
                 }
             }, 
-            "file": "async.js", 
+            "description": "Base class for all XFBML element\n Note: we removed support for condition attribute that was in V1.", 
+            "namespace": "", 
+            "provides": "FB.XFBML.Element", 
             "shortname": "FB.XFBML.Element", 
-            "description": "Base class for all XFBML element\n Note: we removed support for condition attribute that was in V1."
+            "name": "FB.XFBML.Element"
         }, 
         "FB.UI.PopupWin": {
             "name": "FB.UI.PopupWin", 
@@ -527,7 +527,7 @@
                         {
                             "type": "object", 
                             "name": "data", 
-                            "description": " optional 0-n arguments of data"
+                            "description": " optional 0-n arguments of data. The arguments can be either\n   real data or results from previous FB.Data.query()."
                         }
                     ]
                 }, 
@@ -546,7 +546,7 @@
                     "guessedtype": "function"
                 }
             }, 
-            "file": "debug.js", 
+            "file": "xdcomm.js", 
             "shortname": "FB.Data", 
             "description": "Data access class for accessing Facebook data efficiently."
         }, 
@@ -792,7 +792,7 @@
             "namespace": "", 
             "private": "", 
             "provides": "FB.Event", 
-            "file": "base.js", 
+            "file": "debug.js", 
             "shortname": "FB.Delegate"
         }, 
         "FB.Event": {
@@ -904,7 +904,7 @@
                     "guessedtype": "function"
                 }
             }, 
-            "file": "base.js", 
+            "file": "debug.js", 
             "shortname": "FB.Event", 
             "description": "Basic Event system"
         }, 
@@ -913,42 +913,15 @@
             "namespace": "", 
             "private": "", 
             "provides": "FB.JSON", 
-            "methods": {
-                "sign": {
-                    "return": {
-                        "type": "", 
-                        "description": "String"
-                    }, 
-                    "description": "Generate the signature that Facebook expects from the parameters\n by appending them all in a string with your application secret,\n and taking the MD5 of that.", 
-                    "static": "", 
-                    "guessedname": "sign", 
-                    "guessedtype": "function", 
-                    "params": [
-                        {
-                            "type": "Object", 
-                            "name": "parameters", 
-                            "description": "\n The parameters to use in the signature"
-                        }, 
-                        {
-                            "type": "String", 
-                            "name": "secret", 
-                            "description": "\n Secret to use to sign the parameters"
-                        }
-                    ]
-                }
-            }, 
-            "file": "dom.js", 
+            "file": "uri.js", 
             "shortname": "FB.JSON", 
             "description": "JSON functions"
         }, 
         "FB.Util": {
             "name": "FB.Util", 
-            "description": "Helper class for XFBML", 
             "namespace": "", 
             "private": "", 
-            "provides": "FB.Helper\n fblayer XFBML", 
-            "file": "name.js", 
-            "shortname": "FB.Util", 
+            "provides": "FB.Util", 
             "methods": {
                 "upperCaseFirstChar": {
                     "return": {
@@ -994,6 +967,28 @@
                     "description": "Create an array from the keys in an object\n Example: obj2array({'x': 2, 'y': 3'}) returns ['x', 'y']", 
                     "guessedname": "obj2array", 
                     "guessedtype": "function"
+                }, 
+                "sign": {
+                    "return": {
+                        "type": "", 
+                        "description": "String"
+                    }, 
+                    "description": "Generate the signature that Facebook expects from the parameters\n by appending them all in a string with your application secret,\n and taking the MD5 of that.", 
+                    "static": "", 
+                    "guessedname": "sign", 
+                    "guessedtype": "function", 
+                    "params": [
+                        {
+                            "type": "Object", 
+                            "name": "parameters", 
+                            "description": "\n The parameters to use in the signature"
+                        }, 
+                        {
+                            "type": "String", 
+                            "name": "secret", 
+                            "description": "\n Secret to use to sign the parameters"
+                        }
+                    ]
                 }, 
                 "getProfileLink": {
                     "return": {
@@ -1041,7 +1036,10 @@
                     "guessedname": "isUser", 
                     "guessedtype": "function"
                 }
-            }
+            }, 
+            "file": "dom.js", 
+            "shortname": "FB.Util", 
+            "description": "Helper class for XFBML"
         }, 
         "FB.Loader": {
             "name": "FB.Loader", 
@@ -1049,6 +1047,23 @@
             "private": "", 
             "provides": "FB.Loader.use", 
             "methods": {
+                "decode": {
+                    "return": {
+                        "type": "", 
+                        "description": "String"
+                    }, 
+                    "description": "Custom decoding to workaround bug in flash's ExternInterface\n Code is from Dojo's library", 
+                    "static": "", 
+                    "guessedname": "decode", 
+                    "guessedtype": "function", 
+                    "params": [
+                        {
+                            "type": "String", 
+                            "name": "data", 
+                            "description": ""
+                        }
+                    ]
+                }, 
                 "_check": {
                     "static": "", 
                     "return": {
@@ -1077,7 +1092,7 @@
             "provides": "FB.Data", 
             "extends": "FB.Async.Data", 
             "superclass": "FB.Async.Data", 
-            "file": "debug.js", 
+            "file": "xdcomm.js", 
             "shortname": "FB.Data.Query", 
             "description": "Query class that represent a FQL query"
         }, 
@@ -1104,23 +1119,6 @@
             "private": "", 
             "provides": "FB.XdComm", 
             "methods": {
-                "decode": {
-                    "return": {
-                        "type": "", 
-                        "description": "String"
-                    }, 
-                    "description": "Custom decoding to workaround bug in flash's ExternInterface\n Code is from Dojo's library", 
-                    "static": "", 
-                    "guessedname": "decode", 
-                    "guessedtype": "function", 
-                    "params": [
-                        {
-                            "type": "String", 
-                            "name": "data", 
-                            "description": ""
-                        }
-                    ]
-                }, 
                 "onReceiverLoaded": {
                     "static": "", 
                     "params": [
@@ -1180,7 +1178,7 @@
                     ]
                 }
             }, 
-            "file": "popupdlg.js", 
+            "file": "flash.js", 
             "shortname": "FB.XdComm", 
             "properties": {
                 "receiverUrl": {
@@ -1276,7 +1274,7 @@
                     "guessedtype": "function"
                 }
             }, 
-            "file": "app.js", 
+            "file": "sharebutton.js", 
             "shortname": "FB.XFBML", 
             "description": "This provides public APIs for developer to programming XFBML"
         }, 
@@ -1318,7 +1316,7 @@
                     "guessedtype": "function"
                 }
             }, 
-            "file": "sharebutton.js", 
+            "file": "async.js", 
             "shortname": "FB.UI.Dialog", 
             "description": "An iframe dialog"
         }, 
@@ -1394,7 +1392,7 @@
                 "loginbutton.js"
             ], 
             "subdata": {}, 
-            "fullPath": "tags/loginbutton.js", 
+            "fullPath": "xfbml/loginbutton.js", 
             "requires": "FB.Type FB.XFBML.Element"
         }, 
         "FB.Api": {
@@ -1408,7 +1406,7 @@
                 "api.js"
             ], 
             "subdata": {}, 
-            "fullPath": "api.js", 
+            "fullPath": "connect/api.js", 
             "requires": "FB.App FB.Base FB.Md5 FB.Util FB.Uri FB.Dom"
         }, 
         "FB.share-button-css": {
@@ -1435,7 +1433,7 @@
                 "profilepic.js"
             ], 
             "subdata": {}, 
-            "fullPath": "tags/profilepic.js", 
+            "fullPath": "xfbml/profilepic.js", 
             "requires": "FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper"
         }, 
         "FB.App": {
@@ -1449,7 +1447,7 @@
                 "app.js"
             ], 
             "subdata": {}, 
-            "fullPath": "app.js", 
+            "fullPath": "connect/app.js", 
             "requires": "FB.Base FB.Event FB.XdComm FB.UI.PopupWin, FB.UI.Dialog FB.Dom"
         }, 
         "FB.XFBML.Element": {
@@ -1463,7 +1461,7 @@
                 "element.js"
             ], 
             "subdata": {}, 
-            "fullPath": "tags/element.js", 
+            "fullPath": "xfbml/element.js", 
             "requires": "FB.Type"
         }, 
         "FB.connect-button-css": {
@@ -1479,6 +1477,20 @@
             "fullPath": "css/button_css.js", 
             "requires": "FB.Dom", 
             "name": "FB.connect-button-css"
+        }, 
+        "FB.Helper": {
+            "layer": "XFBML", 
+            "name": "FB.Helper", 
+            "submodules": [], 
+            "classlist": [
+                "FB.Util"
+            ], 
+            "filelist": [
+                "helper.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "xfbml/helper.js", 
+            "requires": "FB.Base"
         }, 
         "FB.UI.PopupWin": {
             "layer": "Basic", 
@@ -1549,113 +1561,8 @@
                 "dom.js"
             ], 
             "subdata": {}, 
-            "fullPath": "common/dom.js", 
+            "fullPath": "common/extended/dom.js", 
             "requires": "FB.Base"
-        }, 
-        "FB.Base": {
-            "layer": "Basic", 
-            "name": "FB.Base", 
-            "submodules": [], 
-            "classlist": [
-                "FB"
-            ], 
-            "filelist": [
-                "base.js"
-            ], 
-            "subdata": {}, 
-            "fullPath": "core/base.js"
-        }, 
-        "FB.JSON": {
-            "layer": "Basic", 
-            "name": "FB.JSON", 
-            "submodules": [], 
-            "classlist": [
-                "FB.JSON"
-            ], 
-            "filelist": [
-                "json.js"
-            ], 
-            "subdata": {}, 
-            "fullPath": "common/json.js", 
-            "requires": "FB.Base"
-        }, 
-        "FB.Util": {
-            "layer": "Basic", 
-            "name": "FB.Util", 
-            "submodules": [], 
-            "classlist": [
-                "FB.Util"
-            ], 
-            "filelist": [
-                "util.js"
-            ], 
-            "subdata": {}, 
-            "fullPath": "common/util.js", 
-            "requires": "FB.Base"
-        }, 
-        "FB.Loader": {
-            "layer": "Basic", 
-            "name": "FB.Loader", 
-            "submodules": [], 
-            "classlist": [
-                "FB.Loader"
-            ], 
-            "filelist": [
-                "loader.js"
-            ], 
-            "subdata": {}, 
-            "fullPath": "core/loader.js", 
-            "requires": "FB.Base"
-        }, 
-        "FB.Md5": {
-            "layer": "Basic", 
-            "name": "FB.Md5", 
-            "submodules": [], 
-            "classlist": [], 
-            "filelist": [
-                "md5.js"
-            ], 
-            "subdata": {}, 
-            "fullPath": "common/md5.js", 
-            "requires": "FB.Base FB.Util"
-        }, 
-        "FB.Loader.use": {
-            "layer": "Basic", 
-            "name": "FB.Loader.use", 
-            "submodules": [], 
-            "classlist": [
-                "FB.Loader"
-            ], 
-            "filelist": [
-                "use.js"
-            ], 
-            "subdata": {}, 
-            "fullPath": "core/use.js", 
-            "requires": "FB.Loader FB.Util FB.Dom FB.Base"
-        }, 
-        "FB.Debug": {
-            "layer": "Basic", 
-            "name": "FB.Debug", 
-            "submodules": [], 
-            "classlist": [], 
-            "filelist": [
-                "debug.js"
-            ], 
-            "subdata": {}, 
-            "fullPath": "core/debug.js", 
-            "requires": "FB.Base"
-        }, 
-        "FB.Flash": {
-            "layer": "Basic", 
-            "name": "FB.Flash", 
-            "submodules": [], 
-            "classlist": [], 
-            "filelist": [
-                "flash.js"
-            ], 
-            "subdata": {}, 
-            "fullPath": "xdcomm/flash.js", 
-            "requires": "FB.Base FB.Event FB.Dom"
         }, 
         "FB.Event": {
             "layer": "Basic", 
@@ -1669,8 +1576,113 @@
                 "event.js"
             ], 
             "subdata": {}, 
-            "fullPath": "core/event.js", 
+            "fullPath": "common/core/event.js", 
             "requires": "FB.Type FB.Base"
+        }, 
+        "FB.JSON": {
+            "layer": "Basic", 
+            "name": "FB.JSON", 
+            "submodules": [], 
+            "classlist": [
+                "FB.JSON"
+            ], 
+            "filelist": [
+                "json.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/core/json.js", 
+            "requires": "FB.Base"
+        }, 
+        "FB.Util": {
+            "layer": "Basic", 
+            "name": "FB.Util", 
+            "submodules": [], 
+            "classlist": [
+                "FB.Util"
+            ], 
+            "filelist": [
+                "util.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/extended/util.js", 
+            "requires": "FB.Base"
+        }, 
+        "FB.Loader": {
+            "layer": "Basic", 
+            "name": "FB.Loader", 
+            "submodules": [], 
+            "classlist": [
+                "FB.Loader"
+            ], 
+            "filelist": [
+                "loader.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/core/loader.js", 
+            "requires": "FB.Base"
+        }, 
+        "FB.Md5": {
+            "layer": "Basic", 
+            "name": "FB.Md5", 
+            "submodules": [], 
+            "classlist": [], 
+            "filelist": [
+                "md5.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/core/md5.js", 
+            "requires": "FB.Base FB.Util"
+        }, 
+        "FB.Loader.use": {
+            "layer": "Basic", 
+            "name": "FB.Loader.use", 
+            "submodules": [], 
+            "classlist": [
+                "FB.Loader"
+            ], 
+            "filelist": [
+                "use.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/core/use.js", 
+            "requires": "FB.Loader FB.Util FB.Dom FB.Base"
+        }, 
+        "FB.Debug": {
+            "layer": "Basic", 
+            "name": "FB.Debug", 
+            "submodules": [], 
+            "classlist": [], 
+            "filelist": [
+                "debug.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/core/debug.js", 
+            "requires": "FB.Base"
+        }, 
+        "FB.Flash": {
+            "layer": "Basic", 
+            "name": "FB.Flash", 
+            "submodules": [], 
+            "classlist": [], 
+            "filelist": [
+                "flash.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/core/flash.js", 
+            "requires": "FB.Base FB.Event FB.Dom"
+        }, 
+        "FB.Base": {
+            "layer": "Basic", 
+            "name": "FB.Base", 
+            "submodules": [], 
+            "classlist": [
+                "FB"
+            ], 
+            "filelist": [
+                "base.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/core/base.js"
         }, 
         "FB.XdComm": {
             "layer": "Basic", 
@@ -1683,7 +1695,7 @@
                 "xdcomm.js"
             ], 
             "subdata": {}, 
-            "fullPath": "xdcomm/xdcomm.js", 
+            "fullPath": "common/core/xdcomm.js", 
             "requires": "FB.Base  FB.Util\n           FB.Uri  FB.JSON FB.Event FB.Flash"
         }, 
         "FB.XFBML": {
@@ -1697,7 +1709,7 @@
                 "xfbml.js"
             ], 
             "subdata": {}, 
-            "fullPath": "xfbml.js", 
+            "fullPath": "xfbml/xfbml.js", 
             "requires": "FB.Base FB.Loader.use FB.Loader"
         }, 
         "FB.XFBML.Name": {
@@ -1711,7 +1723,7 @@
                 "name.js"
             ], 
             "subdata": {}, 
-            "fullPath": "tags/name.js", 
+            "fullPath": "xfbml/name.js", 
             "requires": "FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper"
         }, 
         "FB.UI.Dialog": {
@@ -1739,20 +1751,7 @@
                 "uri.js"
             ], 
             "subdata": {}, 
-            "fullPath": "common/uri.js", 
-            "requires": "FB.Base"
-        }, 
-        "FB.Helper\n fblayer XFBML": {
-            "name": "FB.Helper\n fblayer XFBML", 
-            "submodules": [], 
-            "classlist": [
-                "FB.Util"
-            ], 
-            "filelist": [
-                "helper.js"
-            ], 
-            "subdata": {}, 
-            "fullPath": "tags/helper.js", 
+            "fullPath": "common/core/uri.js", 
             "requires": "FB.Base"
         }, 
         "FB.Type": {
@@ -1766,7 +1765,7 @@
                 "type.js"
             ], 
             "subdata": {}, 
-            "fullPath": "core/type.js", 
+            "fullPath": "common/core/type.js", 
             "requires": "FB.Base"
         }, 
         "FB.XFBML.ShareButton": {
@@ -1780,7 +1779,7 @@
                 "sharebutton.js"
             ], 
             "subdata": {}, 
-            "fullPath": "tags/sharebutton.js", 
+            "fullPath": "xfbml/sharebutton.js", 
             "requires": "FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element\n  FB.Data FB.Helper FB.share-button-css"
         }
     }, 
@@ -1794,7 +1793,7 @@
         }, 
         "sharebutton.js": {
             "classlist": [
-                "FB.UI.Dialog"
+                "FB.XFBML"
             ], 
             "name": "sharebutton.js", 
             "provides": "FB.XFBML.ShareButton"
@@ -1813,8 +1812,8 @@
         }, 
         "debug.js": {
             "classlist": [
-                "FB.Data", 
-                "FB.Data.Query"
+                "FB.Event", 
+                "FB.Delegate"
             ], 
             "name": "debug.js", 
             "provides": "FB.Debug"
@@ -1827,33 +1826,35 @@
             "provides": "FB.Type"
         }, 
         "json.js": {
-            "classlist": [], 
+            "classlist": [
+                "FB"
+            ], 
             "name": "json.js", 
             "provides": "FB.JSON"
         }, 
         "util.js": {
-            "classlist": [
-                "FB"
-            ], 
+            "classlist": [], 
             "name": "util.js", 
             "provides": "FB.Util"
         }, 
         "uri.js": {
             "classlist": [
-                "FB.Util"
+                "FB.JSON"
             ], 
             "name": "uri.js", 
             "provides": "FB.Uri"
         }, 
         "dom.js": {
             "classlist": [
-                "FB.JSON"
+                "FB.Util"
             ], 
             "name": "dom.js", 
             "provides": "FB.Dom"
         }, 
         "button_css.js": {
-            "classlist": [], 
+            "classlist": [
+                "FB.Api"
+            ], 
             "name": "button_css.js", 
             "provides": "FB.connect-button-css"
         }, 
@@ -1907,7 +1908,7 @@
         }, 
         "async.js": {
             "classlist": [
-                "FB.XFBML.Element"
+                "FB.UI.Dialog"
             ], 
             "name": "async.js", 
             "provides": "FB.Async"
@@ -1917,14 +1918,7 @@
                 "FB.XFBML.LoginButton"
             ], 
             "name": "helper.js", 
-            "provides": "FB.Helper\n fblayer XFBML"
-        }, 
-        "loader.js": {
-            "classlist": [
-                "FB"
-            ], 
-            "name": "loader.js", 
-            "provides": "FB.Loader"
+            "provides": "FB.Helper"
         }, 
         "api.js": {
             "classlist": [
@@ -1932,6 +1926,13 @@
             ], 
             "name": "api.js", 
             "provides": "FB.Api"
+        }, 
+        "loader.js": {
+            "classlist": [
+                "FB"
+            ], 
+            "name": "loader.js", 
+            "provides": "FB.Loader"
         }, 
         "profilepic.js": {
             "classlist": [
@@ -1941,16 +1942,12 @@
             "provides": "FB.XFBML.ProfilePic"
         }, 
         "app.js": {
-            "classlist": [
-                "FB.XFBML"
-            ], 
+            "classlist": [], 
             "name": "app.js", 
             "provides": "FB.App"
         }, 
         "popupdlg.js": {
-            "classlist": [
-                "FB.XdComm"
-            ], 
+            "classlist": [], 
             "name": "popupdlg.js", 
             "provides": "FB.UI.PopupWin"
         }, 
@@ -1962,20 +1959,22 @@
             "provides": "FB.Event"
         }, 
         "base.js": {
-            "classlist": [
-                "FB.Event", 
-                "FB.Delegate"
-            ], 
+            "classlist": [], 
             "name": "base.js", 
             "provides": "FB.Base"
         }, 
         "flash.js": {
-            "classlist": [], 
+            "classlist": [
+                "FB.XdComm"
+            ], 
             "name": "flash.js", 
             "provides": "FB.Flash"
         }, 
         "xdcomm.js": {
-            "classlist": [], 
+            "classlist": [
+                "FB.Data", 
+                "FB.Data.Query"
+            ], 
             "name": "xdcomm.js", 
             "provides": "FB.XdComm"
         }
