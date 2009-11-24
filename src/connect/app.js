@@ -191,10 +191,12 @@ FB.provide('App', {
    */
   _onStatus: function(data) {
     var value = 'no_user';
-    if (data.session) {
-      value = 'connected';
-    } else if ('not_connected' in data) {
-      value = 'not_connected';
+    if (data) {
+      if (data.session) {
+        value = 'connected';
+      } else if ('not_connected' in data) {
+        value = 'not_connected';
+      }
     }
 
     FB.Event.setProperty(FB.App, 'session', FB.JSON.deserialize(data.session));
