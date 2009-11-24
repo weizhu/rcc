@@ -29,9 +29,9 @@ FB.provide('Flash', {
         'allowscriptaccess="always"><param name="movie" value="' + swf +
         '"></param><param name="allowscriptaccess" value="always"></param></object>',
 
-      div = document.createElement('div');
-      FB.Dom.getHidden().appendChild(div);
-      div.innerHTML = html;
+      span = document.createElement('span');
+      FB.Dom.getHidden().appendChild(span);
+      span.innerHTML = html;
     }
   },
 

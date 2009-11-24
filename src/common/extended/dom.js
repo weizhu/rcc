@@ -82,28 +82,90 @@ FB.provide('Dom', {
 
   /*
    * Get a hidden DOM container element. This is used to store hidden
-   * iframes. If developers do not want the document.write to be called,
-   * they can create their own hidden div named "FB_HiddenContainer".
+   * iframes.
    * @static
    */
   getHidden: function() {
     if (FB.$('FB_HiddenContainer') == null) {
-      if (!document.readyState || document.readyState == "complete") {
-        var hiddenDiv = document.createElement('div');
-        hiddenDiv.id = "FB_HiddenContainer";
-        hiddenDiv.style.position = "absolute";
-        hiddenDiv.style.top = "-10000px";
-        hiddenDiv.style.width = "0px";
-        hiddenDiv.style.height = "0px";
-        document.body.appendChild(hiddenDiv);
-      } else {
-        document.write('<div id="FB_HiddenContainer" '
-                     + 'style="position:absolute; top:-10000px; left:-10000px; width:0px; height:0px;" >'
-                     + '</div>');
+      var target = document.body;
+
+      // For IE, we can't already insert a new element into
+      // document.body because IE throw operation aborted error
+      // when document is not completely parsed and a script
+      // attempts to add, or remove an element from an unclosed ancestor
+      // in the markup tree (not including the script block's
+      // immediate parent element).
+      //
+      // To get around the problem, we will first attempt to find
+      // an element where we can insert a <span> element and the element
+      // doesn't have any children that contains HTML which could contains
+      // a script that would execute this very function.
+      //
+      // I find this algorithm hard to explain (a possible indication of
+      // flaw in my design :-(). So here are some examples:
+      //
+      // <body>
+      //  <p id='good_candidate'>foo</p>
+      //  <script>
+      //    FB.Dom.getHidden();
+      //  <script>
+      // </body>
+      //
+      // <body>
+      //   <div>
+      //     <table>
+      //     </table>
+      //     <div>
+      //       <div id='good_candiate'></div>
+      //     </div>
+      //   </div>
+      //   <div>
+      //    <script>
+      //      FB.Dom.getHidden();
+      //    </script>
+      //   </div>
+      // </body>
+      //
+      // NOTE: The container is a <span>, not a <div> and it cannot contains
+      // divs as children. This is because the container may be inserted inside
+      // an inline element like <p>
+      //
+      if (FB.Dom.getBrowserType() == 'ie') {
+        var fn = function(dom) {
+          var children = dom.children;
+          excludeTags = {TABLE:1, TR:1, THEAD:1, TBODY:1, TFOOT:1};
+          if (children.length > 0) {
+            for (var i=0; i < children.length; i++) {
+              var child = children[i];
+              if (child.canHaveChildren && child.canHaveHTML &&
+                  !excludeTags[child.tagName]) {
+                // div into child. Either the child itself or
+                // a node inside it must have
+                // have the right condition
+                return fn(child);
+              }
+            }
+          }
+
+          // If we reach this point, then the dom
+          // itself is the right candidate
+          return dom;
+        }
+        target = fn(target);
       }
+      var hiddenDiv = document.createElement('span');
+      hiddenDiv.id = "FB_HiddenContainer";
+      var s = hiddenDiv.style;
+      s.position = "absolute";
+      s.top = "-10000px";
+      s.width = "0px";
+      s.height = "0px";
+      s.display = "block";
+      return target.appendChild(hiddenDiv);
     }
     return FB.$('FB_HiddenContainer');
   },
+
 
   /**
    * Create a hidden iframe
@@ -113,21 +175,21 @@ FB.provide('Dom', {
     var receiverDom = document.createElement('iframe');
     receiverDom.className = 'FB_RECEIVER_DOM';
 
-    var div = FB.Dom.getHidden().appendChild(document.createElement('div'));
+    var span = FB.Dom.getHidden().appendChild(document.createElement('span'));
     //  There is IE bug with iframe cache that we have to work around:
     //  Dynamically load the iframe to dummy content before loading the real content, as shown below.
     //  This works because the cached stream that exists after a refresh is consumed by the initial
     //  dummy load, and the second load fetches the content as expected.
     //  Must be javascript:false instead of about:blank, otherwise IE6 will complain in https
     if (FB.Dom.getBrowserType() == 'ie') {
-      div.innerHTML = '<iframe src=\'javascript:false\' ></iframe>';
-      div.innerHTML = '<iframe name = "' + FB.Util.createUnique() + '" src=\"' + src + '"></iframe>';
+      span.innerHTML = '<iframe src=\'javascript:false\' ></iframe>';
+      span.innerHTML = '<iframe name = "' + FB.Util.createUnique() + '" src=\"' + src + '"></iframe>';
     } else {
-      div.innerHTML = '<iframe name = "' + FB.Util.createUnique() + '"></iframe>';
-      div.childNodes[0].src = src;
+      span.innerHTML = '<iframe name = "' + FB.Util.createUnique() + '"></iframe>';
+      span.childNodes[0].src = src;
     }
 
-    return div.childNodes[0];
+    return span.childNodes[0];
  },
 
   /**
