@@ -1,7 +1,7 @@
 /**
  * @provides FB.Dom
  * @layer Basic
- * @requires FB.Base
+ * @requires FB.Base FB.Util FB.String FB.Array
  */
 
 /**
@@ -225,7 +225,7 @@ FB.provide('Dom', {
          a,
          style = document.createStyleSheet();
        while (a = re.exec(s)) {
-         var rules = FB.Util.a2a(a[1].split(','), FB.Util.trim);
+         var rules = FB.Array.transform(a[1].split(','), FB.String.trim);
          for (var i=0; i < rules.length; i++) {
            style.addRule(rules[i], a[2]);
          }

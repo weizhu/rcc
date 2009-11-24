@@ -454,6 +454,61 @@
             }, 
             "description": "This module provides application settings, states (session states, permissions, etc.) and auth related\n methods (connect, logout)"
         }, 
+        "FB.String": {
+            "name": "FB.String", 
+            "namespace": "", 
+            "private": "", 
+            "provides": "FB.String", 
+            "methods": {
+                "quote": {
+                    "return": {
+                        "type": "string", 
+                        "description": "an quoted string"
+                    }, 
+                    "params": [
+                        {
+                            "type": "string", 
+                            "name": "string", 
+                            "description": " to quote"
+                        }
+                    ], 
+                    "description": "Escape an string so that it can be embedded inside another string\n as quoted string", 
+                    "guessedname": "quote", 
+                    "guessedtype": "function"
+                }, 
+                "sign": {
+                    "return": {
+                        "type": "", 
+                        "description": "String"
+                    }, 
+                    "description": "Generate the signature that Facebook expects from the parameters\n by appending them all in a string with your application secret,\n and taking the MD5 of that.", 
+                    "static": "", 
+                    "guessedname": "sign", 
+                    "guessedtype": "function", 
+                    "params": [
+                        {
+                            "type": "Object", 
+                            "name": "parameters", 
+                            "description": "\n The parameters to use in the signature"
+                        }, 
+                        {
+                            "type": "String", 
+                            "name": "secret", 
+                            "description": "\n Secret to use to sign the parameters"
+                        }
+                    ]
+                }, 
+                "format": {
+                    "static": "", 
+                    "description": "Format a string\n Example:\n FB.String.format('{0}.facebook.com/{1}', 'www', 'login.php') returns\n 'www.facebook.com/login.php'\n FB.String.format('foo {0}, {1}, {0}', 'x', 'y') returns\n 'foo x, y, x'", 
+                    "guessedname": "format", 
+                    "guessedtype": "function"
+                }
+            }, 
+            "file": "array.js", 
+            "shortname": "FB.String", 
+            "description": "Utility function related to string"
+        }, 
         "FB.XFBML.Element": {
             "methods": {
                 "getAttribute": {
@@ -488,6 +543,188 @@
             "provides": "FB.XFBML.Element", 
             "shortname": "FB.XFBML.Element", 
             "name": "FB.XFBML.Element"
+        }, 
+        "FB.Array": {
+            "name": "FB.Array", 
+            "namespace": "", 
+            "private": "", 
+            "provides": "FB.Array", 
+            "methods": {
+                "indexOf": {
+                    "return": {
+                        "type": "number", 
+                        "description": "index of item"
+                    }, 
+                    "description": "Get index of item inside an array", 
+                    "static": "", 
+                    "guessedname": "indexOf", 
+                    "guessedtype": "function", 
+                    "params": [
+                        {
+                            "type": "array", 
+                            "name": "Array", 
+                            "description": ""
+                        }, 
+                        {
+                            "type": "object", 
+                            "name": "item", 
+                            "description": " to locate"
+                        }
+                    ]
+                }, 
+                "merge": {
+                    "return": {
+                        "type": "array", 
+                        "description": "merged array"
+                    }, 
+                    "description": "Create an new array that start contains all of a and any\n item from b that doesn't exist in a already", 
+                    "static": "", 
+                    "guessedname": "merge", 
+                    "guessedtype": "function", 
+                    "params": [
+                        {
+                            "type": "array", 
+                            "name": "a", 
+                            "description": ""
+                        }, 
+                        {
+                            "type": "array", 
+                            "name": "b", 
+                            "description": ""
+                        }
+                    ]
+                }, 
+                "obj2array": {
+                    "return": {
+                        "type": "array", 
+                        "description": "an array"
+                    }, 
+                    "description": "Create an array from the keys in an object\n Example: obj2array({'x': 2, 'y': 3'}) returns ['x', 'y']", 
+                    "static": "", 
+                    "guessedname": "obj2array", 
+                    "guessedtype": "function", 
+                    "params": [
+                        {
+                            "type": "object", 
+                            "name": "source", 
+                            "description": " object"
+                        }
+                    ]
+                }, 
+                "filter": {
+                    "return": {
+                        "type": "array", 
+                        "description": "filtered array"
+                    }, 
+                    "description": "Create an new array from the given array and a filter\n function", 
+                    "static": "", 
+                    "guessedname": "filter", 
+                    "guessedtype": "function", 
+                    "params": [
+                        {
+                            "type": "array", 
+                            "name": "source", 
+                            "description": " array"
+                        }, 
+                        {
+                            "type": "function", 
+                            "name": "filter", 
+                            "description": " callback function"
+                        }
+                    ]
+                }, 
+                "transform": {
+                    "return": {
+                        "type": "array", 
+                        "description": "A transformed array"
+                    }, 
+                    "params": [
+                        {
+                            "type": "array", 
+                            "name": "source", 
+                            "description": " array"
+                        }, 
+                        {
+                            "type": "function", 
+                            "name": "transformation", 
+                            "description": " function"
+                        }
+                    ], 
+                    "description": "Create an array by performing transformation\n on the items in a source array", 
+                    "guessedname": "transform", 
+                    "guessedtype": "function"
+                }
+            }, 
+            "file": "util.js", 
+            "shortname": "FB.Array", 
+            "description": "Array related helper methods"
+        }, 
+        "FB.Helper": {
+            "name": "FB.Helper", 
+            "namespace": "", 
+            "private": "", 
+            "provides": "FB.Helper", 
+            "methods": {
+                "getProfileLink": {
+                    "return": {
+                        "type": "", 
+                        "description": "String"
+                    }, 
+                    "description": "link to the explicit href or profile.php", 
+                    "static": "", 
+                    "guessedname": "getProfileLink", 
+                    "guessedtype": "function", 
+                    "params": [
+                        {
+                            "type": "FB.UserInfo", 
+                            "name": "userInfo", 
+                            "description": ""
+                        }, 
+                        {
+                            "type": "String", 
+                            "name": "html", 
+                            "description": ""
+                        }, 
+                        {
+                            "type": "String", 
+                            "name": "href", 
+                            "description": ""
+                        }
+                    ]
+                }, 
+                "upperCaseFirstChar": {
+                    "return": {
+                        "type": "", 
+                        "description": "String"
+                    }, 
+                    "static": "", 
+                    "params": [
+                        {
+                            "type": "String", 
+                            "name": "s", 
+                            "description": ""
+                        }
+                    ], 
+                    "guessedname": "upperCaseFirstChar", 
+                    "guessedtype": "function"
+                }, 
+                "isUser": {
+                    "static": "", 
+                    "params": [
+                        {
+                            "type": "uid", 
+                            "name": "id", 
+                            "description": ""
+                        }
+                    ], 
+                    "description": "Check if an id is an user id, instead of a page id\n [NOTE:] This code is based on is_user_id function in our server code.\n If that function changes, we'd have to update this one as well.", 
+                    "guessedname": "isUser", 
+                    "guessedtype": "function"
+                }
+            }, 
+            "file": "name.js", 
+            "shortname": "FB.Helper", 
+            "description": "Helper class for XFBML"
         }, 
         "FB.UI.PopupWin": {
             "name": "FB.UI.PopupWin", 
@@ -922,23 +1159,9 @@
             "namespace": "", 
             "private": "", 
             "provides": "FB.Util", 
+            "file": "dom.js", 
+            "shortname": "FB.Util", 
             "methods": {
-                "upperCaseFirstChar": {
-                    "return": {
-                        "type": "", 
-                        "description": "String"
-                    }, 
-                    "static": "", 
-                    "params": [
-                        {
-                            "type": "String", 
-                            "name": "s", 
-                            "description": ""
-                        }
-                    ], 
-                    "guessedname": "upperCaseFirstChar", 
-                    "guessedtype": "function"
-                }, 
                 "getFacebookUrl": {
                     "return": {
                         "type": "", 
@@ -956,90 +1179,13 @@
                         }
                     ]
                 }, 
-                "format": {
-                    "static": "", 
-                    "description": "Format a string\n Example:FB.Util.format('{0}.facebook.com/{1}', 'www', 'login.php') returns\n 'www.facebook.com/login.php'", 
-                    "guessedname": "format", 
-                    "guessedtype": "function"
-                }, 
-                "obj2array": {
-                    "static": "", 
-                    "description": "Create an array from the keys in an object\n Example: obj2array({'x': 2, 'y': 3'}) returns ['x', 'y']", 
-                    "guessedname": "obj2array", 
-                    "guessedtype": "function"
-                }, 
-                "sign": {
-                    "return": {
-                        "type": "", 
-                        "description": "String"
-                    }, 
-                    "description": "Generate the signature that Facebook expects from the parameters\n by appending them all in a string with your application secret,\n and taking the MD5 of that.", 
-                    "static": "", 
-                    "guessedname": "sign", 
-                    "guessedtype": "function", 
-                    "params": [
-                        {
-                            "type": "Object", 
-                            "name": "parameters", 
-                            "description": "\n The parameters to use in the signature"
-                        }, 
-                        {
-                            "type": "String", 
-                            "name": "secret", 
-                            "description": "\n Secret to use to sign the parameters"
-                        }
-                    ]
-                }, 
-                "getProfileLink": {
-                    "return": {
-                        "type": "", 
-                        "description": "String"
-                    }, 
-                    "description": "link to the explicit href or profile.php", 
-                    "static": "", 
-                    "guessedname": "getProfileLink", 
-                    "guessedtype": "function", 
-                    "params": [
-                        {
-                            "type": "FB.UserInfo", 
-                            "name": "userInfo", 
-                            "description": ""
-                        }, 
-                        {
-                            "type": "String", 
-                            "name": "html", 
-                            "description": ""
-                        }, 
-                        {
-                            "type": "String", 
-                            "name": "href", 
-                            "description": ""
-                        }
-                    ]
-                }, 
                 "createUnique": {
                     "static": "", 
                     "description": "Create an unique id string", 
                     "guessedname": "createUnique", 
                     "guessedtype": "function"
-                }, 
-                "isUser": {
-                    "static": "", 
-                    "params": [
-                        {
-                            "type": "uid", 
-                            "name": "id", 
-                            "description": ""
-                        }
-                    ], 
-                    "description": "Check if an id is an user id, instead of a page id\n [NOTE:] This code is based on is_user_id function in our server code.\n If that function changes, we'd have to update this one as well.", 
-                    "guessedname": "isUser", 
-                    "guessedtype": "function"
                 }
-            }, 
-            "file": "dom.js", 
-            "shortname": "FB.Util", 
-            "description": "Helper class for XFBML"
+            }
         }, 
         "FB.Loader": {
             "name": "FB.Loader", 
@@ -1434,7 +1580,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "xfbml/profilepic.js", 
-            "requires": "FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper"
+            "requires": "FB.Type FB.XFBML FB.Event FB.String FB.Dom FB.XFBML.Element FB.Data FB.Helper"
         }, 
         "FB.App": {
             "layer": "Basic", 
@@ -1450,6 +1596,20 @@
             "fullPath": "connect/app.js", 
             "requires": "FB.Base FB.Event FB.XdComm FB.UI.PopupWin, FB.UI.Dialog FB.Dom"
         }, 
+        "FB.String": {
+            "layer": "Basic", 
+            "name": "FB.String", 
+            "submodules": [], 
+            "classlist": [
+                "FB.String"
+            ], 
+            "filelist": [
+                "string.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/extended/string.js", 
+            "requires": "FB.Base"
+        }, 
         "FB.XFBML.Element": {
             "layer": "XFBML", 
             "name": "FB.XFBML.Element", 
@@ -1463,6 +1623,20 @@
             "subdata": {}, 
             "fullPath": "xfbml/element.js", 
             "requires": "FB.Type"
+        }, 
+        "FB.Array": {
+            "layer": "Basic", 
+            "name": "FB.Array", 
+            "submodules": [], 
+            "classlist": [
+                "FB.Array"
+            ], 
+            "filelist": [
+                "array.js"
+            ], 
+            "subdata": {}, 
+            "fullPath": "common/extended/array.js", 
+            "requires": "FB.Base"
         }, 
         "FB.connect-button-css": {
             "layer": "XFBML", 
@@ -1483,7 +1657,7 @@
             "name": "FB.Helper", 
             "submodules": [], 
             "classlist": [
-                "FB.Util"
+                "FB.Helper"
             ], 
             "filelist": [
                 "helper.js"
@@ -1504,7 +1678,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "ui/popupdlg.js", 
-            "requires": "FB.Type FB.Util FB.Event FB.XdComm FB.Dom"
+            "requires": "FB.Type FB.Util FB.String FB.Event FB.XdComm FB.Dom"
         }, 
         "FB.Data": {
             "layer": "Data", 
@@ -1519,7 +1693,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "data/data.js", 
-            "requires": "FB.Base FB.Type FB.Util FB.Event FB.Api FB.Async FB.App"
+            "requires": "FB.Base FB.Type FB.Array FB.String FB.Event FB.Api FB.Async FB.App"
         }, 
         "FB.IframeResizer": {
             "layer": "Basic", 
@@ -1548,7 +1722,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "data/async.js", 
-            "requires": "FB.Base FB.Type FB.Util FB.Event"
+            "requires": "FB.Base FB.Type FB.String FB.Array FB.Event"
         }, 
         "FB.Dom": {
             "layer": "Basic", 
@@ -1562,7 +1736,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "common/extended/dom.js", 
-            "requires": "FB.Base"
+            "requires": "FB.Base FB.Util FB.String FB.Array"
         }, 
         "FB.Event": {
             "layer": "Basic", 
@@ -1591,7 +1765,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "common/core/json.js", 
-            "requires": "FB.Base"
+            "requires": "FB.Base FB.String"
         }, 
         "FB.Util": {
             "layer": "Basic", 
@@ -1631,7 +1805,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "common/core/md5.js", 
-            "requires": "FB.Base FB.Util"
+            "requires": "FB.Base FB.Array"
         }, 
         "FB.Loader.use": {
             "layer": "Basic", 
@@ -1645,7 +1819,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "common/core/use.js", 
-            "requires": "FB.Loader FB.Util FB.Dom FB.Base"
+            "requires": "FB.Loader FB.Array FB.Dom FB.Base"
         }, 
         "FB.Debug": {
             "layer": "Basic", 
@@ -1724,7 +1898,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "xfbml/name.js", 
-            "requires": "FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper"
+            "requires": "FB.Type FB.XFBML FB.Event FB.Dom FB.XFBML.Element FB.Data FB.Helper"
         }, 
         "FB.UI.Dialog": {
             "layer": "Basic", 
@@ -1738,7 +1912,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "ui/dialog.js", 
-            "requires": "FB.Type FB.Base FB.XdComm FB.Util FB.Dom FB.Event FB.IframeResizer"
+            "requires": "FB.Type FB.Base FB.XdComm FB.String FB.Dom FB.Event FB.IframeResizer"
         }, 
         "FB.Uri": {
             "layer": "Basic", 
@@ -1780,7 +1954,7 @@
             ], 
             "subdata": {}, 
             "fullPath": "xfbml/sharebutton.js", 
-            "requires": "FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element\n  FB.Data FB.Helper FB.share-button-css"
+            "requires": "FB.Type FB.XFBML FB.Event FB.String FB.Dom FB.XFBML.Element\n  FB.Data FB.Helper FB.share-button-css"
         }
     }, 
     "filemap": {
@@ -1790,6 +1964,11 @@
             ], 
             "name": "element.js", 
             "provides": "FB.XFBML.Element"
+        }, 
+        "popupdlg.js": {
+            "classlist": [], 
+            "name": "popupdlg.js", 
+            "provides": "FB.UI.PopupWin"
         }, 
         "sharebutton.js": {
             "classlist": [
@@ -1833,16 +2012,23 @@
             "provides": "FB.JSON"
         }, 
         "util.js": {
-            "classlist": [], 
+            "classlist": [
+                "FB.Array"
+            ], 
             "name": "util.js", 
             "provides": "FB.Util"
         }, 
-        "uri.js": {
+        "array.js": {
             "classlist": [
-                "FB.JSON"
+                "FB.String"
             ], 
-            "name": "uri.js", 
-            "provides": "FB.Uri"
+            "name": "array.js", 
+            "provides": "FB.Array"
+        }, 
+        "string.js": {
+            "classlist": [], 
+            "name": "string.js", 
+            "provides": "FB.String"
         }, 
         "dom.js": {
             "classlist": [
@@ -1894,7 +2080,7 @@
         }, 
         "name.js": {
             "classlist": [
-                "FB.Util"
+                "FB.Helper"
             ], 
             "name": "name.js", 
             "provides": "FB.XFBML.Name"
@@ -1946,10 +2132,12 @@
             "name": "app.js", 
             "provides": "FB.App"
         }, 
-        "popupdlg.js": {
-            "classlist": [], 
-            "name": "popupdlg.js", 
-            "provides": "FB.UI.PopupWin"
+        "uri.js": {
+            "classlist": [
+                "FB.JSON"
+            ], 
+            "name": "uri.js", 
+            "provides": "FB.Uri"
         }, 
         "event.js": {
             "classlist": [

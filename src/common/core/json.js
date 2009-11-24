@@ -1,7 +1,7 @@
 /**
  * @provides FB.JSON
  * @layer Basic
- * @requires FB.Base
+ * @requires FB.Base FB.String
  */
 
 /**
@@ -41,7 +41,7 @@ FB.provide('JSON', {
             sb.push((isFinite(o)) ? o.toString() : 'null');
             return;
         case 'string':
-            sb.push(FB.Util.quote(o));
+            sb.push(FB.String.quote(o));
             return;
         case 'object':
             if (o instanceof Array) {

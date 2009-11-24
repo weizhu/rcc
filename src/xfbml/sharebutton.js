@@ -1,7 +1,7 @@
 /**
  * @provides FB.XFBML.ShareButton
  * @layer XFBML
- * @requires FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element
+ * @requires FB.Type FB.XFBML FB.Event FB.String FB.Dom FB.XFBML.Element
  *  FB.Data FB.Helper FB.share-button-css
  */
 
@@ -64,7 +64,7 @@ FB.subclass('XFBML.ShareButton', 'XFBML.Element', null,
       classStr = 'FBConnectButton FBConnectButton_Small';
       wrapperClass = 'fb_share_count_wrapper';
     }
-    this.dom.innerHTML = FB.Util.format(
+    this.dom.innerHTML = FB.String.format(
         '<span class="{0}"><a href="{1}" class="{2}"' +
         ' onclick=\'FB.Api.invoke("ui.share", {u:\"{1}\"}, function(){});'+
         'return false;\''+

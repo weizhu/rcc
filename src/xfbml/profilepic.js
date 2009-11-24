@@ -1,7 +1,7 @@
 /**
  * @provides FB.XFBML.ProfilePic
  * @layer XFBML
- * @requires FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper
+ * @requires FB.Type FB.XFBML FB.Event FB.String FB.Dom FB.XFBML.Element FB.Data FB.Helper
  */
 
 /**
@@ -49,11 +49,11 @@ FB.subclass('XFBML.ProfilePic', 'XFBML.Element', null,
       //  element we create
       var styleValue = ((style.width) ? 'width:' + style.width + ';' : '') +
         ((style.height) ? 'height:' + style.width + ';' : '');
-      var html = FB.Util.format('<img src=\'{0}\' alt=\'{1}\' title=\'{1}\' style=\'{2}\' class=\'{3}\' />',
+      var html = FB.String.format('<img src=\'{0}\' alt=\'{1}\' title=\'{1}\' style=\'{2}\' class=\'{3}\' />',
                                imageSrc, userInfo ? userInfo.name : '', styleValue,
                                this.dom.className);
       if (this._getBoolAttribute('linked', true)) {
-        html = FB.Util.getProfileLink(userInfo, html,
+        html = FB.Helper.getProfileLink(userInfo, html,
           this.getAttribute('href', null));
       }
       this.dom.innerHTML = html;
@@ -76,8 +76,8 @@ FB.subclass('XFBML.ProfilePic', 'XFBML.Element', null,
         // Get data
         // Use profile if uid is a user, but a page
         FB.Data._selectByIndex(['name', picFieldName],
-          FB.Util.isUser(uid) ? 'user' : 'profile',
-          FB.Util.isUser(uid) ? 'uid' : 'id',
+          FB.Helper.isUser(uid) ? 'user' : 'profile',
+          FB.Helper.isUser(uid) ? 'uid' : 'id',
           uid).wait(renderFn);
       } else {
         // Render default

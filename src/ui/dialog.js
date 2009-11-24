@@ -1,7 +1,7 @@
 /**
  * @provides FB.UI.Dialog
  * @layer Basic
- * @requires FB.Type FB.Base FB.XdComm FB.Util FB.Dom FB.Event FB.IframeResizer
+ * @requires FB.Type FB.Base FB.XdComm FB.String FB.Dom FB.Event FB.IframeResizer
  */
 
 /**
@@ -20,11 +20,11 @@ FB.Class('UI.Dialog',
   // Instance methods
   {
   set: function(title, src, w, h) {
-    var content = FB.Util.format('<iframe name="{0}" src="{1}" frameborder="0"'
+    var content = FB.String.format('<iframe name="{0}" src="{1}" frameborder="0"'
                   + 'style="width:{2}px; height:{3}px"></iframe>',
                   this.id, src, w, h);
     FB.IframeResizer.start();
-    var html = FB.Util.format(
+    var html = FB.String.format(
       '<div id="{0}" class="fb_css fb_pop_dialog {1}">'
       + '    <div class="fb_dialog_inner">'
       + '      <div class="fb_header">'

@@ -1,7 +1,7 @@
 /**
 * @provides FB.Md5
  * @layer Basic
-* @requires FB.Base FB.Util
+* @requires FB.Base FB.Array
 */
 
 /*
@@ -32,7 +32,7 @@ FB.provide('Md5', {
 
     // We need to sort parameter by keys and append key/value
     // pairs.
-    FB.forEach(FB.Util.obj2array(parameters).sort(), function(key) {
+    FB.forEach(FB.Array.obj2array(parameters).sort(), function(key) {
      sb.push(key + '=' + parameters[key]);
     });
 

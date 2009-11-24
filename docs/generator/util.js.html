@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: FB.Util   util.js  (RCC Library)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259019030.12" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259019030.12" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259106633.15" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259106633.15" />
 
-    <script type="text/javascript" src="assets/api.js?stamp=1259019030.12"></script>
-    <script type="text/javascript" src="assets/ac.js?stamp=1259019030.12"></script>
+    <script type="text/javascript" src="assets/api.js?stamp=1259106633.15"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1259106633.15"></script>
      <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../pretty/prettify.js"></script>
 
@@ -69,7 +69,7 @@
 <span class="c">   * @static</span>
 <span class="c">   */</span>
   <span class="nx">getFacebookUrl</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">subDomain</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">dynData</span><span class="p">.</span><span class="nx">resources</span><span class="p">.</span><span class="nx">base_url_format</span><span class="o">,</span> <span class="nx">subDomain</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nb">String</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">dynData</span><span class="p">.</span><span class="nx">resources</span><span class="p">.</span><span class="nx">base_url_format</span><span class="o">,</span> <span class="nx">subDomain</span><span class="p">);</span>
   <span class="p">}</span><span class="o">,</span>
 
   <span class="c">/**</span>
@@ -78,122 +78,6 @@
 <span class="c">   */</span>
   <span class="nx">createUnique</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">prefix</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span><span class="nx">prefix</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">().</span><span class="nx">toString</span><span class="p">().</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">5</span><span class="p">);</span>
-  <span class="p">}</span><span class="o">,</span>
-
-  <span class="nx">trim</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\s*|\s*$/g</span><span class="o">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
-  <span class="p">}</span><span class="o">,</span>
-
-  <span class="nx">indexOf</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="o">,</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="kd">var</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="nx">index</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="o">;</span> <span class="nx">index</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">===</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="nx">index</span><span class="o">;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
-  <span class="p">}</span><span class="o">,</span>
-
-  <span class="nx">merge</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="o">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">a</span><span class="o">,</span> <span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span><span class="o">,</span>
-
-  <span class="nx">filter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="o">,</span> <span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">b</span>  <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">fn</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]))</span> <span class="p">{</span>
-        <span class="nx">b</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">b</span><span class="o">;</span>
-  <span class="p">}</span><span class="o">,</span>
-
-  <span class="c">/**</span>
-<span class="c">   * Create an array from the keys in an object</span>
-<span class="c">   * Example: obj2array({&#39;x&#39;: 2, &#39;y&#39;: 3&#39;}) returns [&#39;x&#39;, &#39;y&#39;]</span>
-<span class="c">   * @static</span>
-<span class="c">   */</span>
-  <span class="nx">obj2array</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span><span class="p">[];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">a</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">a</span><span class="o">;</span>
-  <span class="p">}</span><span class="o">,</span>
-
-  <span class="nx">a2a</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="o">,</span> <span class="nx">transform</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="o">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">newArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">transform</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">newArray</span><span class="o">;</span>
-  <span class="p">}</span><span class="o">,</span>
-
-  <span class="c">/**</span>
-<span class="c">   * Format a string</span>
-<span class="c">   * Example:FB.Util.format(&#39;{0}.facebook.com/{1}&#39;, &#39;www&#39;, &#39;login.php&#39;) returns</span>
-<span class="c">   * &#39;www.facebook.com/login.php&#39;</span>
-<span class="c">   * @static</span>
-<span class="c">   */</span>
-  <span class="nx">format</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">format</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">_formatRE</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">_formatRE</span> <span class="o">=</span> <span class="sr">/(\{[^\}^\{]+\})/g</span><span class="o">;</span>
-    <span class="p">}</span>
-
-    <span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">arguments</span><span class="o">;</span>
-
-    <span class="k">return</span> <span class="nx">format</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">_formatRE</span><span class="o">,</span>
-                        <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="o">,</span> <span class="nx">m</span><span class="p">)</span> <span class="p">{</span>
-                            <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-                            <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">values</span><span class="p">[</span><span class="nx">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
-                            <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">value</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
-                                <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">;</span>
-                            <span class="p">}</span>
-                            <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
-                        <span class="p">});</span>
-  <span class="p">}</span><span class="o">,</span>
-
-  <span class="nx">quote</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="p">{</span>    <span class="c">// table of character substitutions</span>
-            <span class="s1">&#39;\b&#39;</span><span class="o">:</span> <span class="s1">&#39;\\b&#39;</span><span class="o">,</span>
-            <span class="s1">&#39;\t&#39;</span><span class="o">:</span> <span class="s1">&#39;\\t&#39;</span><span class="o">,</span>
-            <span class="s1">&#39;\n&#39;</span><span class="o">:</span> <span class="s1">&#39;\\n&#39;</span><span class="o">,</span>
-            <span class="s1">&#39;\f&#39;</span><span class="o">:</span> <span class="s1">&#39;\\f&#39;</span><span class="o">,</span>
-            <span class="s1">&#39;\r&#39;</span><span class="o">:</span> <span class="s1">&#39;\\r&#39;</span><span class="o">,</span>
-            <span class="s1">&#39;&quot;&#39;</span> <span class="o">:</span> <span class="s1">&#39;\\&quot;&#39;</span><span class="o">,</span>
-            <span class="s1">&#39;\\&#39;</span><span class="o">:</span> <span class="s1">&#39;\\\\&#39;</span>
-        <span class="p">};</span>
-
-        <span class="kd">var</span> <span class="nx">a</span><span class="o">,</span>          <span class="c">// The array holding the partial texts.</span>
-                <span class="nx">i</span><span class="o">,</span>          <span class="c">// The loop counter.</span>
-                <span class="nx">k</span><span class="o">,</span>          <span class="c">// The member key.</span>
-                <span class="nx">l</span><span class="o">,</span>          <span class="c">// Length.</span>
-                <span class="nx">r</span> <span class="o">=</span> <span class="sr">/[&quot;\\\x00-\x1f\x7f-\x9f]/g</span><span class="o">,</span>
-                <span class="nx">v</span><span class="o">;</span>          <span class="c">// The member value.</span>
-
-
-        <span class="k">return</span> <span class="nx">r</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">?</span>
-                    <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">r</span><span class="o">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">m</span><span class="p">[</span><span class="nx">a</span><span class="p">];</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
-                            <span class="k">return</span> <span class="nx">c</span><span class="o">;</span>
-                        <span class="p">}</span>
-                        <span class="nx">c</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">();</span>
-                        <span class="k">return</span> <span class="s1">&#39;\\u00&#39;</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">c</span> <span class="o">/</span> <span class="mi">16</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="o">+</span>
-                                                   <span class="p">(</span><span class="nx">c</span> <span class="o">%</span> <span class="mi">16</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
-                    <span class="p">})</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">:</span>
-                    <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">;</span>
-
-
   <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
@@ -208,6 +92,7 @@
                         <ul class="content">
                                 <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
                                 <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbarray.html"  title="FB.Array">FB.Array</a></li>
                                 <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
                                 <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
                                 <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
@@ -223,6 +108,7 @@
                                 <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
                                 <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
                                 <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbstring.html"  title="FB.String">FB.String</a></li>
                                 <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
                                 <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
                                 <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>
@@ -265,7 +151,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "FB.Util.html#method_createUnique", "access": "", "host": "FB.Util", "type": "method", "name": "createUnique"}, {"url": "FB.Util.html#method_format", "access": "", "host": "FB.Util", "type": "method", "name": "format"}, {"url": "FB.Util.html#method_getFacebookUrl", "access": "", "host": "FB.Util", "type": "method", "name": "getFacebookUrl"}, {"url": "FB.Util.html#method_getProfileLink", "access": "", "host": "FB.Util", "type": "method", "name": "getProfileLink"}, {"url": "FB.Util.html#method_isUser", "access": "", "host": "FB.Util", "type": "method", "name": "isUser"}, {"url": "FB.Util.html#method_obj2array", "access": "", "host": "FB.Util", "type": "method", "name": "obj2array"}, {"url": "FB.Util.html#method_sign", "access": "", "host": "FB.Util", "type": "method", "name": "sign"}, {"url": "FB.Util.html#method_upperCaseFirstChar", "access": "", "host": "FB.Util", "type": "method", "name": "upperCaseFirstChar"}];
+    ALL_YUI_PROPS = [{"url": "FB.Util.html#method_createUnique", "access": "", "host": "FB.Util", "type": "method", "name": "createUnique"}, {"url": "FB.Util.html#method_getFacebookUrl", "access": "", "host": "FB.Util", "type": "method", "name": "getFacebookUrl"}];
 </script>
 <script type="text/javascript">
 prettyPrint();

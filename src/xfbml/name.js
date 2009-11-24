@@ -1,7 +1,7 @@
 /**
  * @provides FB.XFBML.Name
  * @layer XFBML
- * @requires FB.Type FB.XFBML FB.Event FB.Util FB.Dom FB.XFBML.Element FB.Data FB.Helper
+ * @requires FB.Type FB.XFBML FB.Event FB.Dom FB.XFBML.Element FB.Data FB.Helper
  */
 
 /**
@@ -56,7 +56,7 @@ FB.subclass('XFBML.Name', 'XFBML.Element', null,
         return true; // Stop processing
 
       if (FB.App.status) {
-        if (FB.Util.isUser(this._uid)) {
+        if (FB.Helper.isUser(this._uid)) {
           data = FB.Data._selectByIndex(fields, 'user', 'uid', this._uid);
         } else {
           data = FB.Data._selectByIndex(['name', 'id'], 'profile', 'id', this._uid);
@@ -187,7 +187,7 @@ FB.subclass('XFBML.Name', 'XFBML.Element', null,
       }
     }
     if (this._getBoolAttribute('capitalize', false)) {
-      word = FB.Util.upperCaseFirstChar(word);
+      word = FB.Helper.upperCaseFirstChar(word);
     }
     this.dom.innerHTML = word;
   },
@@ -203,7 +203,7 @@ FB.subclass('XFBML.Name', 'XFBML.Element', null,
     var name = '';
     var html = '';
     var network = '';
-    if (this._uid == FB.Util.getLoggedInUser() &&
+    if (this._uid == FB.Helper.getLoggedInUser() &&
         this._getBoolAttribute('useyou', true)) {
       if (this._reflexive) {
         if (this._possessive) {
@@ -252,10 +252,10 @@ FB.subclass('XFBML.Name', 'XFBML.Element', null,
     }
     if (name) {
       if (this._getBoolAttribute('capitalize', false)) {
-        name = FB.Util.upperCaseFirstChar(name);
+        name = FB.Helper.upperCaseFirstChar(name);
       }
       if (this._linked) {
-        html = FB.Util.getProfileLink(userInfo, name,
+        html = FB.Helper.getProfileLink(userInfo, name,
           this.getAttribute('href', null));
       }
       else {

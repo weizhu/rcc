@@ -1,7 +1,7 @@
 /**
  * @provides FB.Data
  * @layer Data
- * @requires FB.Base FB.Type FB.Util FB.Event FB.Api FB.Async FB.App
+ * @requires FB.Base FB.Type FB.Array FB.String FB.Event FB.Api FB.Async FB.App
  */
 
 
@@ -123,12 +123,12 @@ FB.provide('Data', {
     }
 
     // Merge fields
-    FB.Util.merge(master.fields, item.fields);
-    FB.Util.merge(master.where.value, [value]);
+    FB.Array.merge(master.fields, item.fields);
+    FB.Array.merge(master.where.value, [value]);
 
     // Link data from master to item
     master.wait(function(r) {
-      item.set(FB.Util.filter(r, function(x) {
+      item.set(FB.Array.filter(r, function(x) {
         return x[key] == value;
       }));
     });
@@ -155,7 +155,7 @@ FB.subclass('Data.Query', 'Async.Data',
   {
   parse: function(args) {
 
-    var fql = FB.Util.format.apply(null, args);
+    var fql = FB.String.format.apply(null, args);
     // Parse it
     re = (/^select (.*?) from (\w+)\s+where (.*)$/i).exec(fql);
     this.fields = this._toFields(re[1]);
@@ -189,7 +189,7 @@ FB.subclass('Data.Query', 'Async.Data',
           s += this.where.key + '=' +  this._encode(this.where.value[0]);
         } else {
           s += this.where.key + ' in (' +
-            FB.Util.a2a(this.where.value, this._encode).join(',') + ')';
+            FB.Array.transform(this.where.value, this._encode).join(',') + ')';
         }
         break;
     }
@@ -197,7 +197,7 @@ FB.subclass('Data.Query', 'Async.Data',
   },
 
   _encode: function(value) {
-    return typeof(value) == 'string' ?  FB.Util.quote(value) : value;
+    return typeof(value) == 'string' ?  FB.String.quote(value) : value;
   },
 
   toString: function() {
@@ -205,7 +205,7 @@ FB.subclass('Data.Query', 'Async.Data',
   },
 
   _toFields: function(s) {
-    return FB.Util.a2a(s.split(','), FB.Util.trim);
+    return FB.Array.transform(s.split(','), FB.String.trim);
   },
 
   _parseWhere: function(s) {

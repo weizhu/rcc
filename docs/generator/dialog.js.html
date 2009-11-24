@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: FB.UI.Dialog   dialog.js  (RCC Library)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259019030.28" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259019030.28" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259106633.35" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259106633.35" />
 
-    <script type="text/javascript" src="assets/api.js?stamp=1259019030.28"></script>
-    <script type="text/javascript" src="assets/ac.js?stamp=1259019030.28"></script>
+    <script type="text/javascript" src="assets/api.js?stamp=1259106633.35"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1259106633.35"></script>
      <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../pretty/prettify.js"></script>
 
@@ -52,7 +52,7 @@
 <div class="highlight"><pre><span class="c">/**</span>
 <span class="c"> * @provides FB.UI.Dialog</span>
 <span class="c"> * @layer Basic</span>
-<span class="c"> * @requires FB.Type FB.Base FB.XdComm FB.Util FB.Dom FB.Event FB.IframeResizer</span>
+<span class="c"> * @requires FB.Type FB.Base FB.XdComm FB.String FB.Dom FB.Event FB.IframeResizer</span>
 <span class="c"> */</span>
 
 <span class="c">/**</span>
@@ -71,11 +71,11 @@
   <span class="c">// Instance methods</span>
   <span class="p">{</span>
   <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">title</span><span class="o">,</span> <span class="nx">src</span><span class="o">,</span> <span class="nx">w</span><span class="o">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;&lt;iframe name=&quot;{0}&quot; src=&quot;{1}&quot; frameborder=&quot;0&quot;&#39;</span>
+    <span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nb">String</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;&lt;iframe name=&quot;{0}&quot; src=&quot;{1}&quot; frameborder=&quot;0&quot;&#39;</span>
                   <span class="o">+</span> <span class="s1">&#39;style=&quot;width:{2}px; height:{3}px&quot;&gt;&lt;/iframe&gt;&#39;</span><span class="o">,</span>
                   <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="o">,</span> <span class="nx">src</span><span class="o">,</span> <span class="nx">w</span><span class="o">,</span> <span class="nx">h</span><span class="p">);</span>
     <span class="nx">FB</span><span class="p">.</span><span class="nx">IframeResizer</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
-    <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span>
+    <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nb">String</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span>
       <span class="s1">&#39;&lt;div id=&quot;{0}&quot; class=&quot;fb_css fb_pop_dialog {1}&quot;&gt;&#39;</span>
       <span class="o">+</span> <span class="s1">&#39;    &lt;div class=&quot;fb_dialog_inner&quot;&gt;&#39;</span>
       <span class="o">+</span> <span class="s1">&#39;      &lt;div class=&quot;fb_header&quot;&gt;&#39;</span>
@@ -259,6 +259,7 @@
                         <ul class="content">
                                 <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
                                 <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbarray.html"  title="FB.Array">FB.Array</a></li>
                                 <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
                                 <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
                                 <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
@@ -274,6 +275,7 @@
                                 <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
                                 <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
                                 <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbstring.html"  title="FB.String">FB.String</a></li>
                                 <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
                                 <li class="selected"><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
                                 <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>

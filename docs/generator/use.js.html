@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: FB.Loader.use   use.js  (RCC Library)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259019030.17" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259019030.17" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259106633.2" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259106633.2" />
 
-    <script type="text/javascript" src="assets/api.js?stamp=1259019030.17"></script>
-    <script type="text/javascript" src="assets/ac.js?stamp=1259019030.17"></script>
+    <script type="text/javascript" src="assets/api.js?stamp=1259106633.2"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1259106633.2"></script>
      <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../pretty/prettify.js"></script>
 
@@ -52,7 +52,7 @@
 <div class="highlight"><pre><span class="c">/**</span>
 <span class="c"> * @provides FB.Loader.use</span>
 <span class="c"> * @layer Basic</span>
-<span class="c"> * @requires FB.Loader FB.Util FB.Dom FB.Base</span>
+<span class="c"> * @requires FB.Loader FB.Array FB.Dom FB.Base</span>
 <span class="c"> */</span>
 
 <span class="c">/**</span>
@@ -87,9 +87,9 @@
       <span class="nx">FB</span><span class="p">.</span><span class="nx">Loader</span><span class="p">.</span><span class="nx">_timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
         <span class="nx">FB</span><span class="p">.</span><span class="nx">Loader</span><span class="p">.</span><span class="nx">_timer</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
         <span class="nx">FB</span><span class="p">.</span><span class="nx">Dom</span><span class="p">.</span><span class="nx">addScript</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">dynData</span><span class="p">.</span><span class="nx">resources</span><span class="p">.</span><span class="nx">loader_url</span>  <span class="o">+</span> <span class="s1">&#39;?comps=&#39;</span> <span class="o">+</span>
-                         <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">obj2array</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Loader</span><span class="p">.</span><span class="nx">_comps</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span>
+                         <span class="nx">FB</span><span class="p">.</span><span class="nb">Array</span><span class="p">.</span><span class="nx">obj2array</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Loader</span><span class="p">.</span><span class="nx">_comps</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span>
                          <span class="s1">&#39;&amp;exclude=&#39;</span> <span class="o">+</span>
-                      <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">obj2array</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Loader</span><span class="p">.</span><span class="nx">loaded</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">));</span>
+                      <span class="nx">FB</span><span class="p">.</span><span class="nb">Array</span><span class="p">.</span><span class="nx">obj2array</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Loader</span><span class="p">.</span><span class="nx">loaded</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">));</span>
       <span class="p">}</span><span class="o">,</span> <span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">}</span><span class="o">,</span>
@@ -144,6 +144,7 @@
                         <ul class="content">
                                 <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
                                 <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbarray.html"  title="FB.Array">FB.Array</a></li>
                                 <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
                                 <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
                                 <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
@@ -159,6 +160,7 @@
                                 <li class="selected"><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
                                 <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
                                 <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbstring.html"  title="FB.String">FB.String</a></li>
                                 <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
                                 <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
                                 <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>

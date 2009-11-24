@@ -1,7 +1,7 @@
 /**
  * @provides FB.Loader.use
  * @layer Basic
- * @requires FB.Loader FB.Util FB.Dom FB.Base
+ * @requires FB.Loader FB.Array FB.Dom FB.Base
  */
 
 /**
@@ -36,9 +36,9 @@ FB.provide('Loader', {
       FB.Loader._timer = setTimeout(function(){
         FB.Loader._timer = 0;
         FB.Dom.addScript(FB.dynData.resources.loader_url  + '?comps=' +
-                         FB.Util.obj2array(FB.Loader._comps).join(',') +
+                         FB.Array.obj2array(FB.Loader._comps).join(',') +
                          '&exclude=' +
-                      FB.Util.obj2array(FB.Loader.loaded).join(','));
+                      FB.Array.obj2array(FB.Loader.loaded).join(','));
       }, 0);
     }
   },

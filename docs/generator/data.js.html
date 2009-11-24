@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: FB.Data   data.js  (RCC Library)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259019030.0" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259019030.0" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259106633.02" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259106633.02" />
 
-    <script type="text/javascript" src="assets/api.js?stamp=1259019030.0"></script>
-    <script type="text/javascript" src="assets/ac.js?stamp=1259019030.0"></script>
+    <script type="text/javascript" src="assets/api.js?stamp=1259106633.02"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1259106633.02"></script>
      <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../pretty/prettify.js"></script>
 
@@ -52,7 +52,7 @@
 <div class="highlight"><pre><span class="c">/**</span>
 <span class="c"> * @provides FB.Data</span>
 <span class="c"> * @layer Data</span>
-<span class="c"> * @requires FB.Base FB.Type FB.Util FB.Event FB.Api FB.Async FB.App</span>
+<span class="c"> * @requires FB.Base FB.Type FB.Array FB.String FB.Event FB.Api FB.Async FB.App</span>
 <span class="c"> */</span>
 
 
@@ -174,12 +174,12 @@
     <span class="p">}</span>
 
     <span class="c">// Merge fields</span>
-    <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">master</span><span class="p">.</span><span class="nx">fields</span><span class="o">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">fields</span><span class="p">);</span>
-    <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">master</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="p">[</span><span class="nx">value</span><span class="p">]);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nb">Array</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">master</span><span class="p">.</span><span class="nx">fields</span><span class="o">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">fields</span><span class="p">);</span>
+    <span class="nx">FB</span><span class="p">.</span><span class="nb">Array</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">master</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="p">[</span><span class="nx">value</span><span class="p">]);</span>
 
     <span class="c">// Link data from master to item</span>
     <span class="nx">master</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">item</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">r</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">item</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nb">Array</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">r</span><span class="o">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nx">x</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">==</span> <span class="nx">value</span><span class="o">;</span>
       <span class="p">}));</span>
     <span class="p">});</span>
@@ -206,7 +206,7 @@
   <span class="p">{</span>
   <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
 
-    <span class="kd">var</span> <span class="nx">fql</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="o">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">fql</span> <span class="o">=</span> <span class="nx">FB</span><span class="p">.</span><span class="nb">String</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="o">,</span> <span class="nx">args</span><span class="p">);</span>
     <span class="c">// Parse it</span>
     <span class="nx">re</span> <span class="o">=</span> <span class="p">(</span><span class="sr">/^select (.*?) from (\w+)\s+where (.*)$/i</span><span class="p">).</span><span class="nx">exec</span><span class="p">(</span><span class="nx">fql</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">fields</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_toFields</span><span class="p">(</span><span class="nx">re</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
@@ -240,7 +240,7 @@
           <span class="nx">s</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">key</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span>  <span class="k">this</span><span class="p">.</span><span class="nx">_encode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
           <span class="nx">s</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">key</span> <span class="o">+</span> <span class="s1">&#39; in (&#39;</span> <span class="o">+</span>
-            <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">a2a</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_encode</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="o">;</span>
+            <span class="nx">FB</span><span class="p">.</span><span class="nb">Array</span><span class="p">.</span><span class="nx">transform</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">where</span><span class="p">.</span><span class="nx">value</span><span class="o">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_encode</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="o">;</span>
         <span class="p">}</span>
         <span class="k">break</span><span class="o">;</span>
     <span class="p">}</span>
@@ -248,7 +248,7 @@
   <span class="p">}</span><span class="o">,</span>
 
   <span class="nx">_encode</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">typeof</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;string&#39;</span> <span class="o">?</span>  <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">quote</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">:</span> <span class="nx">value</span><span class="o">;</span>
+    <span class="k">return</span> <span class="k">typeof</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;string&#39;</span> <span class="o">?</span>  <span class="nx">FB</span><span class="p">.</span><span class="nb">String</span><span class="p">.</span><span class="nx">quote</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">:</span> <span class="nx">value</span><span class="o">;</span>
   <span class="p">}</span><span class="o">,</span>
 
   <span class="nx">toString</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -256,7 +256,7 @@
   <span class="p">}</span><span class="o">,</span>
 
   <span class="nx">_toFields</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">a2a</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">trim</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">FB</span><span class="p">.</span><span class="nb">Array</span><span class="p">.</span><span class="nx">transform</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nb">String</span><span class="p">.</span><span class="nx">trim</span><span class="p">);</span>
   <span class="p">}</span><span class="o">,</span>
 
   <span class="nx">_parseWhere</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
@@ -284,6 +284,7 @@
                         <ul class="content">
                                 <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
                                 <li class=""><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbarray.html"  title="FB.Array">FB.Array</a></li>
                                 <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
                                 <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
                                 <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
@@ -299,6 +300,7 @@
                                 <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
                                 <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
                                 <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbstring.html"  title="FB.String">FB.String</a></li>
                                 <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
                                 <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
                                 <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>

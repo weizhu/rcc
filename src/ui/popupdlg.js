@@ -1,7 +1,7 @@
 /**
  * @provides FB.UI.PopupWin
  * @layer Basic
- * @requires FB.Type FB.Util FB.Event FB.XdComm FB.Dom
+ * @requires FB.Type FB.Util FB.String FB.Event FB.XdComm FB.Dom
  */
 
 /**
@@ -32,7 +32,7 @@ FB.Class('UI.PopupWin',
                                 (windowSize.h - h) / 2)};
 
     this.win = window.open(src, '_blank',
-         FB.Util.format('location=yes,left={0},top={1},width={2},height={3},resizable=yes',
+         FB.String.format('location=yes,left={0},top={1},width={2},height={3},resizable=yes',
                        popupScreen.x, popupScreen.y, w, h), true);
 
     // Monitor window being closed by user directly

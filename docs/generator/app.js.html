@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: FB.App   app.js  (RCC Library)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259019029.92" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259019029.92" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1259106632.89" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1259106632.89" />
 
-    <script type="text/javascript" src="assets/api.js?stamp=1259019029.92"></script>
-    <script type="text/javascript" src="assets/ac.js?stamp=1259019029.92"></script>
+    <script type="text/javascript" src="assets/api.js?stamp=1259106632.89"></script>
+    <script type="text/javascript" src="assets/ac.js?stamp=1259106632.89"></script>
      <link href="../pretty/prettify.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../pretty/prettify.js"></script>
 
@@ -242,10 +242,12 @@
 <span class="c">   */</span>
   <span class="nx">_onStatus</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;no_user&#39;</span><span class="o">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;connected&#39;</span><span class="o">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;not_connected&#39;</span> <span class="k">in</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;not_connected&#39;</span><span class="o">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;connected&#39;</span><span class="o">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;not_connected&#39;</span> <span class="k">in</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;not_connected&#39;</span><span class="o">;</span>
+      <span class="p">}</span>
     <span class="p">}</span>
 
     <span class="nx">FB</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">setProperty</span><span class="p">(</span><span class="nx">FB</span><span class="p">.</span><span class="nx">App</span><span class="o">,</span> <span class="s1">&#39;session&#39;</span><span class="o">,</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">deserialize</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">session</span><span class="p">));</span>
@@ -283,6 +285,7 @@
                         <ul class="content">
                                 <li class=""><a href="module_fbapi.html"  title="FB.Api">FB.Api</a></li>
                                 <li class="selected"><a href="module_fbapp.html"  title="FB.App">FB.App</a></li>
+                                <li class=""><a href="module_fbarray.html"  title="FB.Array">FB.Array</a></li>
                                 <li class=""><a href="module_fbasync.html"  title="FB.Async">FB.Async</a></li>
                                 <li class=""><a href="module_fbbase.html"  title="FB.Base">FB.Base</a></li>
                                 <li class=""><a href="module_fbconnect-button-css.html"  title="FB.connect-button-css">FB.connect-button-css</a></li>
@@ -298,6 +301,7 @@
                                 <li class=""><a href="module_fbloaderuse.html"  title="FB.Loader.use">FB.Loader.use</a></li>
                                 <li class=""><a href="module_fbmd5.html"  title="FB.Md5">FB.Md5</a></li>
                                 <li class=""><a href="module_fbshare-button-css.html"  title="FB.share-button-css">FB.share-button-css</a></li>
+                                <li class=""><a href="module_fbstring.html"  title="FB.String">FB.String</a></li>
                                 <li class=""><a href="module_fbtype.html"  title="FB.Type">FB.Type</a></li>
                                 <li class=""><a href="module_fbuidialog.html"  title="FB.UI.Dialog">FB.UI.Dialog</a></li>
                                 <li class=""><a href="module_fbuipopupwin.html"  title="FB.UI.PopupWin">FB.UI.PopupWin</a></li>

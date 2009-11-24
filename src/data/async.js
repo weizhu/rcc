@@ -1,7 +1,7 @@
 /**
  * @provides FB.Async
  * @layer Data
- * @requires FB.Base FB.Type FB.Util FB.Event
+ * @requires FB.Base FB.Type FB.String FB.Array FB.Event
  */
 
 /**
@@ -49,7 +49,7 @@ FB.provide('Async', {
           done = true;
         }
         if (c == 0) {
-          callback.apply(callback, FB.Util.a2a(data, FB.Async.getValue));
+          callback.apply(callback, FB.Array.transform(data, FB.Async.getValue));
         }
         return done;
       });
@@ -70,7 +70,7 @@ FB.provide('Async', {
       sb.push('var ' + varPrefix + ' = data[' + i  + '];');
     }
 
-    var s = sb.join('\n') + FB.Util.format.apply(FB.Util.format, formatArgs);
+    var s = sb.join('\n') + FB.String.format.apply(FB.String.format, formatArgs);
   }
 
 });
